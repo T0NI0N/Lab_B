@@ -10,6 +10,7 @@ public class HomeCittadiniController {
     @FXML
     private void btnInfoPressed() throws IOException {
         System.out.println("Button info pressed");
+        Main.setRoot("CercaInfoCentri");
     }
 
     @FXML

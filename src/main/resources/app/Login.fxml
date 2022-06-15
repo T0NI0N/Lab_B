@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="4.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="4.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.GUI.LoginController">
    <children>
       <Label alignment="CENTER" text="Login area cittadini">
          <font>
@@ -63,7 +62,7 @@
                   </TextField>
                   <Region GridPane.columnIndex="1" />
                   <Region GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Login" GridPane.columnSpan="3" GridPane.rowIndex="4">
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login" text="Login" GridPane.columnSpan="3" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets left="80.0" right="80.0" />
                      </GridPane.margin>

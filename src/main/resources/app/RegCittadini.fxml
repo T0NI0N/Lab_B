@@ -101,21 +101,21 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.halignment="LEFT">
+            <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
+            <TextField fx:id="txtCodf" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+            <TextField fx:id="txtUsername" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+            <TextField fx:id="txtIdVacc" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
             <Region GridPane.columnIndex="2" />
             <Region GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Region GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="5" />
-            <TextField GridPane.columnIndex="5" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="5" GridPane.rowIndex="2" />
-            <Button alignment="CENTER" mnemonicParsing="false" text="Conferma" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <TextField fx:id="txtSurname" GridPane.columnIndex="5" />
+            <TextField fx:id="txtEmail" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <TextField fx:id="txtPassword" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#register" text="Conferma" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <font>
                   <Font size="18.0" />
                </font>

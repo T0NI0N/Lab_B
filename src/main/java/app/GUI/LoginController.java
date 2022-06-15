@@ -5,24 +5,17 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class RegCittadiniController implements Initializable{
+public class LoginController implements Initializable{
     
     @FXML
-    private TextField txtName;
-    @FXML
-    private TextField txtSurname;
-    @FXML
-    private TextField txtCodf;
-    @FXML
-    private TextField txtEmail;
-    @FXML
     private TextField txtUsername;
+
     @FXML
-    private TextField txtPassword;
-    @FXML
-    private TextField txtIdVacc;
+    private PasswordField txtPassword;
+
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -31,7 +24,7 @@ public class RegCittadiniController implements Initializable{
         // potrebbero essere riferimenti ad oggetti, connessione al db ecc.
     }
 
-    private void register(){
-        System.out.println("register user");
+    private void login(){
+        System.out.println("logging in");
     }
 }

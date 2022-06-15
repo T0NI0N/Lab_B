@@ -7,6 +7,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,8 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.GUI.CercaInfoCentroController">
    <children>
       <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Area cittadini: consulta informazioni centro vaccinale">
          <font>
@@ -66,7 +66,7 @@
                         <Insets right="8.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Tipo vaccino" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                  <Label text="Tipo centro" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -74,24 +74,27 @@
                         <Insets right="8.0" />
                      </GridPane.margin>
                   </Label>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cerca" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-                  <Spinner GridPane.columnIndex="7" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#search" text="Cerca" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                  <Spinner fx:id="txtType" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtCom" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                   <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Tipo ricerca" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <RadioButton alignment="CENTER_LEFT" mnemonicParsing="false" text="Nome centro" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="LEFT">
+                  <RadioButton fx:id="rbName" alignment="CENTER_LEFT" mnemonicParsing="false" text="Nome centro" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="LEFT">
                      <GridPane.margin>
                         <Insets left="16.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="16.0" />
                      </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tgSearchType" />
+                     </toggleGroup>
                   </RadioButton>
-                  <RadioButton alignment="CENTER_LEFT" mnemonicParsing="false" text="Comune, tipo" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="LEFT">
+                  <RadioButton fx:id="rbComType" alignment="CENTER_LEFT" mnemonicParsing="false" text="Comune, tipo" toggleGroup="$tgSearchType" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="LEFT">
                      <GridPane.margin>
                         <Insets left="8.0" />
                      </GridPane.margin>
@@ -99,7 +102,7 @@
                         <Font size="16.0" />
                      </font>
                   </RadioButton>
-                  <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="6" />
+                  <ListView fx:id="lvResults" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="6" />
                   <Label text="Risultati" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                      <font>
                         <Font size="15.0" />
@@ -108,7 +111,7 @@
                         <Insets right="8.0" />
                      </padding>
                   </Label>
-                  <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="8" />
+                  <ListView fx:id="lvInfo" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="8" />
                </children>
             </GridPane>
          </children>
