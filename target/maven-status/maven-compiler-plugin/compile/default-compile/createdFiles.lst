@@ -1,0 +1,7 @@
+app\GUI\HomeCittadiniController.class
+app\GUI\InsEventoCittadiniController.class
+app\Main.class
+app\GUI\LoginController.class
+app\GUI\CercaInfoCentriController.class
+app\GUI\HomeController.class
+app\GUI\RegCittadiniController.class
