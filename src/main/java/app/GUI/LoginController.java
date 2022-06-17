@@ -24,6 +24,7 @@ public class LoginController implements Initializable{
         // potrebbero essere riferimenti ad oggetti, connessione al db ecc.
     }
 
+    @FXML
     private void login(){
         System.out.println("logging in");
     }

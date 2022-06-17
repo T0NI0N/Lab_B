@@ -44,6 +44,7 @@ public class CercaInfoCentriController implements Initializable{
         // potrebbero essere riferimenti ad oggetti, connessione al db ecc.
     }
 
+    @FXML
     private void search(){
         System.out.println("search pressed");
     }

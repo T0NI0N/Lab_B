@@ -31,6 +31,7 @@ public class RegCittadiniController implements Initializable{
         // potrebbero essere riferimenti ad oggetti, connessione al db ecc.
     }
 
+    @FXML
     private void register(){
         System.out.println("register user");
     }
