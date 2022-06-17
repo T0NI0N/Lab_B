@@ -1,7 +1,12 @@
 app\GUI\HomeCittadiniController.class
 app\GUI\InsEventoCittadiniController.class
+app\CentriVaccinali\HomeCentriVaccinaliController.class
 app\Main.class
+app\CentriVaccinali\RegCittVaccinatoController.class
 app\GUI\LoginController.class
+app\TipoCentroVaccinale.class
 app\GUI\CercaInfoCentriController.class
+app\TipoVaccino.class
+app\CentriVaccinali\RegCentroVaccinaleController.class
 app\GUI\HomeController.class
 app\GUI\RegCittadiniController.class
