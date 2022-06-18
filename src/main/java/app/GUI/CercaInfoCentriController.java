@@ -1,14 +1,22 @@
 package app.GUI;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import app.Main;
+import app.TipoCentroVaccinale;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.fxml.Initializable;
 
 public class CercaInfoCentriController implements Initializable{
@@ -26,8 +34,7 @@ public class CercaInfoCentriController implements Initializable{
     private TextField txtCom;
 
     @FXML
-    // ci sarà da modificare il tipo <T> in seguito in base al codice
-    private Spinner<String> txtType; 
+    private ChoiceBox<TipoCentroVaccinale> centreType; 
 
     @FXML
     // ci sarà da modificare il tipo <T> in seguito in base al codice
@@ -42,6 +49,15 @@ public class CercaInfoCentriController implements Initializable{
         // qui dentro verranno inizializzati i riferimenti ad altre classi
         // nel caso in cui servissero
         // potrebbero essere riferimenti ad oggetti, connessione al db ecc.
+
+        centreType.setItems(FXCollections.observableList(Arrays.asList(TipoCentroVaccinale.values())));
+        centreType.setValue(TipoCentroVaccinale.OSPEDALIERO);
+    }
+
+    @FXML
+    private void onEscapePressed(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ESCAPE)
+            Main.switchScene("HomeCittadini");
     }
 
     @FXML

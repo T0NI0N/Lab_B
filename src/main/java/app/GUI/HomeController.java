@@ -13,13 +13,13 @@ public class HomeController {
     @FXML
     private void btnOperatorsPressed() throws IOException {
         System.out.println("Entering operators area");
-        Main.setRoot("HomeOperatori");
+        Main.switchScene("HomeOperatori");
     }
 
     @FXML
     private void btnCiviliansPressed() throws IOException {
         System.out.println("Entering civilians area");
-        Main.setRoot("HomeCittadini");
+        Main.switchScene("HomeCittadini");
     }
 
     @FXML

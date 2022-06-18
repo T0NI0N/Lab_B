@@ -12,19 +12,19 @@ public class HomeOperatoriController {
     @FXML
     private void btnRgstCV() throws IOException{
         System.out.println("Button register centro vaccinale pressed");
-        Main.setRoot("RegCentroVaccinale");
+        Main.switchScene("RegCentroVaccinale");
     }
 
     @FXML
     private void btnRgstVacc() throws IOException{
         System.out.println("Button register cittadino vaccinato pressed");
-        Main.setRoot("RegCittVaccinato");
+        Main.switchScene("RegCittVaccinato");
     }
 
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException{
         if(event.getCode() == KeyCode.ESCAPE)
-            Main.setRoot("Home");
+            Main.switchScene("Home");
     }
 
 }
