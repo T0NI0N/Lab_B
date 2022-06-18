@@ -27,7 +27,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField id="tf_nomeCentro" prefWidth="320.0">
+            <TextField id="tf_nomeCentro" fx:id="tf_nomeCentro" prefWidth="320.0">
                <HBox.margin>
                   <Insets left="32.0" />
                </HBox.margin>
@@ -49,7 +49,7 @@
             <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                <children>
                   <ChoiceBox id="chb_tipoIndirizzo" fx:id="chb_tipoIndirizzo" prefWidth="64.0" />
-                  <TextField id="tf_via" prefWidth="256.0">
+                  <TextField id="tf_via" fx:id="tf_via" prefWidth="256.0">
                      <HBox.margin>
                         <Insets left="8.0" />
                      </HBox.margin>
@@ -62,7 +62,7 @@
                         <Insets left="18.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField id="tf_numCivico" prefHeight="25.0" prefWidth="64.0" />
+                  <TextField id="tf_numCivico" fx:id="tf_numCivico" prefHeight="25.0" prefWidth="64.0" />
                </children>
             </HBox>
             <HBox prefWidth="200.0">
@@ -72,7 +72,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField id="tf_Comune">
+                  <TextField id="tf_comune" fx:id="tf_comune">
                      <HBox.margin>
                         <Insets left="8.0" />
                      </HBox.margin>
@@ -85,7 +85,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField id="tf_prov" prefWidth="64.0">
+                  <TextField id="tf_prov" fx:id="tf_prov" prefWidth="64.0">
                      <HBox.margin>
                         <Insets left="8.0" />
                      </HBox.margin>
@@ -98,7 +98,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField id="tf_cap" prefWidth="64.0">
+                  <TextField id="tf_cap" fx:id="tf_cap" prefWidth="64.0">
                      <HBox.margin>
                         <Insets left="8.0" />
                      </HBox.margin>
