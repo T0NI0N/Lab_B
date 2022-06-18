@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import app.Main;
 import javafx.fxml.FXML;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class HomeCittadiniController {
     
@@ -28,5 +30,11 @@ public class HomeCittadiniController {
     @FXML
     private void btnHelpPressed() throws IOException {
         System.out.println("Button help pressed");
+    }
+
+    @FXML
+    private void onEscapePressed(KeyEvent event) throws IOException{
+        if(event.getCode() == KeyCode.ESCAPE)
+            Main.switchScene("Home");
     }
 }

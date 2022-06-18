@@ -50,7 +50,7 @@ public class Main extends Application {
     }
 
     public static void switchScene(String fxml) throws IOException {
-        primaryStage.hide();
+        //primaryStage.hide();
         scene = new Scene(loadFXML(fxml));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
