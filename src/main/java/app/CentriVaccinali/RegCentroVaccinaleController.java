@@ -46,7 +46,7 @@ public class RegCentroVaccinaleController {
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
-            Main.setRoot("HomeOperatori");
+            Main.switchScene("HomeOperatori");
     }
 
     public void initialize() {

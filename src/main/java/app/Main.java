@@ -24,6 +24,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        Main.primaryStage = primaryStage;
         scene = new Scene(loadFXML("Home"));
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -37,20 +38,23 @@ public class Main extends Application {
                 alert.setHeaderText("");
                 alert.setContentText("Sei sicuro di voler uscire dal programma?");
                 Optional<ButtonType> result = alert.showAndWait();
-                
-                if(result.get() == ButtonType.OK) {
+
+                if (result.get() == ButtonType.OK) {
                     System.out.println("Closing...");
                     System.exit(0);
-                }
-                else
+                } else
                     event.consume();
             }
-            
+
         });
     }
 
-    public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+    public static void switchScene(String fxml) throws IOException {
+        primaryStage.hide();
+        scene = new Scene(loadFXML(fxml));
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

@@ -10,19 +10,19 @@ public class HomeCittadiniController {
     @FXML
     private void btnInfoPressed() throws IOException {
         System.out.println("Button info pressed");
-        Main.setRoot("CercaInfoCentri");
+        Main.switchScene("CercaInfoCentri");
     }
 
     @FXML
     private void btnRegisterPressed() throws IOException {
         System.out.println("Button register pressed");
-        Main.setRoot("RegCittadini");
+        Main.switchScene("RegCittadini");
     }
 
     @FXML
     private void btnAddEventPressed() throws IOException {
         System.out.println("Button add event pressed");
-        Main.setRoot("InsEventoCittadini");
+        Main.switchScene("InsEventoCittadini");
     }
 
     @FXML
