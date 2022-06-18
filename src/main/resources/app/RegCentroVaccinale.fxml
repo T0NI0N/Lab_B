@@ -10,8 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox alignment="TOP_CENTER" maxHeight="350.0" maxWidth="600.0" minHeight="350.0" minWidth="600.0" prefHeight="350.0" prefWidth="600.0" spacing="24.0" xmlns="http://javafx.com/javafx/18" fx:controller="app.CentriVaccinali.RegCentroVaccinaleController" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="350.0" maxWidth="600.0" minHeight="350.0" minWidth="600.0" onKeyPressed="#onEscapePressed" prefHeight="350.0" prefWidth="600.0" spacing="24.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.CentriVaccinali.RegCentroVaccinaleController">
    <children>
       <Label text="Registrazione nuovo centro vaccinale">
          <font>
@@ -28,7 +27,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField id="tf_nomeCentro" alignment="CENTER" prefWidth="320.0">
+            <TextField id="tf_nomeCentro" prefWidth="320.0">
                <HBox.margin>
                   <Insets left="32.0" />
                </HBox.margin>
@@ -49,7 +48,7 @@
             </Line>
             <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                <children>
-                  <ChoiceBox id="chb_tipoIndirizzo" prefWidth="64.0" />
+                  <ChoiceBox id="chb_tipoIndirizzo" fx:id="chb_tipoIndirizzo" prefWidth="64.0" />
                   <TextField id="tf_via" prefWidth="256.0">
                      <HBox.margin>
                         <Insets left="8.0" />
@@ -121,7 +120,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ChoiceBox id="chb_tipoCentro" prefWidth="150.0">
+            <ChoiceBox id="chb_tipoCentro" fx:id="chb_tipoCentro" prefWidth="150.0">
                <HBox.margin>
                   <Insets left="16.0" />
                </HBox.margin>

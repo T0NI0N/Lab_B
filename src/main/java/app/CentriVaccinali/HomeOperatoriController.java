@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import app.Main;
 import javafx.fxml.FXML;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class HomeOperatoriController {
 
@@ -17,6 +19,12 @@ public class HomeOperatoriController {
     private void btnRgstVacc() throws IOException{
         System.out.println("Button register cittadino vaccinato pressed");
         Main.setRoot("RegCittVaccinato");
+    }
+
+    @FXML
+    private void onEscapePressed(KeyEvent event) throws IOException{
+        if(event.getCode() == KeyCode.ESCAPE)
+            Main.setRoot("Home");
     }
 
 }
