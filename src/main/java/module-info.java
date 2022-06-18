@@ -4,5 +4,6 @@ module demo {
     requires javafx.controls;
 
     opens app.GUI to javafx.fxml;
+    opens app.CentriVaccinali to javafx.fxml;
     opens app to javafx.graphics;
 }

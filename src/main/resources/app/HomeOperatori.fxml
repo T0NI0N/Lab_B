@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox alignment="TOP_CENTER" maxHeight="350.0" maxWidth="600.0" minHeight="350.0" minWidth="600.0" prefHeight="350.0" prefWidth="600.0" spacing="32.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="350.0" maxWidth="600.0" minHeight="350.0" minWidth="600.0" prefHeight="350.0" prefWidth="600.0" spacing="32.0" xmlns="http://javafx.com/javafx/18" fx:controller="app.CentriVaccinali.HomeOperatoriController" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="Area Operatori Sanitari">
          <font>

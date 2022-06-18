@@ -13,7 +13,7 @@ public class HomeController {
     @FXML
     private void btnOperatorsPressed() throws IOException {
         System.out.println("Entering operators area");
-        // Main.setRoot("HomeOperatori");
+        Main.setRoot("HomeOperatori");
     }
 
     @FXML
