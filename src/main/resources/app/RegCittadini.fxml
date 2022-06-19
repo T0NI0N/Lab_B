@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="325.0" maxWidth="750.0" minHeight="325.0" minWidth="750.0" onKeyPressed="#onEscapePressed" prefHeight="325.0" prefWidth="750.0" spacing="4.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.GUI.RegCittadiniController">
+<VBox alignment="TOP_CENTER" maxHeight="325.0" maxWidth="750.0" minHeight="325.0" minWidth="750.0" onKeyPressed="#onEscapePressed" prefHeight="325.0" prefWidth="750.0" spacing="4.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.cittadini.RegCittadiniController">
    <children>
       <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Area cittadini: registrazione">
          <font>

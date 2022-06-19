@@ -1,4 +1,4 @@
-package app.GUI;
+package app.cittadini;
 
 import java.net.URL;
 import java.util.ResourceBundle;

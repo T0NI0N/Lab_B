@@ -1,4 +1,4 @@
-package app.GUI;
+package app.cittadini;
 
 import java.io.IOException;
 import java.net.URL;

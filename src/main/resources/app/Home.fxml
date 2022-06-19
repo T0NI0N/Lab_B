@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="300.0" maxWidth="600.0" minHeight="300.0" minWidth="600.0" prefHeight="300.0" prefWidth="600.0" spacing="16.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.GUI.HomeController">
+<VBox alignment="TOP_CENTER" maxHeight="300.0" maxWidth="600.0" minHeight="300.0" minWidth="600.0" prefHeight="300.0" prefWidth="600.0" spacing="16.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.cittadini.HomeController">
    <children>
       <Label alignment="TOP_CENTER" text="Portale gestione vaccinazioni">
          <font>
