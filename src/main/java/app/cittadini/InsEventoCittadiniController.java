@@ -33,10 +33,14 @@ public class InsEventoCittadiniController implements Initializable {
     private ToggleGroup tgRbSev;
 
     @FXML
-    private ChoiceBox<TipoEventoAvverso> eventType; 
+    private ChoiceBox<TipoEventoAvverso> eventTypeBox;
 
     @FXML
     private TextArea txtNotes;
+
+    private TipoEventoAvverso eventType;
+    private int sev;
+    private String notes;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -44,8 +48,8 @@ public class InsEventoCittadiniController implements Initializable {
         // nel caso in cui servissero
         // potrebbero essere riferimenti ad oggetti, connessione al db ecc.
 
-        eventType.setItems(FXCollections.observableList(Arrays.asList(TipoEventoAvverso.values())));
-        eventType.setValue(TipoEventoAvverso.Emicrania);
+        eventTypeBox.setItems(FXCollections.observableList(Arrays.asList(TipoEventoAvverso.values())));
+        eventTypeBox.setValue(TipoEventoAvverso.Emicrania);
     }
 
     @FXML
@@ -57,7 +61,9 @@ public class InsEventoCittadiniController implements Initializable {
     @FXML
     private void btnSubmitPressed() throws IOException {
         System.out.println("Button submit pressed");
-        System.out.println(tgRbSev.getSelectedToggle().toString());
-        System.out.println(txtNotes.getText());
+        eventType = eventTypeBox.getValue();
+        sev = Integer.parseInt(tgRbSev.getSelectedToggle().toString());
+        notes = txtNotes.getText();
+        System.out.println(eventType + " | " + sev + " | " + notes);
     }
 }

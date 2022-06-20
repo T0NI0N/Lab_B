@@ -11,8 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class RegCittadiniController implements Initializable{
-    
+public class RegCittadiniController implements Initializable {
+
     @FXML
     private TextField txtName;
     @FXML
@@ -28,6 +28,14 @@ public class RegCittadiniController implements Initializable{
     @FXML
     private TextField txtIdVacc;
 
+    private String name;
+    private String surname;
+    private String codf;
+    private String email;
+    private String username;
+    private String password;
+    private String idVacc;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         // qui dentro verranno inizializzati i riferimenti ad altre classi
@@ -42,7 +50,16 @@ public class RegCittadiniController implements Initializable{
     }
 
     @FXML
-    private void register(){
-        System.out.println("register user");
+    private void register() {
+        name = txtName.getText();
+        surname = txtSurname.getText();
+        codf = txtCodf.getText();
+        email = txtEmail.getText();
+        username = txtUsername.getText();
+        password = txtPassword.getText();
+        idVacc = txtIdVacc.getText();
+
+        System.out.println(name + " | " + surname + " | " + codf + " | " + email + " | " + username + " | " + password
+                + " | " + idVacc);
     }
 }

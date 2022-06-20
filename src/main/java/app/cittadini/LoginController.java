@@ -8,14 +8,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController implements Initializable{
-    
+public class LoginController implements Initializable {
+
     @FXML
     private TextField txtUsername;
 
     @FXML
     private PasswordField txtPassword;
 
+    private String username;
+    private String password;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -25,7 +27,10 @@ public class LoginController implements Initializable{
     }
 
     @FXML
-    private void login(){
-        System.out.println("logging in");
+    private void login() {
+        username = txtUsername.getText();
+        password = txtPassword.getText();
+
+        System.out.println(username + " | " + password);
     }
 }

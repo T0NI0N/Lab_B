@@ -12,14 +12,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.fxml.Initializable;
 
-public class CercaInfoCentriController implements Initializable{
+public class CercaInfoCentriController implements Initializable {
 
     @FXML
     private RadioButton rbName;
@@ -34,7 +33,7 @@ public class CercaInfoCentriController implements Initializable{
     private TextField txtCom;
 
     @FXML
-    private ChoiceBox<TipoCentroVaccinale> centreType; 
+    private ChoiceBox<TipoCentroVaccinale> centreTypeBox;
 
     @FXML
     // ci sarà da modificare il tipo <T> in seguito in base al codice
@@ -43,6 +42,9 @@ public class CercaInfoCentriController implements Initializable{
     // ci sarà da modificare il tipo <T> in seguito in base al codice
     private ListView<String> lvInfo;
 
+    private String centreName;
+    private String com;
+    private TipoCentroVaccinale centreType;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,8 +52,8 @@ public class CercaInfoCentriController implements Initializable{
         // nel caso in cui servissero
         // potrebbero essere riferimenti ad oggetti, connessione al db ecc.
 
-        centreType.setItems(FXCollections.observableList(Arrays.asList(TipoCentroVaccinale.values())));
-        centreType.setValue(TipoCentroVaccinale.OSPEDALIERO);
+        centreTypeBox.setItems(FXCollections.observableList(Arrays.asList(TipoCentroVaccinale.values())));
+        centreTypeBox.setValue(TipoCentroVaccinale.OSPEDALIERO);
     }
 
     @FXML
@@ -61,7 +63,11 @@ public class CercaInfoCentriController implements Initializable{
     }
 
     @FXML
-    private void search(){
-        System.out.println("search pressed");
+    private void search() {
+        centreName = txtName.getText();
+        com = txtCom.getText();
+        centreType = centreTypeBox.getValue();
+
+        System.out.println(centreName + " | " + com + " | " + centreType);
     }
 }

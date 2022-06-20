@@ -14,16 +14,17 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class HomeCittadiniController implements Initializable{
+public class HomeCittadiniController implements Initializable {
 
     private boolean userLoggedIn;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // TODO va impostato un metodo nella classe cittadino per verificare se è loggato
+        // TODO va impostato un metodo nella classe cittadino per verificare se è
+        // loggato
         userLoggedIn = false;
     }
-    
+
     @FXML
     private void btnInfoPressed() throws IOException {
         System.out.println("Button info pressed");
@@ -41,7 +42,7 @@ public class HomeCittadiniController implements Initializable{
         System.out.println("Button add event pressed");
 
         if (!userLoggedIn) {
-                 
+
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Login richiesto");
 
@@ -65,17 +66,31 @@ public class HomeCittadiniController implements Initializable{
         } else {
             Main.switchScene("InsEventoCittadini");
         }
-        
+
     }
 
     @FXML
     private void btnHelpPressed() throws IOException {
-        System.out.println("Button help pressed");
+
+        Alert a = new Alert(AlertType.NONE, "", ButtonType.OK);
+
+        String helpString = "Elenco delle funzioni: " +
+                "\n - Consultare le informazioni di ogni centro vaccinale fornendo o il nome del centro o il comune e il tipo di centro;"
+                +
+                "\n - Registrarsi al centro vaccinale desiderato inserendo i propri dati anagrafici, email, nome utente e password;"
+                +
+                "\n - Inserire eventuali effetti collaterali post vaccinazione, previo login alla piattaforma.";
+
+        a.setTitle("Informazioni");
+        a.setHeaderText("Informazioni");
+        a.setContentText(helpString);
+
+        a.show();
     }
 
     @FXML
-    private void onEscapePressed(KeyEvent event) throws IOException{
-        if(event.getCode() == KeyCode.ESCAPE)
+    private void onEscapePressed(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ESCAPE)
             Main.switchScene("Home");
     }
 
