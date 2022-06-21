@@ -54,6 +54,24 @@ public class CercaInfoCentriController implements Initializable {
 
         centreTypeBox.setItems(FXCollections.observableList(Arrays.asList(TipoCentroVaccinale.values())));
         centreTypeBox.setValue(TipoCentroVaccinale.OSPEDALIERO);
+
+        txtName.setDisable(true);
+        txtCom.setDisable(true);
+        centreTypeBox.setDisable(true);
+    }
+
+    @FXML
+    private void onNameSearchPressed(){
+        txtName.setDisable(false);
+        txtCom.setDisable(true);
+        centreTypeBox.setDisable(true);
+    }
+
+    @FXML
+    private void onCentreTypeSearchPressed(){
+        txtCom.setDisable(false);
+        centreTypeBox.setDisable(false);
+        txtName.setDisable(true);
     }
 
     @FXML
