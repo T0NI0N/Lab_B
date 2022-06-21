@@ -5,12 +5,13 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="350.0" maxWidth="600.0" minHeight="350.0" minWidth="600.0" onKeyPressed="#onEscapePressed" prefHeight="350.0" prefWidth="600.0" spacing="24.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.CentriVaccinali.RegCentroVaccinaleController">
+<VBox alignment="TOP_CENTER" maxHeight="325.0" maxWidth="750.0" minHeight="325.0" minWidth="750.0" onKeyPressed="#onEscapePressed" prefHeight="325.0" prefWidth="750.0" spacing="16.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.CentriVaccinali.RegCentroVaccinaleController">
    <children>
       <Label text="Registrazione nuovo centro vaccinale">
          <font>
@@ -20,116 +21,80 @@
             <Insets />
          </VBox.margin>
       </Label>
-      <HBox alignment="CENTER_LEFT">
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints prefHeight="35.0" />
+          <RowConstraints prefHeight="35.0" />
+          <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Label text="Nome Centro">
+            <Label text="Nome Centro" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+               </GridPane.margin>
             </Label>
-            <TextField id="tf_nomeCentro" fx:id="tf_nomeCentro" prefWidth="320.0">
-               <HBox.margin>
-                  <Insets left="32.0" />
-               </HBox.margin>
-            </TextField>
-         </children>
-      </HBox>
-      <VBox prefWidth="100.0" spacing="24.0">
-         <children>
-            <Label text="Indirizzo">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Label>
-            <Line endX="568.0">
-               <VBox.margin>
-                  <Insets bottom="-20.0" top="-24.0" />
-               </VBox.margin>
-            </Line>
-            <HBox alignment="CENTER_LEFT" prefWidth="200.0">
-               <children>
-                  <ChoiceBox id="chb_tipoIndirizzo" fx:id="chb_tipoIndirizzo" prefWidth="64.0" />
-                  <TextField id="tf_via" fx:id="tf_via" prefWidth="256.0">
-                     <HBox.margin>
-                        <Insets left="8.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Label text="N°Civ.">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="18.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextField id="tf_numCivico" fx:id="tf_numCivico" prefHeight="25.0" prefWidth="64.0" />
-               </children>
-            </HBox>
-            <HBox prefWidth="200.0">
-               <children>
-                  <Label text="Comune">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField id="tf_comune" fx:id="tf_comune">
-                     <HBox.margin>
-                        <Insets left="8.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Label text="Prov.">
-                     <HBox.margin>
-                        <Insets left="8.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField id="tf_prov" fx:id="tf_prov" prefWidth="64.0">
-                     <HBox.margin>
-                        <Insets left="8.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Label text="CAP">
-                     <HBox.margin>
-                        <Insets left="8.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField id="tf_cap" fx:id="tf_cap" prefWidth="64.0">
-                     <HBox.margin>
-                        <Insets left="8.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-         </children>
-         <VBox.margin>
-            <Insets top="-8.0" />
-         </VBox.margin>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </VBox>
-      <HBox alignment="CENTER_LEFT" prefWidth="200.0">
-         <children>
-            <Label text="Tipo centro vaccinale">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <ChoiceBox id="chb_tipoCentro" fx:id="chb_tipoCentro" prefWidth="150.0">
-               <HBox.margin>
-                  <Insets left="16.0" />
-               </HBox.margin>
+            <TextField id="tf_nomeCentro" fx:id="tf_nomeCentro" prefWidth="320.0" GridPane.columnIndex="1" />
+            <ChoiceBox id="chb_tipoIndirizzo" fx:id="chb_tipoIndirizzo" prefWidth="64.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+               </GridPane.margin>
             </ChoiceBox>
+            <TextField id="tf_via" fx:id="tf_via" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="N°Civ." GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField id="tf_numCivico" fx:id="tf_numCivico" prefHeight="25.0" prefWidth="64.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label text="Comune" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField id="tf_comune" fx:id="tf_comune" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Prov." GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField id="tf_prov" fx:id="tf_prov" prefWidth="64.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label text="CAP" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField id="tf_cap" fx:id="tf_cap" prefWidth="64.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Tipo centro" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+               </GridPane.margin>
+            </Label>
+            <ChoiceBox id="chb_tipoCentro" fx:id="chb_tipoCentro" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
          <VBox.margin>
-            <Insets />
+            <Insets bottom="8.0" left="32.0" right="32.0" top="8.0" />
          </VBox.margin>
-      </HBox>
+      </GridPane>
       <Button id="btnEnter" mnemonicParsing="false" onAction="#onEnterPressed" prefWidth="200.0" text="Registra">
          <font>
             <Font size="18.0" />
