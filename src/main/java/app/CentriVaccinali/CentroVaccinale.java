@@ -14,6 +14,11 @@ public class CentroVaccinale {
     private String nomeCentro;
 
     /**
+     * Rappresenta l'indirizzo del centro vaccinale {@link Indirizzo}
+     */
+    private Indirizzo indirizzo;
+
+    /**
      * Rappresenta il tipo di centro vaccinale
      */
     private TipoCentroVaccinale tipo;
@@ -28,14 +33,86 @@ public class CentroVaccinale {
      * @param t il tipo del centro
      * @param e la lista di eventi avversi registrati
      */
-    public CentroVaccinale(String n, TipoCentroVaccinale t) {
+    public CentroVaccinale(String n, Indirizzo i, TipoCentroVaccinale t) {
         nomeCentro = n;
-
+        indirizzo = i;
         tipo = t;
-
     }
 
     // metodi
+
+    /**
+     * Ritorna l'indirizzo del centro vaccinale
+     * 
+     * @return la stringa contenente l'indirizzo del centro vaccinale
+     */
+    public String getIndirizzo() {
+        return indirizzo.toString();
+    }
+
+    /**
+     * Imposta l'indirizzo del centro vaccinale
+     * 
+     * @param i l'indirizzo del centro vaccinale
+     */
+    public void setIndirizzo(Indirizzo i) {
+        indirizzo = i;
+    }
+
+    /**
+     * Ritorna il qualificatore dell'indirizzo del centro vaccinale
+     * 
+     * @return la stringa contenente il qualificatore dell'indirizzo del centro
+     *         vaccinale
+     */
+    public String getQualificatore() {
+        return indirizzo.getQualificatore();
+    }
+
+    /**
+     * Ritorna il nome dell'indirizzo del centro vaccinale
+     * 
+     * @return il nome dell'indirizzo del centro vaccinale
+     */
+    public String getNome() {
+        return indirizzo.getNome();
+    }
+
+    /**
+     * Ritorna il numero civico dell'indirizzo del centro vaccinale
+     * 
+     * @return il numero civico dell'indirizzo del centro vaccinale
+     */
+    public String getnCivico() {
+        return indirizzo.getnCivico();
+    }
+
+    /**
+     * Ritorna il comune del centro vaccinale
+     * 
+     * @return il comune del centro vaccinale
+     */
+    public String getComune() {
+        return indirizzo.getComune();
+    }
+
+    /**
+     * Ritorna la provincia del centro vaccinale
+     * 
+     * @return la provincia del centro vaccinale
+     */
+    public String getProvincia() {
+        return indirizzo.getProvincia();
+    }
+
+    /**
+     * Ritorna il cap dell'indirizzo del centro vaccinale
+     * 
+     * @return il cap dell'indirizzo del centro vaccinale
+     */
+    public int getCap() {
+        return indirizzo.getCap();
+    }
 
     /**
      * Ritorna il tipo del centro vaccinale
@@ -70,10 +147,10 @@ public class CentroVaccinale {
      * 
      * @return una stringa che contiene tutti i valori dei campi di CentroVaccinale
      */
-    public String toString() {
-        String output = nomeCentro + ", " + tipo + ", eventi avversi:";
 
-        return output;
+    @Override
+    public String toString() {
+        return "CentroVaccinale [nomeCentro=" + nomeCentro + ", indirizzo=" + indirizzo + ", tipo=" + tipo + "]";
     }
 
 }

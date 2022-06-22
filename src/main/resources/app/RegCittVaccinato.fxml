@@ -14,7 +14,7 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="290.0" maxWidth="780.0" minHeight="290.0" minWidth="780.0" prefHeight="290.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.CentriVaccinali.RegCittVaccinatoController">
    <children>
-      <Label text="Registrazione vaccinazione">
+      <Label text="Area operatori: Registrazione vaccinazione">
          <font>
             <Font size="25.0" />
          </font>
