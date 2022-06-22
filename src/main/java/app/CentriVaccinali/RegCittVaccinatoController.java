@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Date;
 
 public class RegCittVaccinatoController {
 
@@ -35,20 +36,33 @@ public class RegCittVaccinatoController {
         System.out.println(tf_cognome.getText()+" "+tf_nome.getText()+" vaccinato presso il centro "+tf_centroV.getText()+ " in data "+dp_data.getValue());
         System.out.println("CF: "+tf_codiceFiscale.getText());
         System.out.println("Vaccinato con una dose di "+chb_vaccino.getValue());
-        System.out.println("16bit univoco: "+ stringKeyFormatter().hashCode());
+        System.out.println("16bit univoco: "+ KeyFormatter(tf_centroV.getText(),tf_codiceFiscale.getText(),dp_data,chb_vaccino.getValue().toString()).toString());
         
     }
 
-    private String stringKeyFormatter(){
+    /**
+     * Formatta e computa un id univoco ricavando le informazioni dai parametri forniti in ingresso
+     * @param centro Centro vaccinale ottenuto
+     * @param codiceF Codice fiscale del cittadino
+     * @param data Istanza del DatePicker da cui si ottiene la data
+     * @param vaccino Stringa del vaccino somministrato
+     * @return  l'id univoco sottoforma di array di 2 byte
+     */
+    private byte[] KeyFormatter(String centro, String codiceF, DatePicker data, String vaccino){
         String tmp ="";
-        //due del nome del centro, due del nome, due del cognome, datanascita del cf, data somministrazione ddMMaa, due del vaccino
-        tmp+=tf_centroV.getText().substring(0,2);
-        tmp+=tf_nome.getText().substring(0,2);
-        tmp+=tf_cognome.getText().substring(0,2);
-        tmp+=tf_codiceFiscale.getText().substring(6,8);
-        tmp+=dp_data.getValue().format(DateTimeFormatter.ofPattern("ddMMYY"));
-        tmp+=chb_vaccino.getValue().toString().substring(0,2);
-        return tmp;
+        short key=0;
+
+        tmp+=centro.substring(0,3);
+        tmp+=codiceF.substring(0,6);
+        tmp+=codiceF.substring(6,8);
+        tmp+=data.getValue().format(DateTimeFormatter.ofPattern("ddMMYY"));
+        tmp+=vaccino.substring(0,2);
+
+        key= (short) tmp.hashCode();
+        return new byte[] {
+                (byte)(key >>> 16),
+                (byte)(key >>> 8),
+                (byte)key};
     }
 
     public void initialize() {
