@@ -19,17 +19,23 @@
       </Label>
       <AnchorPane>
          <children>
-            <VBox alignment="CENTER" layoutX="219.0" layoutY="20.0" spacing="24.0">
+            <VBox alignment="CENTER" layoutX="219.0" layoutY="20.0" spacing="24.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnOperatorsPressed" text="Area operatori">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="160.0" right="160.0" />
+                     </VBox.margin>
                   </Button>
                   <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnCiviliansPressed" text="Area cittadini">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="160.0" right="160.0" />
+                     </VBox.margin>
                   </Button>
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnHelpPressed" text="Aiuto" textAlignment="CENTER">
                      <font>
@@ -45,6 +51,9 @@
                </padding>
             </VBox>
          </children>
+         <VBox.margin>
+            <Insets top="8.0" />
+         </VBox.margin>
       </AnchorPane>
    </children>
 </VBox>

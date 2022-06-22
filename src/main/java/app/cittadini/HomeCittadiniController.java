@@ -79,7 +79,7 @@ public class HomeCittadiniController implements Initializable {
                 +
                 "\n - Registrarsi al centro vaccinale desiderato inserendo i propri dati anagrafici, email, nome utente e password;"
                 +
-                "\n - Inserire eventuali effetti collaterali post vaccinazione, previo login alla piattaforma.";
+                "\n - Inserire eventuali effetti collaterali post vaccinazione, previo login alla piattaforma. \n\n\n\n\n  ";
 
         a.setTitle("Informazioni");
         a.setHeaderText("Informazioni");
