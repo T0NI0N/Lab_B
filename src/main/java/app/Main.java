@@ -22,8 +22,13 @@ public class Main extends Application {
     private static Scene scene;
     private static Stage primaryStage;
 
+    private static ClientConnectionHandler connectionHandler;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
+
+        connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
+
         Main.primaryStage = primaryStage;
         scene = new Scene(loadFXML("Home"));
         primaryStage.setScene(scene);
@@ -41,6 +46,7 @@ public class Main extends Application {
 
                 if (result.get() == ButtonType.OK) {
                     System.out.println("Closing...");
+                    //connectionHandler.disconnect();
                     System.exit(0);
                 } else
                     event.consume();
@@ -50,7 +56,7 @@ public class Main extends Application {
     }
 
     public static void switchScene(String fxml) throws IOException {
-        //primaryStage.hide();
+        // primaryStage.hide();
         scene = new Scene(loadFXML(fxml));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

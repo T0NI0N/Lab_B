@@ -3,9 +3,11 @@ package app.server;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import app.cittadini.Cittadino;
+
 public interface ConnectionHandlerInterface extends Remote {
 
-    public void login() throws RemoteException;
+    public boolean login() throws RemoteException;
 
-    public void register() throws RemoteException;
+    public void register(Cittadino user) throws RemoteException;
 }

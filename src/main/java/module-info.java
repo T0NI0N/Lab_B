@@ -9,4 +9,5 @@ module demo {
     opens app to javafx.graphics;
 
     exports app.server;
+    exports app.cittadini;
 }

@@ -1,20 +1,14 @@
 package app.CentriVaccinali;
 
-import app.TipoCentroVaccinale;
 import app.TipoVaccino;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Date;
 
 public class RegCittVaccinatoController {
 
@@ -35,10 +29,11 @@ public class RegCittVaccinatoController {
     private void onEnterPressed() throws IOException {
 
         System.out.println("Enter button pressed");
-        System.out.println(tf_cognome.getText()+" "+tf_nome.getText()+" vaccinato presso il centro "+tf_centroV.getText()+ " in data "+dp_data.getValue());
-        System.out.println("CF: "+tf_codiceFiscale.getText());
-        System.out.println("Vaccinato con una dose di "+chb_vaccino.getValue());
-        
+        System.out.println(tf_cognome.getText() + " " + tf_nome.getText() + " vaccinato presso il centro "
+                + tf_centroV.getText() + " in data " + dp_data.getValue());
+        System.out.println("CF: " + tf_codiceFiscale.getText());
+        System.out.println("Vaccinato con una dose di " + chb_vaccino.getValue());
+
     }
 
     public void initialize() {
