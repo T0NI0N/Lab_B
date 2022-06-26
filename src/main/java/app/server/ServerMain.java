@@ -20,6 +20,12 @@ public class ServerMain {
     private static Registry registry;
     private static DatabaseHandler obj;
 
+    /**
+     * Crea l'istanza di DatabaseHandler e la pubblica sul registry alla porta di
+     * default
+     * 
+     * @param args argomenti passati da riga di comando
+     */
     public static void main(String[] args) {
         try {
             System.out.println("Creating stub...");

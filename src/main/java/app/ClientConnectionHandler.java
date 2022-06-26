@@ -7,6 +7,12 @@ import java.rmi.registry.Registry;
 import app.cittadini.Cittadino;
 import app.server.ConnectionHandlerInterface;
 
+/**
+ * Classe che gestisce la connessione al registry del client e l'uso del
+ * servizio pubblicato sul registry stesso.
+ * 
+ * Implementata con l'ausilio del pattern singleton
+ */
 public class ClientConnectionHandler {
 
 	// required for singleton pattern
@@ -25,6 +31,10 @@ public class ClientConnectionHandler {
 
 	private Cittadino loggedUser;
 
+	/**
+	 * Costuttore privato per il pattern singleton.
+	 * Definisce l'host e la porta per la connessione al registry.
+	 */
 	private ClientConnectionHandler() {
 		hostAddress = defaultHostAddress;
 		hostPort = defaultHostPort;
@@ -43,6 +53,10 @@ public class ClientConnectionHandler {
 		return handler;
 	}
 
+	/**
+	 * Stabilisce la connessione al registry.
+	 * @return true se la connessione è andata a buon fine, false altrimanti.
+	 */
 	public boolean connect() {
 		boolean available = true;
 
@@ -58,6 +72,11 @@ public class ClientConnectionHandler {
 		return available;
 	}
 
+	/**
+	 * Registra un nuovo utente 
+	 * @param user l'utente da registrare
+	 * @throws RemoteException
+	 */
 	public void registerCitizen(Cittadino user) throws RemoteException {
 		stub.registerCitizen(user);
 	}
@@ -66,17 +85,28 @@ public class ClientConnectionHandler {
 		return stub.login();
 	}
 
+	/**
+	 * Controlla se è stato effettuato l'accesso
+	 * @return true se l'accesso è stato effettuato, false altrimenti
+	 */
 	public boolean isLogged() {
 		return loggedUser != null;
 	}
 
+	/**
+	 * Ritorna l'istanza dell'utente che ha effettuato il login
+	 * @return l'utente che ha effettuato l'accesso
+	 */
 	public Cittadino getLoggedUser() {
 		return loggedUser;
 	}
 
-    public void disconnect() {
+	/**
+	 * Disconnette il client dal server.
+	 */
+	public void disconnect() {
 		stub = null;
 		loggedUser = null;
-    }
+	}
 
 }

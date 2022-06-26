@@ -24,6 +24,13 @@ public class Main extends Application {
 
     private static ClientConnectionHandler connectionHandler;
 
+    /**
+     * Lancia l'applicazione e l'interfaccia grafica instanziando constestualmente
+     * la connessione alla base di dati
+     * 
+     * @param primaryStage schermata di partenza predefinita di JavaFX
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
 
@@ -56,6 +63,12 @@ public class Main extends Application {
         });
     }
 
+    /**
+     * Cambia la scena visualizzata a schermo
+     * 
+     * @param fxml nome del file di layout della scena
+     * @throws IOException
+     */
     public static void switchScene(String fxml) throws IOException {
         // primaryStage.hide();
         scene = new Scene(loadFXML(fxml));
@@ -64,6 +77,13 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Carica il file di layout recuperandolo dalle risorse
+     * 
+     * @param fxml nome del file di layout da caricare
+     * @return il layout caricato
+     * @throws IOException
+     */
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();

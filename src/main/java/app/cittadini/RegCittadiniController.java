@@ -59,7 +59,7 @@ public class RegCittadiniController implements Initializable {
         email = txtEmail.getText();
         username = txtUsername.getText();
         password = txtPassword.getText();
-        idVacc = Long.parseLong(txtIdVacc.getText()) ;
+        idVacc = Long.parseLong(txtIdVacc.getText());
 
         Cittadino user = new Cittadino(name, surname, codf, email, username, password, idVacc);
         try {
