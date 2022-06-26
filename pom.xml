@@ -53,6 +53,26 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>42.2.18</version>
+                    </dependency>
+                </dependencies>
+
+                <configuration>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql://localhost:5432/</url>
+                    <settingsKey>sensibleKey</settingsKey>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
