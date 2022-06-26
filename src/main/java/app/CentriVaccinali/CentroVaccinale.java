@@ -31,7 +31,6 @@ public class CentroVaccinale {
      * @param n il nome del centro
      * @param i l'indirizzo del centro
      * @param t il tipo del centro
-     * @param e la lista di eventi avversi registrati
      */
     public CentroVaccinale(String n, Indirizzo i, TipoCentroVaccinale t) {
         nomeCentro = n;
@@ -121,6 +120,15 @@ public class CentroVaccinale {
      */
     public String getTipo() {
         return tipo.toString();
+    }
+
+    /**
+     * Ritorna l'indice del tipo del centro vaccinale
+     * 
+     * @return l'indice del tipo del centro vaccinale
+     */
+    public int getTipoInt() {
+        return tipo.ordinal();
     }
 
     /**

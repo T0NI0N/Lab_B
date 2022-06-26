@@ -58,8 +58,8 @@ public class ClientConnectionHandler {
 		return available;
 	}
 
-	public void register(Cittadino user) throws RemoteException {
-		stub.register(user);
+	public void registerCitizen(Cittadino user) throws RemoteException {
+		stub.registerCitizen(user);
 	}
 
 	public boolean login() throws RemoteException {

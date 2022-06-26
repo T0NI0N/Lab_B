@@ -108,7 +108,7 @@ public class Cittadino {
         this.codiceFiscale = codicefiscale;
         this.email = email;
         this.userid = userid;
-        this.password = password;
+        this.password = password;//TODO inserire una criptazione per la password nel costruttore
         this.idVaccinazione = idvaccinazione;
         this.dataSomministrazione = data;
         this.tipo = tipo;

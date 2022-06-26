@@ -4,13 +4,28 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import app.TipoCentroVaccinale;
+import app.TipoEventoAvverso;
+import app.TipoVaccino;
+import app.CentriVaccinali.CentroVaccinale;
+import app.CentriVaccinali.EventoAvverso;
+import app.CentriVaccinali.Indirizzo;
+import app.cittadini.Cittadino;
+
 public class ServerMain {
     private static Registry registry;
+    private static DatabaseHandler obj;
 
     public static void main(String[] args) {
         try {
             System.out.println("Creating stub...");
-            DatabaseHandler obj = new DatabaseHandler();
+            System.out.print("Inserisci l'host del database:");
+            String host=System.console().readLine();
+            System.out.print("Inserisci l'utente del database:");
+            String user=System.console().readLine();
+            System.out.print("Inserisci la password del database:");
+            String password=System.console().readLine();
+            obj = new DatabaseHandler(host, user, password);
             ConnectionHandlerInterface stub = (ConnectionHandlerInterface) UnicastRemoteObject.exportObject(obj, 0);
             System.out.println("Creating registry...");
             registry = LocateRegistry.createRegistry(1099);
