@@ -1,11 +1,16 @@
 package app.CentriVaccinali;
 
+import java.io.Serializable;
+
 import app.TipoCentroVaccinale;
 
 /**
  * Classe che rappresenta un oggetto di tipo CentroVaccinale
  */
-public class CentroVaccinale {
+public class CentroVaccinale implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     // campi
 
     /**

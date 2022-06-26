@@ -1,18 +1,22 @@
 package app.CentriVaccinali;
 
+import app.ClientConnectionHandler;
 import app.Main;
 import app.TipoCentroVaccinale;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.ResourceBundle;
 
-public class RegCentroVaccinaleController {
+public class RegCentroVaccinaleController implements Initializable {
 
     @FXML
     private ChoiceBox<String> chb_tipoIndirizzo;
@@ -31,6 +35,8 @@ public class RegCentroVaccinaleController {
     @FXML
     private TextField tf_comune;
 
+    private ClientConnectionHandler connectionHandler;
+
     @FXML
     private void onEnterPressed() throws IOException {
 
@@ -40,7 +46,7 @@ public class RegCentroVaccinaleController {
         System.out.println(tf_comune.getText() + " (" + tf_prov.getText() + ")" + " " + tf_cap.getText());
         System.out.println(chb_tipoCentro.getValue());
 
-        //TODO formattazione centro vaccinale per pronta memorizzazione in db
+        // TODO inserire metodo registrazione centro
     }
 
     @FXML
@@ -49,13 +55,17 @@ public class RegCentroVaccinaleController {
             Main.switchScene("HomeOperatori");
     }
 
-    public void initialize() {
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+
+        connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
 
         chb_tipoIndirizzo.setItems(FXCollections.observableList(Arrays.asList("Via", "V.le", "P.zza")));
         chb_tipoIndirizzo.setValue("Via");
 
         chb_tipoCentro.setItems(FXCollections.observableList(Arrays.asList(TipoCentroVaccinale.values())));
         chb_tipoCentro.setValue(TipoCentroVaccinale.OSPEDALIERO);
+
     }
 
 }

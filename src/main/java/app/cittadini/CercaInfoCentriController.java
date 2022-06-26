@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import app.ClientConnectionHandler;
 import app.Main;
 import app.TipoCentroVaccinale;
 import javafx.collections.FXCollections;
@@ -46,11 +47,12 @@ public class CercaInfoCentriController implements Initializable {
     private String com;
     private TipoCentroVaccinale centreType;
 
+    private ClientConnectionHandler connectionHandler;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // qui dentro verranno inizializzati i riferimenti ad altre classi
-        // nel caso in cui servissero
-        // potrebbero essere riferimenti ad oggetti, connessione al db ecc.
+
+        connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
 
         centreTypeBox.setItems(FXCollections.observableList(Arrays.asList(TipoCentroVaccinale.values())));
         centreTypeBox.setValue(TipoCentroVaccinale.OSPEDALIERO);
@@ -61,14 +63,14 @@ public class CercaInfoCentriController implements Initializable {
     }
 
     @FXML
-    private void onNameSearchPressed(){
+    private void onNameSearchPressed() {
         txtName.setDisable(false);
         txtCom.setDisable(true);
         centreTypeBox.setDisable(true);
     }
 
     @FXML
-    private void onCentreTypeSearchPressed(){
+    private void onCentreTypeSearchPressed() {
         txtCom.setDisable(false);
         centreTypeBox.setDisable(false);
         txtName.setDisable(true);
@@ -85,6 +87,8 @@ public class CercaInfoCentriController implements Initializable {
         centreName = txtName.getText();
         com = txtCom.getText();
         centreType = centreTypeBox.getValue();
+
+        // TODO inserire metodo per ricerca centro in base a nome / comune e tipo
 
         System.out.println(centreName + " | " + com + " | " + centreType);
     }

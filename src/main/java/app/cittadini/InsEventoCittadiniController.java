@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import app.ClientConnectionHandler;
 import app.Main;
 import app.TipoEventoAvverso;
 import javafx.collections.FXCollections;
@@ -42,11 +43,12 @@ public class InsEventoCittadiniController implements Initializable {
     private int sev;
     private String notes;
 
+    private ClientConnectionHandler connectionHandler;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // qui dentro verranno inizializzati i riferimenti ad altre classi
-        // nel caso in cui servissero
-        // potrebbero essere riferimenti ad oggetti, connessione al db ecc.
+
+        connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
 
         eventTypeBox.setItems(FXCollections.observableList(Arrays.asList(TipoEventoAvverso.values())));
         eventTypeBox.setValue(TipoEventoAvverso.Emicrania);
@@ -64,6 +66,9 @@ public class InsEventoCittadiniController implements Initializable {
         eventType = eventTypeBox.getValue();
         sev = Integer.parseInt(tgRbSev.getSelectedToggle().toString());
         notes = txtNotes.getText();
+
+        // TODO inserire metodo registrazione eventi avversi
+
         System.out.println(eventType + " | " + sev + " | " + notes);
     }
 }

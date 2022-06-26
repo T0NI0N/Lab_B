@@ -1,11 +1,16 @@
 package app.CentriVaccinali;
 
+import java.io.Serializable;
+
 import app.TipoEventoAvverso;
 
 /**
  * Classe che rappresenta un oggetto di tipo EventiAvversi
  */
-public class EventoAvverso {
+public class EventoAvverso implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * Rappresenta l'evento avverso
      */

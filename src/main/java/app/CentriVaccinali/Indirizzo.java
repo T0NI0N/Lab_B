@@ -1,10 +1,14 @@
 package app.CentriVaccinali;
 
+import java.io.Serializable;
+
 /**
  * Classe che rappresenta un oggetto di tipo indirizzo, di supporto a
  * {@link CentroVaccinale}
  */
-public class Indirizzo {
+public class Indirizzo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     // campi
 

@@ -3,6 +3,7 @@ package app.cittadini;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import app.ClientConnectionHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
@@ -19,17 +20,19 @@ public class LoginController implements Initializable {
     private String username;
     private String password;
 
+    private ClientConnectionHandler connectionHandler;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // qui dentro verranno inizializzati i riferimenti ad altre classi
-        // nel caso in cui servissero
-        // potrebbero essere riferimenti ad oggetti, connessione al db ecc.
+        connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
     }
 
     @FXML
     private void login() {
         username = txtUsername.getText();
         password = txtPassword.getText();
+
+        // TODO inserire metodo login
 
         System.out.println(username + " | " + password);
     }

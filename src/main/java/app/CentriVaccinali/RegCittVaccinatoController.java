@@ -1,16 +1,20 @@
 package app.CentriVaccinali;
 
+import app.ClientConnectionHandler;
 import app.TipoVaccino;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.ResourceBundle;
 
-public class RegCittVaccinatoController {
+public class RegCittVaccinatoController implements Initializable {
 
     @FXML
     private ChoiceBox<TipoVaccino> chb_vaccino;
@@ -25,6 +29,8 @@ public class RegCittVaccinatoController {
     @FXML
     private DatePicker dp_data;
 
+    private ClientConnectionHandler connectionHandler;
+
     @FXML
     private void onEnterPressed() throws IOException {
 
@@ -34,10 +40,17 @@ public class RegCittVaccinatoController {
         System.out.println("CF: " + tf_codiceFiscale.getText());
         System.out.println("Vaccinato con una dose di " + chb_vaccino.getValue());
 
+        // TODO inserire metodo registrazione vaccinato
+
     }
 
-    public void initialize() {
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+
+        connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
+
         chb_vaccino.setItems(FXCollections.observableList(Arrays.asList(TipoVaccino.values())));
         dp_data.setValue(LocalDate.now());
+
     }
 }
