@@ -1,7 +1,9 @@
 package app.CentriVaccinali;
 
 import app.ClientConnectionHandler;
+import app.TipoCentroVaccinale;
 import app.TipoVaccino;
+import app.cittadini.Cittadino;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,7 +42,12 @@ public class RegCittVaccinatoController implements Initializable {
         System.out.println("CF: " + tf_codiceFiscale.getText());
         System.out.println("Vaccinato con una dose di " + chb_vaccino.getValue());
 
-        // TODO inserire metodo registrazione vaccinato
+        connectionHandler.registerVaccination
+        (
+            new Cittadino(tf_nome.getText(), tf_cognome.getText(), tf_codiceFiscale.getText(), "", "", "", 0, dp_data.getValue().getDayOfMonth()+"/"+dp_data.getValue().getMonth()+"/"+dp_data.getValue().getYear(), chb_vaccino.getValue()), 
+            new CentroVaccinale(tf_centroV.getText(), new Indirizzo("", "", "", "", "", 0), TipoCentroVaccinale.OSPEDALIERO)
+        );
+        // TODO inserire perlomeno userid
 
     }
 

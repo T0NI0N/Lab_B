@@ -3,7 +3,10 @@ package app;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
+import app.CentriVaccinali.CentroVaccinale;
+import app.CentriVaccinali.EventoAvverso;
 import app.cittadini.Cittadino;
 import app.server.ConnectionHandlerInterface;
 
@@ -79,6 +82,55 @@ public class ClientConnectionHandler {
 	 */
 	public void registerCitizen(Cittadino user) throws RemoteException {
 		stub.registerCitizen(user);
+	}
+	
+	//TODO inserire la documentazione
+    public void registerCenter(CentroVaccinale center) throws RemoteException{
+		stub.registerCenter(center);
+	}
+
+    public void registerVaccination(Cittadino user, CentroVaccinale center) throws RemoteException{
+		stub.registerVaccination(user, center);
+	}
+
+    public void insertAdverseEvent(Cittadino citizen, CentroVaccinale center, EventoAvverso event) throws RemoteException{
+		stub.insertAdverseEvent(citizen, center, event);
+	}
+
+    public ArrayList<CentroVaccinale> getCenters() throws RemoteException{
+		return stub.getCenters();
+	}
+
+    public ArrayList<CentroVaccinale> getCentersByName(String name) throws RemoteException{
+		return stub.getCentersByName(name);
+	}
+
+    public ArrayList<Cittadino> getCitizensByName(String name, String surname) throws RemoteException{
+		return getCitizensByName(name, surname);
+	}
+
+    public ArrayList<EventoAvverso> getAdverseEvents(CentroVaccinale center) throws RemoteException{
+		return stub.getAdverseEvents(center);
+	}
+
+    public ArrayList<Cittadino> getCitizens() throws RemoteException{
+		return stub.getCitizens();
+	}
+
+    public ArrayList<Cittadino> getVaccinatedCitizens(CentroVaccinale center) throws RemoteException{
+		return stub.getVaccinatedCitizens(center);
+	}
+
+    public Cittadino getCitizenByLogin(String userid, String password) throws RemoteException{
+		return stub.getCitizenByLogin(userid, password);
+	}
+
+    public ArrayList<CentroVaccinale> getCenterByPlaceAndType(String comune, TipoCentroVaccinale tipo) throws RemoteException{
+		return stub.getCenterByPlaceAndType(comune, tipo);
+	}
+
+    public CentroVaccinale getCenterByVaccinatedCitizen(Cittadino user) throws RemoteException{
+		return stub.getCenterByVaccinatedCitizen(user);
 	}
 
 	public boolean login() throws RemoteException {

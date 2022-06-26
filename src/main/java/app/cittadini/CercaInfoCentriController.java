@@ -87,8 +87,12 @@ public class CercaInfoCentriController implements Initializable {
         centreName = txtName.getText();
         com = txtCom.getText();
         centreType = centreTypeBox.getValue();
-
-        // TODO inserire metodo per ricerca centro in base a nome / comune e tipo
+        try
+        {
+            connectionHandler.getCenterByPlaceAndType(txtCom.getText(), centreTypeBox.getValue());
+        }
+        catch(Exception ex)
+        {}
 
         System.out.println(centreName + " | " + com + " | " + centreType);
     }

@@ -29,12 +29,24 @@ public class ServerMain {
     public static void main(String[] args) {
         try {
             System.out.println("Creating stub...");
-            // System.out.print("Inserisci l'host del database:");
-            // String host=System.console().readLine();
-            // System.out.print("Inserisci l'utente del database:");
-            // String user=System.console().readLine();
-            // System.out.print("Inserisci la password del database:");
-            // String password=System.console().readLine();
+            System.out.print("Inserisci l'host del database (default=localhost):");
+            String host1=System.console().readLine();
+            if(!host1.isBlank())
+            {
+                host=host1;
+            }
+            System.out.print("Inserisci l'utente del database (default=ospite):");
+            String user1=System.console().readLine();
+            if(!user1.isBlank())
+            {
+                user=user1;
+            }
+            System.out.print("Inserisci la password del database (default=DefaultUserPassword):");
+            String password1=System.console().readLine();
+            if(!password1.isBlank())
+            {
+                password=password1;
+            }
             obj = new DatabaseHandler(host, user, password);
             ConnectionHandlerInterface stub = (ConnectionHandlerInterface) UnicastRemoteObject.exportObject(obj, 0);
             System.out.println("Creating registry...");

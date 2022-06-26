@@ -105,7 +105,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 statement.executeUpdate(
                         "CREATE TABLE EventiAvversi (" +
                                 "idEvento integer PRIMARY KEY, " +
-                                "severità varchar(1) NOT NULL, " +
+                                "severità integer NOT NULL, " +
                                 "note varchar(255) NOT NULL, " +
                                 "idCentroVaccinale smallint," +
                                 "idCittadino integer, " +
@@ -545,8 +545,8 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         ArrayList<EventoAvverso> output = new ArrayList<EventoAvverso>();
         try {
             ResultSet rs = conn.prepareStatement(
-                    "SELECT ev.* FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
-                            + center.getNomeCentro() + "%'")
+                    "SELECT ev.idTipologia, AVG(ev.severità) AS avgseverità FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
+                            + center.getNomeCentro() + "%' GROUP BY ev.idTipologia")
                     .executeQuery();
             while (rs.next()) {
                 TipoEventoAvverso tipo = null;
@@ -561,10 +561,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 output.add(
                         new EventoAvverso(
                                 tipo,
-                                Double.parseDouble(rs.getString("severità")),
-                                rs.getString("note")));
+                                Double.parseDouble(rs.getString("avgseverità")),
+                                ""));
             }
         } catch (Exception ex) {
+            System.out.println("sfsafa");
             System.out.println(ex);
         }
         return output;
@@ -598,6 +599,141 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             }
         } catch (Exception ex) {
             System.out.println(ex);
+        }
+        return output;
+    }
+    
+    public Cittadino getCitizenByLogin(String userid, String password)
+    {
+        Cittadino output=null;
+        try
+        {
+            ResultSet rs=conn.prepareStatement
+            (
+                "SELECT * FROM Cittadini_Registrati WHERE userid='"+userid+"' AND password='"+password+"'"
+            ).executeQuery();
+            rs.next();
+            output=new Cittadino
+            (
+                rs.getString("nome"), rs.getString("cognome"), "", rs.getString("email"), rs.getString("userid"), rs.getString("password"), 0, null, null
+            );
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+        }
+        return output;
+    }
+
+    public ArrayList<CentroVaccinale> getCenterByPlaceAndType(String comune, TipoCentroVaccinale tipo)
+    {
+        ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
+        try {
+            ResultSet rs = conn.prepareStatement(
+                    "SELECT " +
+                            "cv.nome AS cvnome, " +
+                            "cv.idTipologia AS cvidTipologia, " +
+                            "i.qualificatore AS iqualificatore, " +
+                            "i.nome AS inome, " +
+                            "i.n_civico AS in_civico, " +
+                            "com.nome AS comnome, " +
+                            "com.provincia AS comprovincia, " +
+                            "com.cap AS comcap " +
+                            "FROM CentriVaccinali cv JOIN (Indirizzi i JOIN Comuni com ON i.idComune=com.idComune) ON cv.idIndirizzo=i.idIndirizzo WHERE com.nome LIKE '%"
+                            + comune + "%' AND cv.idTipologia="+tipo.ordinal())
+                    .executeQuery();
+            while (rs.next()) {
+                output.add(
+                        new CentroVaccinale(
+                                rs.getString("cvnome"),
+                                new Indirizzo(
+                                        rs.getString("iqualificatore"),
+                                        rs.getString("inome"),
+                                        rs.getString("in_civico"),
+                                        rs.getString("comnome"),
+                                        rs.getString("comprovincia"),
+                                        Integer.parseInt(rs.getString("comcap"))),
+                                tipo));
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return output;
+    }
+
+    public CentroVaccinale getCenterByVaccinatedCitizen(Cittadino user)
+    {
+        CentroVaccinale output = null;
+        try
+        {
+            boolean present=false;
+            ResultSet rs=null;
+            String table;
+            for(CentroVaccinale x:getCenters())
+            {
+                present=false;
+                table="Vaccinazioni_"+x.getNomeCentro();
+                try
+                {
+                    System.out.println("asdas");
+                    rs = conn.prepareStatement(
+                            "SELECT * FROM "+table)
+                            .executeQuery();
+                    rs.next();
+                    int temp=rs.getInt("idVaccinazione");
+                    present=true;
+                }
+                catch(Exception ex)
+                {
+                }
+                if(present)
+                {
+                    try{
+                        rs = conn.prepareStatement(
+                                "SELECT " +
+                                        "cv.nome AS cvnome, " +
+                                        "cv.idTipologia AS cvidTipologia, " +
+                                        "i.qualificatore AS iqualificatore, " +
+                                        "i.nome AS inome, " +
+                                        "i.n_civico AS in_civico, " +
+                                        "com.nome AS comnome, " +
+                                        "com.provincia AS comprovincia, " +
+                                        "com.cap AS comcap " +
+                                        "FROM Comuni com JOIN (Indirizzi i JOIN (CentriVaccinali cv JOIN ("+table+" v JOIN Cittadini_Registrati cr ON v.idCittadino=cr.idCittadino) ON cv.idCentroVaccinale=v.idCentroVaccinale) ON i.idIndirizzo=cv.idIndirizzo) ON com.idComune=i.idComune WHERE cr.userid='"+user.getUserid()+"'")
+                                .executeQuery();
+                        if(rs.next())
+                        {
+                            TipoCentroVaccinale tipo = null;
+                            int i = 0;
+                            for (TipoCentroVaccinale y : TipoCentroVaccinale.values()) {
+                                if (i == rs.getInt("cvidTipologia")) {
+                                    tipo = y;
+                                    break;
+                                }
+                                i++;
+                            }
+                            output=new CentroVaccinale(
+                                rs.getString("cvnome"),
+                                new Indirizzo(
+                                        rs.getString("iqualificatore"),
+                                        rs.getString("inome"),
+                                        rs.getString("in_civico"),
+                                        rs.getString("comnome"),
+                                        rs.getString("comprovincia"),
+                                        Integer.parseInt(rs.getString("comcap"))),
+                                tipo);
+                        }
+                    } 
+                    catch (Exception ex) {
+                        System.out.println(ex);
+                    }
+                    break;
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
         }
         return output;
     }

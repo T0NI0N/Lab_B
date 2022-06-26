@@ -3,6 +3,7 @@ package app.server;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import app.TipoCentroVaccinale;
 import app.CentriVaccinali.CentroVaccinale;
 import app.CentriVaccinali.EventoAvverso;
 import app.cittadini.Cittadino;
@@ -19,8 +20,7 @@ public interface ConnectionHandlerInterface extends Remote {
 
     public void registerVaccination(Cittadino user, CentroVaccinale center) throws RemoteException;
 
-    public void insertAdverseEvent(Cittadino citizen, CentroVaccinale center, EventoAvverso event)
-            throws RemoteException;
+    public void insertAdverseEvent(Cittadino citizen, CentroVaccinale center, EventoAvverso event) throws RemoteException;
 
     public ArrayList<CentroVaccinale> getCenters() throws RemoteException;
 
@@ -34,4 +34,9 @@ public interface ConnectionHandlerInterface extends Remote {
 
     public ArrayList<Cittadino> getVaccinatedCitizens(CentroVaccinale center) throws RemoteException;
 
+    public Cittadino getCitizenByLogin(String userid, String password) throws RemoteException;
+
+    public ArrayList<CentroVaccinale> getCenterByPlaceAndType(String comune, TipoCentroVaccinale tipo) throws RemoteException;
+
+    public CentroVaccinale getCenterByVaccinatedCitizen(Cittadino user) throws RemoteException;
 }

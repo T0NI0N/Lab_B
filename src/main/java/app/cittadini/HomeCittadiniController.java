@@ -20,8 +20,7 @@ public class HomeCittadiniController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // TODO va impostato un metodo nella classe cittadino per verificare se è
-        // loggato
+        // TODO va impostato un metodo nella classe cittadino per verificare se è loggato
         userLoggedIn = false;
     }
 
