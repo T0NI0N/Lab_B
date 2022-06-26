@@ -13,18 +13,22 @@ import app.CentriVaccinali.Indirizzo;
 import app.cittadini.Cittadino;
 
 public class ServerMain {
+
+    private static String host = "localhost";
+    private static String user = "ospite";
+    private static String password = "DefaultUserPassword";
     private static Registry registry;
     private static DatabaseHandler obj;
 
     public static void main(String[] args) {
         try {
             System.out.println("Creating stub...");
-            System.out.print("Inserisci l'host del database:");
-            String host=System.console().readLine();
-            System.out.print("Inserisci l'utente del database:");
-            String user=System.console().readLine();
-            System.out.print("Inserisci la password del database:");
-            String password=System.console().readLine();
+            //System.out.print("Inserisci l'host del database:");
+            //String host=System.console().readLine();
+            //System.out.print("Inserisci l'utente del database:");
+            //String user=System.console().readLine();
+            //System.out.print("Inserisci la password del database:");
+            //String password=System.console().readLine();
             obj = new DatabaseHandler(host, user, password);
             ConnectionHandlerInterface stub = (ConnectionHandlerInterface) UnicastRemoteObject.exportObject(obj, 0);
             System.out.println("Creating registry...");

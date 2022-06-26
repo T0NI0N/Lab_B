@@ -1,11 +1,15 @@
 package app.cittadini;
 
+import java.io.Serializable;
+
 import app.TipoVaccino;
 
 /**
  * Classe che rappresenta un oggetto di tipo Cittadino
  */
-public class Cittadino {
+public class Cittadino implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     // campi
 
@@ -60,6 +64,7 @@ public class Cittadino {
      * @param id      univoco vaccinazione
      */
     public Cittadino(String nome, String cognome, String cf, String mail, String uid, String psswd, long id) {
+        super();
         this.nome = nome;
         this.cognome = cognome;
         this.codiceFiscale = cf;
@@ -80,6 +85,7 @@ public class Cittadino {
      * @param id      univoco vaccinazione
      */
     public Cittadino(String nome, String cognome, String cf, String data, TipoVaccino tipo, long id) {
+        super();
         this.nome = nome;
         this.cognome = cognome;
         this.codiceFiscale = cf;
@@ -103,12 +109,13 @@ public class Cittadino {
      */
     public Cittadino(String nome, String cognome, String codicefiscale, String email, String userid, String password,
             long idvaccinazione, String data, TipoVaccino tipo) {
+        super();
         this.nome = nome;
         this.cognome = cognome;
         this.codiceFiscale = codicefiscale;
         this.email = email;
         this.userid = userid;
-        this.password = password;//TODO inserire una criptazione per la password nel costruttore
+        this.password = password;// TODO inserire una criptazione per la password nel costruttore
         this.idVaccinazione = idvaccinazione;
         this.dataSomministrazione = data;
         this.tipo = tipo;

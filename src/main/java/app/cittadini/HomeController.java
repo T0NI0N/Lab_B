@@ -1,14 +1,17 @@
 package app.cittadini;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import app.Main;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
-public class HomeController {
+public class HomeController implements Initializable{
     
     @FXML
     private void btnOperatorsPressed() throws IOException {
@@ -40,5 +43,11 @@ public class HomeController {
         a.setContentText(helpCiviliString + helpOperatoriString);
  
         a.show();
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        // TODO Auto-generated method stub
+        
     }
 }

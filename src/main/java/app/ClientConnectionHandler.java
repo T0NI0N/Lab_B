@@ -74,4 +74,9 @@ public class ClientConnectionHandler {
 		return loggedUser;
 	}
 
+    public void disconnect() {
+		stub = null;
+		loggedUser = null;
+    }
+
 }

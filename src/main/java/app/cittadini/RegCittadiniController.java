@@ -2,8 +2,10 @@ package app.cittadini;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
+import app.ClientConnectionHandler;
 import app.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,13 +36,13 @@ public class RegCittadiniController implements Initializable {
     private String email;
     private String username;
     private String password;
-    private String idVacc;
+    private long idVacc;
+
+    private ClientConnectionHandler connectionHandler;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // qui dentro verranno inizializzati i riferimenti ad altre classi
-        // nel caso in cui servissero
-        // potrebbero essere riferimenti ad oggetti, connessione al db ecc.
+        connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
     }
 
     @FXML
@@ -57,7 +59,15 @@ public class RegCittadiniController implements Initializable {
         email = txtEmail.getText();
         username = txtUsername.getText();
         password = txtPassword.getText();
-        idVacc = txtIdVacc.getText();
+        idVacc = Long.parseLong(txtIdVacc.getText()) ;
+
+        Cittadino user = new Cittadino(name, surname, codf, email, username, password, idVacc);
+        try {
+            connectionHandler.registerCitizen(user);
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         System.out.println(name + " | " + surname + " | " + codf + " | " + email + " | " + username + " | " + password
                 + " | " + idVacc);

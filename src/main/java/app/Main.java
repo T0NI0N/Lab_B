@@ -28,6 +28,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
+        connectionHandler.connect();
 
         Main.primaryStage = primaryStage;
         scene = new Scene(loadFXML("Home"));
@@ -46,7 +47,7 @@ public class Main extends Application {
 
                 if (result.get() == ButtonType.OK) {
                     System.out.println("Closing...");
-                    //connectionHandler.disconnect();
+                    connectionHandler.disconnect();
                     System.exit(0);
                 } else
                     event.consume();
