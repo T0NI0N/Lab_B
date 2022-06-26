@@ -46,7 +46,8 @@ public class RegCentroVaccinaleController implements Initializable {
         System.out.println(tf_comune.getText() + " (" + tf_prov.getText() + ")" + " " + tf_cap.getText());
         System.out.println(chb_tipoCentro.getValue());
 
-        // TODO inserire metodo registrazione centro
+        connectionHandler.registerCenter(new CentroVaccinale(tf_nomeCentro.getText(), new Indirizzo("", tf_via.getText(), tf_numCivico.getText(), tf_comune.getText(), tf_prov.getText(), Integer.parseInt(tf_cap.getText())), chb_tipoCentro.getValue()));
+        // TODO inserire il qualificatore
     }
 
     @FXML
