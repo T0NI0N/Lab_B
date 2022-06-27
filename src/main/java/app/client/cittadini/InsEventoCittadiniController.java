@@ -1,4 +1,4 @@
-package app.cittadini;
+package app.client.cittadini;
 
 import java.io.IOException;
 import java.net.URL;
