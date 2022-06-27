@@ -4,8 +4,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import app.TipoCentroVaccinale;
-import app.CentriVaccinali.CentroVaccinale;
-import app.CentriVaccinali.EventoAvverso;
+import app.centrivaccinali.CentroVaccinale;
+import app.centrivaccinali.EventoAvverso;
 import app.cittadini.Cittadino;
 
 import java.util.*;

@@ -1,4 +1,4 @@
-package app.CentriVaccinali;
+package app.centrivaccinali;
 
 import app.ClientConnectionHandler;
 import app.TipoCentroVaccinale;

@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import app.ClientConnectionHandler;
-import app.Main;
+import app.centrivaccinali.CentriVaccinali;
 import app.TipoCentroVaccinale;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -79,7 +79,7 @@ public class CercaInfoCentriController implements Initializable {
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
-            Main.switchScene("HomeCittadini");
+            CentriVaccinali.switchScene("HomeCittadini");
     }
 
     @FXML

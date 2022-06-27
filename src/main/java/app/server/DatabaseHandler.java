@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import app.TipoCentroVaccinale;
 import app.TipoEventoAvverso;
 import app.TipoVaccino;
-import app.CentriVaccinali.CentroVaccinale;
-import app.CentriVaccinali.EventoAvverso;
-import app.CentriVaccinali.Indirizzo;
+import app.centrivaccinali.CentroVaccinale;
+import app.centrivaccinali.EventoAvverso;
+import app.centrivaccinali.Indirizzo;
 import app.cittadini.Cittadino;
 
 public class DatabaseHandler implements ConnectionHandlerInterface {

@@ -1,8 +1,7 @@
-package app.CentriVaccinali;
+package app.centrivaccinali;
 
 import java.io.IOException;
 
-import app.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -15,13 +14,13 @@ public class HomeOperatoriController {
     @FXML
     private void btnRgstCV() throws IOException {
         System.out.println("Button register centro vaccinale pressed");
-        Main.switchScene("RegCentroVaccinale");
+        CentriVaccinali.switchScene("RegCentroVaccinale");
     }
 
     @FXML
     private void btnRgstVacc() throws IOException {
         System.out.println("Button register cittadino vaccinato pressed");
-        Main.switchScene("RegCittVaccinato");
+        CentriVaccinali.switchScene("RegCittVaccinato");
     }
 
     @FXML
@@ -44,7 +43,7 @@ public class HomeOperatoriController {
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
-            Main.switchScene("Home");
+            CentriVaccinali.switchScene("Home");
     }
 
 }

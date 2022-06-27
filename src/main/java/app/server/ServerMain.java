@@ -4,14 +4,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-import app.TipoCentroVaccinale;
-import app.TipoEventoAvverso;
-import app.TipoVaccino;
-import app.CentriVaccinali.CentroVaccinale;
-import app.CentriVaccinali.EventoAvverso;
-import app.CentriVaccinali.Indirizzo;
-import app.cittadini.Cittadino;
-
 public class ServerMain {
 
     private static String host = "localhost";

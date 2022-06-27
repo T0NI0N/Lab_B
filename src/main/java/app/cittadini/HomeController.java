@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import app.Main;
+import app.centrivaccinali.CentriVaccinali;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -16,13 +16,13 @@ public class HomeController implements Initializable {
     @FXML
     private void btnOperatorsPressed() throws IOException {
         System.out.println("Entering operators area");
-        Main.switchScene("HomeOperatori");
+        CentriVaccinali.switchScene("HomeOperatori");
     }
 
     @FXML
     private void btnCiviliansPressed() throws IOException {
         System.out.println("Entering civilians area");
-        Main.switchScene("HomeCittadini");
+        CentriVaccinali.switchScene("HomeCittadini");
     }
 
     @FXML

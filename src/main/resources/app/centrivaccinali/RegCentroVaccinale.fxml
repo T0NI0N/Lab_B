@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="330.0" maxWidth="700.0" minHeight="325.0" minWidth="700.0" onKeyPressed="#onEscapePressed" prefHeight="330.0" prefWidth="700.0" spacing="16.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.CentriVaccinali.RegCentroVaccinaleController">
+<VBox alignment="TOP_CENTER" maxHeight="330.0" maxWidth="700.0" minHeight="325.0" minWidth="700.0" onKeyPressed="#onEscapePressed" prefHeight="330.0" prefWidth="700.0" spacing="16.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.centrivaccinali.RegCentroVaccinaleController">
    <children>
       <Label text="Area operatori: Registrazione nuovo centro vaccinale">
          <font>

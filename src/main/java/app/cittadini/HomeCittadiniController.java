@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import app.Main;
+import app.centrivaccinali.CentriVaccinali;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -27,13 +27,13 @@ public class HomeCittadiniController implements Initializable {
     @FXML
     private void btnInfoPressed() throws IOException {
         System.out.println("Button info pressed");
-        Main.switchScene("CercaInfoCentri");
+        CentriVaccinali.switchScene("CercaInfoCentri");
     }
 
     @FXML
     private void btnRegisterPressed() throws IOException {
         System.out.println("Button register pressed");
-        Main.switchScene("RegCittadini");
+        CentriVaccinali.switchScene("RegCittadini");
     }
 
     @FXML
@@ -57,13 +57,13 @@ public class HomeCittadiniController implements Initializable {
             Optional<ButtonType> option = alert.showAndWait();
 
             if (option.get() == login) {
-                Main.switchScene("Login");
+                CentriVaccinali.switchScene("Login");
             } else if (option.get() == cancel) {
                 System.out.println("cancel pressed");
             }
 
         } else {
-            Main.switchScene("InsEventoCittadini");
+            CentriVaccinali.switchScene("InsEventoCittadini");
         }
 
     }
@@ -90,7 +90,7 @@ public class HomeCittadiniController implements Initializable {
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
-            Main.switchScene("Home");
+            CentriVaccinali.switchScene("Home");
     }
 
 }

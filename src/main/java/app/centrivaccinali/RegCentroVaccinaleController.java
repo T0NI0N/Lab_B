@@ -1,7 +1,6 @@
-package app.CentriVaccinali;
+package app.centrivaccinali;
 
 import app.ClientConnectionHandler;
-import app.Main;
 import app.TipoCentroVaccinale;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -53,7 +52,7 @@ public class RegCentroVaccinaleController implements Initializable {
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
-            Main.switchScene("HomeOperatori");
+            CentriVaccinali.switchScene("HomeOperatori");
     }
 
     @Override

@@ -1,5 +1,6 @@
-package app;
+package app.centrivaccinali;
 
+import app.ClientConnectionHandler;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,7 @@ import java.util.Optional;
 /**
  * JavaFX App
  */
-public class Main extends Application {
+public class CentriVaccinali extends Application {
 
     private static Scene scene;
     private static Stage primaryStage;
@@ -37,7 +38,7 @@ public class Main extends Application {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
         connectionHandler.connect();
 
-        Main.primaryStage = primaryStage;
+        CentriVaccinali.primaryStage = primaryStage;
         scene = new Scene(loadFXML("Home"));
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -85,7 +86,7 @@ public class Main extends Application {
      * @throws IOException
      */
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(CentriVaccinali.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 

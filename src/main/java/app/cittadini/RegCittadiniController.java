@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import app.ClientConnectionHandler;
-import app.Main;
+import app.centrivaccinali.CentriVaccinali;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -48,7 +48,7 @@ public class RegCittadiniController implements Initializable {
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
-            Main.switchScene("HomeCittadini");
+            CentriVaccinali.switchScene("HomeCittadini");
     }
 
     @FXML
