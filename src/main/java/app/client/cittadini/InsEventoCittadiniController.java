@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import app.ClientConnectionHandler;
-import app.centrivaccinali.CentriVaccinali;
 import app.TipoEventoAvverso;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -17,6 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import app.client.centrivaccinali.CentriVaccinali;
 
 public class InsEventoCittadiniController implements Initializable {
 
@@ -64,7 +64,7 @@ public class InsEventoCittadiniController implements Initializable {
     private void btnSubmitPressed() throws IOException {
         System.out.println("Button submit pressed");
         eventType = eventTypeBox.getValue();
-        sev = Double.parseDouble(tgRbSev.getSelectedToggle().toString());
+        sev = (int) Double.parseDouble(tgRbSev.getSelectedToggle().toString());
         notes = txtNotes.getText();
 		
 		//TODO inserire cittadino e nomecentro e controllare se funziona
