@@ -609,10 +609,14 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             ResultSet rs = conn.prepareStatement(
                     "SELECT * FROM Cittadini_Registrati WHERE userid='" + userid + "' AND password='" + password + "'")
                     .executeQuery();
-            rs.next();
-            output = new Cittadino(
-                    rs.getString("nome"), rs.getString("cognome"), "", rs.getString("email"), rs.getString("userid"),
-                    rs.getString("password"), 0, null, null);
+            if(rs.next(){
+                output = new Cittadino(
+                rs.getString("nome"), rs.getString("cognome"), "", rs.getString("email"), rs.getString("userid"),
+                rs.getString("password"), 0, null, null);
+            }
+            else{
+                System.out.println("Cittadino non presente");
+            }
         } catch (Exception ex) {
             System.out.println(ex);
         }
