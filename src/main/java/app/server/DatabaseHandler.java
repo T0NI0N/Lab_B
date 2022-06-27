@@ -1,8 +1,6 @@
 package app.server;
-
 import java.sql.*;
 import java.util.ArrayList;
-
 import app.TipoCentroVaccinale;
 import app.TipoEventoAvverso;
 import app.TipoVaccino;
@@ -10,12 +8,9 @@ import app.client.centrivaccinali.CentroVaccinale;
 import app.client.centrivaccinali.EventoAvverso;
 import app.client.centrivaccinali.Indirizzo;
 import app.client.cittadini.Cittadino;
-
 public class DatabaseHandler implements ConnectionHandlerInterface {
-
     private String connection = "jdbc:postgresql://";
     private Connection conn;
-
     public DatabaseHandler(String host, String user, String password) {
         connection += host + "/";
         try {
@@ -28,7 +23,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 conn = DriverManager.getConnection(connection + "db_vaccini", user, password);
                 statement = conn.createStatement();
                 int id = 0;
-
                 statement.executeUpdate(
                         "CREATE TABLE TipiCentri (" +
                                 "idTipologia smallint PRIMARY KEY, " +
@@ -40,14 +34,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                     tipo + "')");
                     id++;
                 }
-
                 statement.executeUpdate(
                         "CREATE TABLE Comuni (" +
                                 "idComune smallint PRIMARY KEY, " +
                                 "nome varchar(35) NOT NULL, " +
                                 "cap varchar(5) NOT NULL, " +
                                 "provincia varchar(4) NOT NULL)");
-
                 statement.executeUpdate(
                         "CREATE TABLE Indirizzi (" +
                                 "idIndirizzo integer PRIMARY KEY, " +
@@ -56,7 +48,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 "n_civico varchar(5) NOT NULL, " +
                                 "idComune smallint, " +
                                 "CONSTRAINT fk_Comuni FOREIGN KEY (idComune) REFERENCES Comuni(idComune))");
-
                 statement.executeUpdate(
                         "CREATE TABLE CentriVaccinali (" +
                                 "idCentroVaccinale smallint PRIMARY KEY, " +
@@ -66,7 +57,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 "CONSTRAINT fk_TipiCentri FOREIGN KEY (idTipologia) REFERENCES TipiCentri(idTipologia), "
                                 +
                                 "CONSTRAINT fk_Indirizzi FOREIGN KEY (idIndirizzo) REFERENCES Indirizzi(idIndirizzo))");
-
                 statement.executeUpdate(
                         "CREATE TABLE Cittadini_Registrati (" +
                                 "idCittadino integer PRIMARY KEY, " +
@@ -76,7 +66,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 "userid varchar(20) NOT NULL, " +
                                 "password varchar(100) NOT NULL)");
                 id = 0;
-
                 statement.executeUpdate(
                         "CREATE TABLE TipiVaccini (" +
                                 "idTipologia smallint PRIMARY KEY, " +
@@ -89,7 +78,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     id++;
                 }
                 id = 0;
-
                 statement.executeUpdate(
                         "CREATE TABLE TipiEventi (" +
                                 "idTipologia smallint PRIMARY KEY, " +
@@ -101,7 +89,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                     tipo + "')");
                     id++;
                 }
-
                 statement.executeUpdate(
                         "CREATE TABLE EventiAvversi (" +
                                 "idEvento integer PRIMARY KEY, " +
@@ -115,7 +102,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 "CONSTRAINT fk_Cittadini FOREIGN KEY (idCittadino) REFERENCES Cittadini_Registrati(idCittadino), "
                                 +
                                 "CONSTRAINT fk_TipiEventi FOREIGN KEY (idTipologia) REFERENCES TipiEventi(idTipologia))");
-
                 System.out.println("Creato il database...");
             }
             System.out.println("Connesso al database...");
@@ -123,12 +109,10 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             System.out.println(ex);
         }
     }
-
     public boolean login() {
         System.out.println("logging in...");
         return true;
     }
-
     public void registerCitizen(Cittadino user) {
         try {
             try {
@@ -138,7 +122,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                         .executeQuery();
                 rs.next();
                 rs.getInt("idCittadino");
-
                 System.out.println("User id presente nel database");
             } catch (Exception ex) {
                 Statement statement = conn.createStatement();
@@ -162,14 +145,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 user.getEmail() + "', '" +
                                 user.getUserid() + "', '" +
                                 user.getPassword() + "')");
-
                 System.out.println("Inserito cittadino");
             }
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-
     public void registerCenter(CentroVaccinale center) {
         try {
             boolean check = false;
@@ -180,7 +161,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                         .executeQuery();
                 rs.next();
                 rs.getInt("idCentroVaccinale");
-
                 System.out.println("Centro vaccinale presente nel database");
             } catch (Exception ex) {
                 check = true;
@@ -196,7 +176,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                             .executeQuery();
                     rs.next();
                     rs.getInt("idCentroVaccinale");
-
                     System.out.println("Centro vaccinale presente nel database");
                 } catch (Exception ex) {
                     ResultSet rs = conn
@@ -228,7 +207,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                             rs.next();
                             indirizzo = rs.getInt("idIndirizzo");
                         } catch (Exception ex2) {
-
                             indirizzo = 0;
                         }
                         indirizzo++;
@@ -246,7 +224,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 rs.next();
                                 comune = rs.getInt("idComune");
                             } catch (Exception ex3) {
-
                                 comune = 0;
                             }
                             comune++;
@@ -272,7 +249,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                     center.getNomeCentro() + "', " +
                                     center.getTipoInt() + ", " +
                                     indirizzo + ")");
-
                     System.out.println("Inserito centro");
                 }
             }
@@ -280,7 +256,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             System.out.println(e);
         }
     }
-
     public void registerVaccination(Cittadino user, CentroVaccinale center) {
         try {
             Statement statement = conn.createStatement();
@@ -313,14 +288,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 }
                 id++;
             }
-
             try {
                 ResultSet rs = conn.prepareStatement("SELECT idVaccinazione FROM " + table
                         + " v JOIN Cittadini_Registrati cr ON v.idCittadino=cr.idCittadino WHERE cr.userid='"
                         + user.getUserid() + "'").executeQuery();
                 rs.next();
                 rs.getInt("idVaccinazione");
-
                 System.out.println("User id presente nel database");
             } catch (Exception ex) {
                 int centrovaccinale;
@@ -347,7 +320,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                     user.getDataSomministrazione().split("/")[2] + "-"
                                     + user.getDataSomministrazione().split("/")[1] + "-"
                                     + user.getDataSomministrazione().split("/")[0] + "')");
-
                     System.out.println("Inserita vaccinazione in " + table);
                 } catch (Exception ex1) {
                     System.out.println("Dati inseriti errati");
@@ -358,7 +330,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             System.out.println(e);
         }
     }
-
     public void insertAdverseEvent(Cittadino citizen, CentroVaccinale center, EventoAvverso event) {
         try {
             try {
@@ -368,7 +339,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                         .executeQuery();
                 rs.next();
                 rs.getInt("idEvento");
-
                 System.out.println("Evento avverso presente nel database");
             } catch (Exception ex) {
                 int id;
@@ -385,32 +355,16 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 int centrovaccinale;
                 int cittadino;
                 try {
-					
-					System.out.println("SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + center.getNomeCentro() + "'");
-					
                     rs = conn.prepareStatement(
                             "SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + center.getNomeCentro() + "'")
                             .executeQuery();
                     rs.next();
                     centrovaccinale = rs.getInt("idCentroVaccinale");
-					
-					System.out.println("SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + citizen.getUserid() + "'");
-					
                     rs = conn.prepareStatement(
                             "SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + citizen.getUserid() + "'")
                             .executeQuery();
                     rs.next();
                     cittadino = rs.getInt("idCittadino");
-					
-					System.out.println("INSERT INTO EventiAvversi (idEvento, idCentroVaccinale, idCittadino, idTipologia, severità, note) VALUES ("
-                                    +
-                                    id + ", " +
-                                    centrovaccinale + ", " +
-                                    cittadino + ", " +
-                                    event.getEvento().ordinal() + ", " +
-                                    (int) event.getSeverita() + ", '" +
-                                    event.getNote() + "')");
-					
                     statement.executeUpdate(
                             "INSERT INTO EventiAvversi (idEvento, idCentroVaccinale, idCittadino, idTipologia, severità, note) VALUES ("
                                     +
@@ -420,19 +374,17 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                     event.getEvento().ordinal() + ", " +
                                     (int) event.getSeverita() + ", '" +
                                     event.getNote() + "')"
-
                     );
-
                     System.out.println("Inserito evento avverso");
                 } catch (Exception ex1) {
                     System.out.println("Dati inseriti errati");
+                    ;
                 }
             }
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-
     public ArrayList<CentroVaccinale> getCenters() {
         ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
         try {
@@ -475,7 +427,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
         return output;
     }
-
     public ArrayList<CentroVaccinale> getCentersByName(String name) {
         ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
         try {
@@ -519,7 +470,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
         return output;
     }
-
     public ArrayList<Cittadino> getCitizens() {
         ArrayList<Cittadino> output = new ArrayList<Cittadino>();
         try {
@@ -536,7 +486,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
         return output;
     }
-
     public ArrayList<Cittadino> getCitizensByName(String name, String surname) {
         ArrayList<Cittadino> output = new ArrayList<Cittadino>();
         try {
@@ -555,7 +504,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
         return output;
     }
-
     public ArrayList<EventoAvverso> getAdverseEvents(String centerName) {
         ArrayList<EventoAvverso> output = new ArrayList<EventoAvverso>();
         try {
@@ -585,7 +533,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
         return output;
     }
-
     public ArrayList<Cittadino> getVaccinatedCitizens(CentroVaccinale center) {
         String table = "Vaccinazioni_" + center.getNomeCentro();
         ArrayList<Cittadino> output = new ArrayList<Cittadino>();
@@ -617,14 +564,13 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
         return output;
     }
-
     public Cittadino getCitizenByLogin(String userid, String password) {
         Cittadino output = null;
         try {
             ResultSet rs = conn.prepareStatement(
                     "SELECT * FROM Cittadini_Registrati WHERE userid='" + userid + "' AND password='" + password + "'")
                     .executeQuery();
-            if(rs.next()){
+            if(rs.next(){
                 output = new Cittadino(
                 rs.getString("nome"), rs.getString("cognome"), "", rs.getString("email"), rs.getString("userid"),
                 rs.getString("password"), 0, null, null);
@@ -637,7 +583,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
         return output;
     }
-
     public ArrayList<CentroVaccinale> getCenterByPlaceAndType(String comune, TipoCentroVaccinale tipo) {
         ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
         try {
@@ -672,7 +617,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
         return output;
     }
-
     public CentroVaccinale getCenterByVaccinatedCitizen(Cittadino user) {
         CentroVaccinale output = null;
         try {
