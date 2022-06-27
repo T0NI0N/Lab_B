@@ -48,7 +48,7 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>app.centrivaccinali.CentriVaccinali</mainClass>
+                            <mainClass>app.client.centrivaccinali.CentriVaccinali</mainClass>
                         </configuration>
                     </execution>
                 </executions>

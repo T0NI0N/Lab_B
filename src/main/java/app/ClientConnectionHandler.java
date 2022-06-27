@@ -5,9 +5,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
-import app.centrivaccinali.CentroVaccinale;
-import app.centrivaccinali.EventoAvverso;
-import app.cittadini.Cittadino;
+import app.client.centrivaccinali.CentroVaccinale;
+import app.client.centrivaccinali.EventoAvverso;
+import app.client.cittadini.Cittadino;
 import app.server.ConnectionHandlerInterface;
 
 /**

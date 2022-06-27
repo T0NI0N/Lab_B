@@ -1,4 +1,4 @@
-package app.centrivaccinali;
+package app.client.centrivaccinali;
 
 import java.io.IOException;
 

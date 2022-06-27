@@ -1,9 +1,9 @@
-package app.centrivaccinali;
+package app.client.centrivaccinali;
 
 import app.ClientConnectionHandler;
 import app.TipoCentroVaccinale;
 import app.TipoVaccino;
-import app.cittadini.Cittadino;
+import app.client.cittadini.Cittadino;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

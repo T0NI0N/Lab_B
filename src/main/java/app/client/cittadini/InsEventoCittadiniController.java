@@ -1,4 +1,4 @@
-package app.cittadini;
+package app.client.cittadini;
 
 import java.io.IOException;
 import java.net.URL;
@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import app.ClientConnectionHandler;
-import app.centrivaccinali.CentriVaccinali;
+import app.client.centrivaccinali.CentriVaccinali;
 import app.TipoEventoAvverso;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

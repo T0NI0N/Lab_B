@@ -5,11 +5,11 @@ module demo {
     requires java.rmi;
     requires java.sql;
 
-    opens app.cittadini to javafx.fxml;
+    opens app.client.cittadini to javafx.fxml;
     opens app to javafx.graphics;
 
     exports app.server;
-    exports app.cittadini;
-    opens app.centrivaccinali to javafx.fxml, javafx.graphics;
+    exports app.client.cittadini;
+    opens app.client.centrivaccinali to javafx.fxml, javafx.graphics;
     opens app.server;
 }
