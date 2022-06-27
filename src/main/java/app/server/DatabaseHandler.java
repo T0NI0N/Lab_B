@@ -668,7 +668,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 present = false;
                 table = "Vaccinazioni_" + x.getNomeCentro();
                 try {
-                    System.out.println("asdas");
                     rs = conn.prepareStatement(
                             "SELECT * FROM " + table)
                             .executeQuery();
