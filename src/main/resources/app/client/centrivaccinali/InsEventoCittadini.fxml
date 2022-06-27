@@ -60,14 +60,14 @@
                   </Label>
                   <HBox spacing="8.0">
                      <children>
-                        <RadioButton fx:id="rbSevValue1" mnemonicParsing="false" text="1">
+                        <RadioButton fx:id="rbSevValue1" mnemonicParsing="false" text="1" userData="1">
                            <toggleGroup>
                               <ToggleGroup fx:id="tgRbSev" />
                            </toggleGroup></RadioButton>
-                        <RadioButton fx:id="rbSevValue2" mnemonicParsing="false" text="2" toggleGroup="$tgRbSev" />
-                        <RadioButton fx:id="rbSevValue3" mnemonicParsing="false" text="3" toggleGroup="$tgRbSev" />
-                        <RadioButton fx:id="rbSevValue4" mnemonicParsing="false" text="4" toggleGroup="$tgRbSev" />
-                        <RadioButton fx:id="rbSevValue5" mnemonicParsing="false" text="5" toggleGroup="$tgRbSev" />
+                        <RadioButton fx:id="rbSevValue2" mnemonicParsing="false" text="2" toggleGroup="$tgRbSev" userData="2"/>
+                        <RadioButton fx:id="rbSevValue3" mnemonicParsing="false" text="3" toggleGroup="$tgRbSev" userData="3"/>
+                        <RadioButton fx:id="rbSevValue4" mnemonicParsing="false" text="4" toggleGroup="$tgRbSev" userData="4"/>
+                        <RadioButton fx:id="rbSevValue5" mnemonicParsing="false" text="5" toggleGroup="$tgRbSev" userData="5"/>
                      </children>
                      <HBox.margin>
                         <Insets left="4.0" top="16.0" />
