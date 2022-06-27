@@ -1,4 +1,4 @@
-package app.client.cittadini;
+package app.cittadini;
 
 import java.io.IOException;
 import java.net.URL;
@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import app.ClientConnectionHandler;
-import app.client.centrivaccinali.CentriVaccinali;
+import app.centrivaccinali.CentriVaccinali;
 import app.TipoEventoAvverso;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -64,10 +64,11 @@ public class InsEventoCittadiniController implements Initializable {
     private void btnSubmitPressed() throws IOException {
         System.out.println("Button submit pressed");
         eventType = eventTypeBox.getValue();
-        sev = Integer.parseInt(tgRbSev.getSelectedToggle().toString());
+        sev = Double.parseDouble(tgRbSev.getSelectedToggle().toString());
         notes = txtNotes.getText();
-
-        //connectionHandler.insertAdverseEvent(citizen, center, event);
+		
+		//TODO inserire cittadino e nomecentro e controllare se funziona
+		//connectionHandler.insertAdverseEvent(citizen, connectionHandler.getCentersByName("nome centro")[0], new EventoAvverso(eventType, sev, notes));
 
         //System.out.println(eventType + " | " + sev + " | " + notes);
     }
