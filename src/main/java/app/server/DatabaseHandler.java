@@ -323,7 +323,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     System.out.println("Inserita vaccinazione in " + table);
                 } catch (Exception ex1) {
                     System.out.println("Dati inseriti errati");
-                    ;
+                    System.out.println(ex1.getMessage());
                 }
             }
         } catch (Exception e) {
@@ -570,7 +570,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             ResultSet rs = conn.prepareStatement(
                     "SELECT * FROM Cittadini_Registrati WHERE userid='" + userid + "' AND password='" + password + "'")
                     .executeQuery();
-            if(rs.next(){
+            if(rs.next()){
                 output = new Cittadino(
                 rs.getString("nome"), rs.getString("cognome"), "", rs.getString("email"), rs.getString("userid"),
                 rs.getString("password"), 0, null, null);

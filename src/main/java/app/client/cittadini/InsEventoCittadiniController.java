@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import app.client.centrivaccinali.CentroVaccinale;
+import app.client.centrivaccinali.EventoAvverso;
 import app.ClientConnectionHandler;
 import app.TipoEventoAvverso;
 import javafx.collections.FXCollections;
@@ -42,12 +44,19 @@ public class InsEventoCittadiniController implements Initializable {
     private TipoEventoAvverso eventType;
     private int sev;
     private String notes;
+    private Cittadino cittadino;
+    private CentroVaccinale centroVaccinale;
 
     private ClientConnectionHandler connectionHandler;
 
+    public void setCittadino(Cittadino cittadino) {
+        this.cittadino=cittadino;
+    }
+    public void setCenter(CentroVaccinale centroVaccinale){
+        this.centroVaccinale = centroVaccinale;
+    }
     @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
 
         eventTypeBox.setItems(FXCollections.observableList(Arrays.asList(TipoEventoAvverso.values())));
@@ -64,12 +73,16 @@ public class InsEventoCittadiniController implements Initializable {
     private void btnSubmitPressed() throws IOException {
         System.out.println("Button submit pressed");
         eventType = eventTypeBox.getValue();
-        sev = (int) Double.parseDouble(tgRbSev.getSelectedToggle().toString());
+        sev = Integer.parseInt(tgRbSev.getSelectedToggle().getUserData().toString());
         notes = txtNotes.getText();
 		
 		//TODO inserire cittadino e nomecentro e controllare se funziona
-		//connectionHandler.insertAdverseEvent(citizen, connectionHandler.getCentersByName("nome centro")[0], new EventoAvverso(eventType, sev, notes));
+        System.out.println(cittadino.toString());
+        System.out.println(centroVaccinale.toString());
+        System.out.println(new EventoAvverso(eventType, sev, notes));
+		connectionHandler.insertAdverseEvent(cittadino, centroVaccinale, new EventoAvverso(eventType, sev, notes));
 
-        //System.out.println(eventType + " | " + sev + " | " + notes);
+        System.out.println(eventType + " | " + sev + " | " + notes);
     }
+
 }

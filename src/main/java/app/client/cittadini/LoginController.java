@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import app.ClientConnectionHandler;
 import app.client.centrivaccinali.CentriVaccinali;
+import app.client.centrivaccinali.CentroVaccinale;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
@@ -45,6 +46,13 @@ public class LoginController implements Initializable {
 
         if (success) {
             CentriVaccinali.switchScene("InsEventoCittadini");
+            Cittadino ct = connectionHandler.getCitizenByLogin(username, password);
+            CentroVaccinale cv = connectionHandler.getCenterByVaccinatedCitizen(ct);
+            System.out.println(ct.toString());
+            new InsEventoCittadiniController().setCittadino(ct);
+
+            System.out.println(cv.toString());
+            new InsEventoCittadiniController().setCenter(cv);
         }
 
         // System.out.println(username + " | " + password);
