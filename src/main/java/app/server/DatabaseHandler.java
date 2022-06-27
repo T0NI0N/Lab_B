@@ -326,34 +326,16 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 int centrovaccinale;
                 int cittadino;
                 try {
-				
-					System.out.println("SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + center.getNomeCentro() + "'");
-				
                     ResultSet rs = conn.prepareStatement(
                             "SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + center.getNomeCentro() + "'")
                             .executeQuery();
                     rs.next();
                     centrovaccinale = rs.getInt("idCentroVaccinale");
-					
-					System.out.println("SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + user.getUserid() + "'");
-					
                     rs = conn.prepareStatement(
                             "SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + user.getUserid() + "'")
                             .executeQuery();
                     rs.next();
                     cittadino = rs.getInt("idCittadino");
-					
-					System.out.println("INSERT INTO " + table
-                                    + " (idVaccinazione, idCentroVaccinale, idCittadino, idTipologia, data_somministrazione) VALUES ("
-                                    +
-                                    id + ", " +
-                                    centrovaccinale + ", " +
-                                    cittadino + ", " +
-                                    user.getTipo().ordinal() + ", '" +
-                                    user.getDataSomministrazione().split("/")[2] + "-"
-                                    + user.getDataSomministrazione().split("/")[1] + "-"
-                                    + user.getDataSomministrazione().split("/")[0] + "')");
-					
                     statement.executeUpdate(
                             "INSERT INTO " + table
                                     + " (idVaccinazione, idCentroVaccinale, idCittadino, idTipologia, data_somministrazione) VALUES ("
@@ -403,16 +385,32 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 int centrovaccinale;
                 int cittadino;
                 try {
+					
+					System.out.println("SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + center.getNomeCentro() + "'");
+					
                     rs = conn.prepareStatement(
                             "SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + center.getNomeCentro() + "'")
                             .executeQuery();
                     rs.next();
                     centrovaccinale = rs.getInt("idCentroVaccinale");
+					
+					System.out.println("SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + citizen.getUserid() + "'");
+					
                     rs = conn.prepareStatement(
                             "SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + citizen.getUserid() + "'")
                             .executeQuery();
                     rs.next();
                     cittadino = rs.getInt("idCittadino");
+					
+					System.out.println("INSERT INTO EventiAvversi (idEvento, idCentroVaccinale, idCittadino, idTipologia, severità, note) VALUES ("
+                                    +
+                                    id + ", " +
+                                    centrovaccinale + ", " +
+                                    cittadino + ", " +
+                                    event.getEvento().ordinal() + ", " +
+                                    (int) event.getSeverita() + ", '" +
+                                    event.getNote() + "')");
+					
                     statement.executeUpdate(
                             "INSERT INTO EventiAvversi (idEvento, idCentroVaccinale, idCittadino, idTipologia, severità, note) VALUES ("
                                     +
