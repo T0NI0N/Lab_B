@@ -50,7 +50,7 @@ public class RegCittVaccinatoController implements Initializable {
             new Cittadino(tf_nome.getText(), tf_cognome.getText(), tf_codiceFiscale.getText(), "", "", "", 0, dp_data.getValue().getDayOfMonth()+"/"+dp_data.getValue().getMonth()+"/"+dp_data.getValue().getYear(), chb_vaccino.getValue()), 
             new CentroVaccinale(tf_centroV.getText(), new Indirizzo("", "", "", "", "", 0), TipoCentroVaccinale.OSPEDALIERO)
         );
-        // TODO inserire perlomeno userid
+        // TODO inserire email, userid e password
 
     }
 

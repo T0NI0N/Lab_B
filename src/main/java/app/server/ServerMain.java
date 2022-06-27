@@ -8,6 +8,14 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.ConsoleHandler;
 
+import app.TipoCentroVaccinale;
+import app.TipoEventoAvverso;
+import app.TipoVaccino;
+import app.client.centrivaccinali.CentroVaccinale;
+import app.client.centrivaccinali.EventoAvverso;
+import app.client.centrivaccinali.Indirizzo;
+import app.client.cittadini.Cittadino;
+
 public class ServerMain {
 
     private static String host = "localhost";
