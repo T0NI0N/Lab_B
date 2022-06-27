@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import app.ClientConnectionHandler;
 import app.centrivaccinali.CentriVaccinali;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,12 +17,15 @@ import javafx.scene.input.KeyEvent;
 
 public class HomeCittadiniController implements Initializable {
 
-    private boolean userLoggedIn;
+    private ClientConnectionHandler connectionHandler;
+    private boolean userLoggedIn = false;
+    private Cittadino loggedUser;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // TODO va impostato un metodo nella classe cittadino per verificare se è loggato
-        userLoggedIn = false;
+        connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
+        loggedUser = connectionHandler.getLoggedUser();
+        userLoggedIn = (loggedUser != null);
     }
 
     @FXML

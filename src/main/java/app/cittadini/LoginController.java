@@ -1,10 +1,12 @@
 package app.cittadini;
 
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import app.ClientConnectionHandler;
+import app.centrivaccinali.CentriVaccinali;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
@@ -29,18 +31,22 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void login() {
+    private void login() throws IOException {
         username = txtUsername.getText();
         password = txtPassword.getText();
 
+        boolean success = false;
+
         try {
-            connectionHandler.getCitizenByLogin(username, password);
+            success = connectionHandler.login(username, password);
         } catch (RemoteException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        System.out.println(username + " | " + password);
+        if (success) {
+            CentriVaccinali.switchScene("InsEventoCittadini");
+        }
+
+        // System.out.println(username + " | " + password);
     }
 }
-
