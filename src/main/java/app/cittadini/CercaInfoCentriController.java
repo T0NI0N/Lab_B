@@ -146,12 +146,12 @@ public class CercaInfoCentriController implements Initializable {
             e.printStackTrace();
         }
 
-        try {
+        if (eventList.size() == 0) {
+            lvInfo.getItems().add("Nessun evento avverso registrato");
+        } else {
             for (EventoAvverso evento : eventList) {
                 lvInfo.getItems().add(evento.toString());
             }
-        } catch (Exception e) {
-            lvInfo.getItems().add("Nessun evento avverso registrato");
         }
 
     }

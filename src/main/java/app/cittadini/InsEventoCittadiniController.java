@@ -67,8 +67,8 @@ public class InsEventoCittadiniController implements Initializable {
         sev = Integer.parseInt(tgRbSev.getSelectedToggle().toString());
         notes = txtNotes.getText();
 
-        // TODO inserire metodo registrazione eventi avversi
+        //connectionHandler.insertAdverseEvent(citizen, center, event);
 
-        System.out.println(eventType + " | " + sev + " | " + notes);
+        //System.out.println(eventType + " | " + sev + " | " + notes);
     }
 }
