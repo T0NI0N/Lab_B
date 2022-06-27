@@ -11,4 +11,5 @@ module demo {
     exports app.server;
     exports app.cittadini;
     opens app.centrivaccinali to javafx.fxml, javafx.graphics;
+    opens app.server;
 }
