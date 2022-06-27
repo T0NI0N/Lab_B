@@ -163,7 +163,7 @@ public class CentroVaccinale implements Serializable {
 
     @Override
     public String toString() {
-        return "CentroVaccinale [nomeCentro=" + nomeCentro + ", indirizzo=" + indirizzo + ", tipo=" + tipo + "]";
+        return "Centro " + nomeCentro + ", " + indirizzo + ", " + tipo;
     }
 
 }

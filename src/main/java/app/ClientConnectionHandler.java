@@ -146,8 +146,8 @@ public class ClientConnectionHandler {
 	@param center il centro di cui si vogliono ottenere i parametri
 	@return gli eventi avversi collegati al centro passato in input
 	*/
-    public ArrayList<EventoAvverso> getAdverseEvents(CentroVaccinale center) throws RemoteException{
-		return stub.getAdverseEvents(center);
+    public ArrayList<EventoAvverso> getAdverseEvents(String centerName) throws RemoteException{
+		return stub.getAdverseEvents(centerName);
 	}
 
 	/*

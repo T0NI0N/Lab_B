@@ -47,6 +47,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="100.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
@@ -101,8 +103,8 @@
                         <Font size="16.0" />
                      </font>
                   </RadioButton>
-                  <ListView fx:id="lvResults" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="6" />
-                  <Label text="Risultati" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                  <ListView fx:id="lvResults" onMouseClicked="#showEvent" prefHeight="52.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="6" GridPane.rowSpan="3" />
+                  <Label text="Risultati" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -110,7 +112,7 @@
                         <Insets right="8.0" />
                      </padding>
                   </Label>
-                  <ListView fx:id="lvInfo" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="8" />
+                  <ListView fx:id="lvInfo" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="10" />
                   <ChoiceBox fx:id="centreTypeBox" prefWidth="150.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
                </children>
             </GridPane>

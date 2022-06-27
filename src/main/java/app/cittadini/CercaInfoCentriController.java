@@ -2,19 +2,26 @@ package app.cittadini;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import app.ClientConnectionHandler;
 import app.centrivaccinali.CentriVaccinali;
+import app.centrivaccinali.CentroVaccinale;
+import app.centrivaccinali.EventoAvverso;
 import app.TipoCentroVaccinale;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.fxml.Initializable;
@@ -48,6 +55,9 @@ public class CercaInfoCentriController implements Initializable {
     private TipoCentroVaccinale centreType;
 
     private ClientConnectionHandler connectionHandler;
+    private boolean nameSearch;
+    private ArrayList<CentroVaccinale> result;
+    private ArrayList<EventoAvverso> eventList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -67,6 +77,10 @@ public class CercaInfoCentriController implements Initializable {
         txtName.setDisable(false);
         txtCom.setDisable(true);
         centreTypeBox.setDisable(true);
+
+        clearData();
+
+        nameSearch = true;
     }
 
     @FXML
@@ -74,6 +88,10 @@ public class CercaInfoCentriController implements Initializable {
         txtCom.setDisable(false);
         centreTypeBox.setDisable(false);
         txtName.setDisable(true);
+
+        clearData();
+
+        nameSearch = false;
     }
 
     @FXML
@@ -87,13 +105,61 @@ public class CercaInfoCentriController implements Initializable {
         centreName = txtName.getText();
         com = txtCom.getText();
         centreType = centreTypeBox.getValue();
-        try
-        {
-            connectionHandler.getCenterByPlaceAndType(txtCom.getText(), centreTypeBox.getValue());
-        }
-        catch(Exception ex)
-        {}
 
-        System.out.println(centreName + " | " + com + " | " + centreType);
+        if (tgSearchType.getSelectedToggle() != null) {
+
+            try {
+                if (!nameSearch) {
+                    result = connectionHandler.getCenterByPlaceAndType(com, centreType);
+                } else {
+                    result = connectionHandler.getCentersByName(centreName);
+                }
+
+            } catch (Exception ex) {
+            }
+
+            for (CentroVaccinale centro : result) {
+                lvResults.getItems().add(centro.toString());
+            }
+        } else {
+            Alert a = new Alert(AlertType.NONE, "Seleziona un tipo di ricerca", ButtonType.OK);
+
+            a.setTitle("Errore");
+            a.setHeaderText("Dati mancanti");
+
+            a.show();
+        }
+
+    }
+
+    @FXML
+    private void showEvent() {
+
+        String centre = lvResults.getSelectionModel().getSelectedItem();
+        int i = centre.indexOf(",");
+        String centreName = centre.substring(6, i);
+
+        try {
+            eventList = connectionHandler.getAdverseEvents(centreName);
+        } catch (RemoteException e) {
+
+            e.printStackTrace();
+        }
+
+        try {
+            for (EventoAvverso evento : eventList) {
+                lvInfo.getItems().add(evento.toString());
+            }
+        } catch (Exception e) {
+            lvInfo.getItems().add("Nessun evento avverso registrato");
+        }
+
+    }
+
+    private void clearData() {
+        txtName.clear();
+        txtCom.clear();
+        lvInfo.getItems().clear();
+        lvResults.getItems().clear();
     }
 }

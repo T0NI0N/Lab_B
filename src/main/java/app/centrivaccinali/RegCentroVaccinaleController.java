@@ -40,13 +40,21 @@ public class RegCentroVaccinaleController implements Initializable {
     private void onEnterPressed() throws IOException {
 
         System.out.println("Enter button pressed");
+
+        try {
+            connectionHandler.registerCenter(new CentroVaccinale(tf_nomeCentro.getText(),
+                    new Indirizzo(chb_tipoIndirizzo.getValue(), tf_via.getText(), tf_numCivico.getText(),
+                            tf_comune.getText(), tf_prov.getText(), Integer.parseInt(tf_cap.getText())),
+                    chb_tipoCentro.getValue()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         System.out.println(tf_nomeCentro.getText());
         System.out.println(chb_tipoIndirizzo.getValue() + " " + tf_via.getText() + " " + tf_numCivico.getText());
         System.out.println(tf_comune.getText() + " (" + tf_prov.getText() + ")" + " " + tf_cap.getText());
         System.out.println(chb_tipoCentro.getValue());
 
-        connectionHandler.registerCenter(new CentroVaccinale(tf_nomeCentro.getText(), new Indirizzo("", tf_via.getText(), tf_numCivico.getText(), tf_comune.getText(), tf_prov.getText(), Integer.parseInt(tf_cap.getText())), chb_tipoCentro.getValue()));
-        // TODO inserire il qualificatore
     }
 
     @FXML
@@ -69,3 +77,4 @@ public class RegCentroVaccinaleController implements Initializable {
     }
 
 }
+

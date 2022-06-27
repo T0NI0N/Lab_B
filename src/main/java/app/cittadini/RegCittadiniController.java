@@ -65,7 +65,6 @@ public class RegCittadiniController implements Initializable {
         try {
             connectionHandler.registerCitizen(user);
         } catch (RemoteException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

@@ -101,6 +101,6 @@ public class EventoAvverso implements Serializable {
      * @return una stringa che contiene tutti i valori dei campi di EventiAvversi
      */
     public String toString() {
-        return evento + " | " + severita + " | " + note;
+        return evento + " | severità media: " + severita + " | " + note;
     }
 }

@@ -28,7 +28,7 @@ public interface ConnectionHandlerInterface extends Remote {
 
     public ArrayList<Cittadino> getCitizensByName(String name, String surname) throws RemoteException;
 
-    public ArrayList<EventoAvverso> getAdverseEvents(CentroVaccinale center) throws RemoteException;
+    public ArrayList<EventoAvverso> getAdverseEvents(String centerName) throws RemoteException;
 
     public ArrayList<Cittadino> getCitizens() throws RemoteException;
 

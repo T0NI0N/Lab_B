@@ -1,6 +1,7 @@
 package app.cittadini;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import app.ClientConnectionHandler;
@@ -32,8 +33,14 @@ public class LoginController implements Initializable {
         username = txtUsername.getText();
         password = txtPassword.getText();
 
-        // TODO inserire metodo login
+        try {
+            connectionHandler.getCitizenByLogin(username, password);
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         System.out.println(username + " | " + password);
     }
 }
+
