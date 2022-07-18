@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="325.0" maxWidth="750.0" minHeight="325.0" minWidth="750.0" onKeyPressed="#onEscapePressed" prefHeight="325.0" prefWidth="750.0" spacing="4.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegCittadiniController">
+<VBox alignment="TOP_CENTER" maxHeight="280.0" maxWidth="750.0" minHeight="280.0" minWidth="750.0" onKeyPressed="#onEscapePressed" prefHeight="280.0" prefWidth="750.0" spacing="4.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegCittadiniController">
    <children>
       <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Area cittadini: registrazione">
          <font>
@@ -38,7 +38,6 @@
             <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
           <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
           <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <VBox.margin>
@@ -62,14 +61,6 @@
                </font>
             </Label>
             <Label text="Nome utente" textAlignment="CENTER" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets bottom="8.0" right="16.0" top="8.0" />
-               </GridPane.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label text="Id vaccinazione" textAlignment="CENTER" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="8.0" right="16.0" top="8.0" />
                </GridPane.margin>
@@ -108,14 +99,13 @@
             </TextField>
             <TextField fx:id="txtCodf" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
             <TextField fx:id="txtUsername" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
-            <TextField fx:id="txtIdVacc" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
             <Region GridPane.columnIndex="2" />
             <Region GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Region GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <TextField fx:id="txtSurname" GridPane.columnIndex="5" />
             <TextField fx:id="txtEmail" GridPane.columnIndex="5" GridPane.rowIndex="1" />
             <TextField fx:id="txtPassword" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#register" text="Conferma" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#register" text="Conferma" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>

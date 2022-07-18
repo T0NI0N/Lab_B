@@ -22,7 +22,7 @@ public class CentriVaccinali extends Application {
     private static Scene scene;
     private static Stage primaryStage;
 
-    //private static ClientConnectionHandler connectionHandler;
+    private static ClientConnectionHandler connectionHandler;
 
     /**
      * Lancia l'applicazione e l'interfaccia grafica instanziando constestualmente
@@ -34,8 +34,8 @@ public class CentriVaccinali extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        //connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
-        //connectionHandler.connect();
+        connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
+        connectionHandler.connect();
 
         CentriVaccinali.primaryStage = primaryStage;
         scene = new Scene(loadFXML("Home"));
@@ -54,7 +54,7 @@ public class CentriVaccinali extends Application {
 
                 if (result.get() == ButtonType.OK) {
                     System.out.println("Closing...");
-                    //connectionHandler.disconnect();
+                    connectionHandler.disconnect();
                     System.exit(0);
                 } else
                     event.consume();
