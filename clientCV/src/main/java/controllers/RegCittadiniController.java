@@ -1,10 +1,11 @@
+// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
+
 package controllers;
 
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-
 import centrivaccinali.CentriVaccinali;
 import centrivaccinali.ClientConnectionHandler;
 import cittadini.Cittadino;
@@ -28,8 +29,7 @@ public class RegCittadiniController implements Initializable {
     private TextField txtUsername;
     @FXML
     private TextField txtPassword;
-    @FXML
-    private TextField txtIdVacc;
+
 
     private String name;
     private String surname;
@@ -60,7 +60,6 @@ public class RegCittadiniController implements Initializable {
         email = txtEmail.getText();
         username = txtUsername.getText();
         password = txtPassword.getText();
-        idVacc = Long.parseLong(txtIdVacc.getText());
 
         Cittadino user = new Cittadino(name, surname, codf, email, username, password, idVacc);
         try {

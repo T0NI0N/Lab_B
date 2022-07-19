@@ -1,7 +1,8 @@
+// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
+
 package controllers;
 
 import java.io.IOException;
-
 import centrivaccinali.CentriVaccinali;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

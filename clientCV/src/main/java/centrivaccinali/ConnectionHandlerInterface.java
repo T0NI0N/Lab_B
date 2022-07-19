@@ -1,10 +1,9 @@
+// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
+
 package centrivaccinali;
-
-
 
 import cittadini.Cittadino;
 import enums.TipoCentroVaccinale;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;

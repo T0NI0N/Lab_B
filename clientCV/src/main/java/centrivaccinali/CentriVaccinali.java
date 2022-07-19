@@ -1,3 +1,5 @@
+// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
+
 package centrivaccinali;
 
 import javafx.application.Application;
@@ -10,7 +12,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
 import java.io.IOException;
 import java.util.Optional;
 
@@ -74,6 +75,7 @@ public class CentriVaccinali extends Application {
         scene = new Scene(loadFXML(fxml));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
+        primaryStage.centerOnScreen();
         primaryStage.show();
     }
 
