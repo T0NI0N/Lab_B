@@ -11,9 +11,12 @@ import centrivaccinali.ClientConnectionHandler;
 import cittadini.Cittadino;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import utils.EncryptData;
+import utils.ValidateData;
 
 public class RegCittadiniController implements Initializable {
 
@@ -52,8 +55,17 @@ public class RegCittadiniController implements Initializable {
             CentriVaccinali.switchScene("HomeCittadini");
     }
 
-    @FXML
-    private void register() {
+    /**
+     * Controlla la correttezza dei dati forniti dall'utente
+     * e in caso di problemi mostra una finestra di errore
+     *
+     * @return true se il controllo va a buon fine, false altrimenti
+     */
+    private boolean checkData(){
+
+        String error = "";
+        boolean success = true;
+
         name = txtName.getText();
         surname = txtSurname.getText();
         codf = txtCodf.getText();
@@ -61,7 +73,61 @@ public class RegCittadiniController implements Initializable {
         username = txtUsername.getText();
         password = txtPassword.getText();
 
-        Cittadino user = new Cittadino(name, surname, codf, email, username, password, idVacc);
+
+        if(name.equals("") || surname.equals("") || codf.equals("") || email.equals("") || username.equals("") || password.equals("")){
+            showErrorBox("- Dati necessari non inseriti");
+            return false;
+        }
+
+        if(ValidateData.validateCodf(codf)){
+            error += "- Codice fiscale inserito non valido \n";
+            success = false;
+        }
+
+        if(!ValidateData.validateMail(email)){
+            error += "- Email inserita non valida \n";
+            success = false;
+        }
+
+        if(!ValidateData.validatePassword(password)){
+            error += "- La password inserita non rispetta la complessità minima richiesta \n";
+            success = false;
+        }
+
+        // TODO completare i controlli quando saranno ultimati i metodi del db richiesti
+        /*
+        boolean idAvailable = connectionHandler.COSE;
+        if(!idAvailable) {
+            error += "- L'userID scelto è già in uso" + "\n";
+            success = false;
+        }
+
+        boolean emailAvailable = connectionHandler.COSE;
+        if(!emailAvailable) {
+            error += "- L'indirizzo email scelto è già in uso";
+            success = false;
+        }
+        */
+
+        if(!success) {
+            showErrorBox(error);
+        }
+
+        return success;
+    }
+
+    /**
+     * Registra a sistema l'utente tramite le credenziali fornite,
+     * oppure mostra gli errori riscontrati durante la registrazione
+     */
+    @FXML
+    private void register() {
+
+        boolean correctData = checkData();
+        if(!correctData){ return; }
+
+
+        Cittadino user = new Cittadino(name, surname, codf, email, username, EncryptData.encrypt(password), idVacc);
         try {
             connectionHandler.registerCitizen(user);
         } catch (RemoteException e) {
@@ -70,5 +136,18 @@ public class RegCittadiniController implements Initializable {
 
         System.out.println(name + " | " + surname + " | " + codf + " | " + email + " | " + username + " | " + password
                 + " | " + idVacc);
+    }
+
+    /**
+     * Mostra un messaggio di errore
+     *
+     * @param error i problemi riscontrati da visualizzare
+     */
+    private void showErrorBox(String error) {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Errore");
+        a.setHeaderText("");
+        a.setContentText("Problemi riscontrati durante la registrazione: " + "\n" + error);
+        a.showAndWait();
     }
 }
