@@ -60,6 +60,12 @@ public class CercaInfoCentriController implements Initializable {
     private ArrayList<CentroVaccinale> result;
     private ArrayList<EventoAvverso> eventList;
 
+    /**
+     * inizializza la connessione alla base di dati e dei campi della schermata
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -73,6 +79,11 @@ public class CercaInfoCentriController implements Initializable {
         centreTypeBox.setDisable(true);
     }
 
+    /**
+     * gestisce il click che riguarda la ricerca del centro vaccinale per nome
+     * disabilitando i campi dell'altro tipo di ricerca
+     * e imposta il tipo di ricerca del centro a ricerca per nome
+     */
     @FXML
     private void onNameSearchPressed() {
         txtName.setDisable(false);
@@ -84,6 +95,11 @@ public class CercaInfoCentriController implements Initializable {
         nameSearch = true;
     }
 
+    /**
+     * gestisce il click che riguarda la ricerca del centro vaccinale per comune e tipo
+     * disabilitando i campi dell'altro tipo di ricerca
+     * e imposta il tipo di ricerca del centro a ricerca per comune e tipo
+     */
     @FXML
     private void onCentreTypeSearchPressed() {
         txtCom.setDisable(false);
@@ -95,12 +111,24 @@ public class CercaInfoCentriController implements Initializable {
         nameSearch = false;
     }
 
+    /**
+     * Gestisce la pressione del tasto escape (esc) da tastiera
+     * ritornando alla schermata precedente
+     *
+     * @param event evento che indica la pressione di un tasto
+     * @throws IOException
+     */
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
             CentriVaccinali.switchScene("HomeCittadini");
     }
 
+    /**
+     * Ricerca e mostra all'utente la lista dei centri vaccinali,
+     * in base alle preferenze di ricerca (nome oppure comune e tipo)
+     * oppure mostra gli errori riscontrati durante la procedura
+     */
     @FXML
     private void search() {
         centreName = txtName.getText();
@@ -116,51 +144,83 @@ public class CercaInfoCentriController implements Initializable {
                     result = connectionHandler.getCentersByName(centreName);
                 }
 
+                if(!result.isEmpty()){
+                    for (CentroVaccinale centro : result) {
+                        lvResults.getItems().add(centro.toString());
+                    }
+                }else{
+                    showInfoBox("Nessun centro vaccinale trovato");
+                }
+
             } catch (Exception ex) {
+                System.out.println(ex);
             }
 
-            for (CentroVaccinale centro : result) {
-                lvResults.getItems().add(centro.toString());
-            }
         } else {
-            Alert a = new Alert(AlertType.NONE, "Seleziona un tipo di ricerca", ButtonType.OK);
-
-            a.setTitle("Errore");
-            a.setHeaderText("Dati mancanti");
-
-            a.show();
+            showErrorBox("Seleziona un tipo di ricerca");
         }
 
     }
 
+    /**
+     * Ricerca e mostra all'utente un prospetto informativo degli eventi avversi
+     * registrati in un centro vaccinale, se ne sono stati registrati
+     */
     @FXML
     private void showEvent() {
-
-        String centre = lvResults.getSelectionModel().getSelectedItem();
-        int i = centre.indexOf(",");
-        String centreName = centre.substring(6, i);
-
         try {
+            String centre = lvResults.getSelectionModel().getSelectedItem();
+            int i = centre.indexOf(",");
+            String centreName = centre.substring(6, i);
             eventList = connectionHandler.getAdverseEvents(centreName);
-        } catch (RemoteException e) {
-
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e);
         }
 
-        if (eventList.size() == 0) {
-            lvInfo.getItems().add("Nessun evento avverso registrato");
-        } else {
+        if (!eventList.isEmpty()) {
             for (EventoAvverso evento : eventList) {
                 lvInfo.getItems().add(evento.toString());
             }
+        } else {
+            showInfoBox("Nessun evento avverso registrato");
         }
 
     }
 
+    /**
+     * Azzera i campi mostrati a schermo
+     */
     private void clearData() {
         txtName.clear();
         txtCom.clear();
         lvInfo.getItems().clear();
         lvResults.getItems().clear();
+    }
+
+    /**
+     * Mostra un messaggio di errore
+     *
+     * @param error i problemi riscontrati da visualizzare
+     */
+    @FXML
+    private void showErrorBox(String error){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Errore");
+        a.setHeaderText("");
+        a.setContentText(error);
+        a.showAndWait();
+    }
+
+    /**
+     * Mostra un messaggio informativo
+     *
+     * @param info le informazioni da visualizzare
+     */
+    private void showInfoBox(String info) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Attenzione");
+        alert.setHeaderText("");
+        alert.setContentText(info);
+        alert.showAndWait();
     }
 }
