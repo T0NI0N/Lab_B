@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import utils.EncryptData;
 
 public class LoginController implements Initializable {
 
@@ -28,22 +29,28 @@ public class LoginController implements Initializable {
 
     private ClientConnectionHandler connectionHandler;
 
+    /**
+     * inizializza la connessione alla base di dati
+     *
+     * @param location
+     * @param resources
+     */
     @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
+    public void initialize(URL location, ResourceBundle resources) {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
     }
 
     @FXML
     private void login() throws IOException {
         username = txtUsername.getText();
-        password = txtPassword.getText();
+        password = EncryptData.encrypt(txtPassword.getText());
 
         boolean success = false;
 
         try {
             success = connectionHandler.login(username, password);
         } catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
 
         if (success) {

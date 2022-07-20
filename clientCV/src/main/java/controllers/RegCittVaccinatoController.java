@@ -58,14 +58,27 @@ public class RegCittVaccinatoController implements Initializable {
 
     }
 
+    /**
+     * Gestisce la pressione del tasto escape (esc) da tastiera
+     * ritornando alla schermata precedente
+     *
+     * @param event evento che indica la pressione di un tasto
+     * @throws IOException
+     */
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
             CentriVaccinali.switchScene("HomeOperatori");
     }
 
+    /**
+     * inizializza la connessione alla base di dati e dei campi della schermata
+     *
+     * @param location
+     * @param resources
+     */
     @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
+    public void initialize(URL location, ResourceBundle resources) {
 
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
 

@@ -24,19 +24,37 @@ public class HomeCittadiniController implements Initializable {
     private boolean userLoggedIn = false;
     private Cittadino loggedUser;
 
+    /**
+     * inizializza la connessione alla base di dati
+     * e recupera il cittadino che ha fatto il login, se c'è
+     *
+     * @param location
+     * @param resources
+     */
     @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
+    public void initialize(URL location, ResourceBundle resources) {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
         loggedUser = connectionHandler.getLoggedUser();
         userLoggedIn = (loggedUser != null);
     }
 
+    /**
+     * gestisce la pressione del bottone di ricerca delle informazioni di un centro vaccinale
+     * cambiando la schermata visualizzata
+     * @throws IOException
+     */
     @FXML
     private void btnInfoPressed() throws IOException {
         System.out.println("Button info pressed");
         CentriVaccinali.switchScene("CercaInfoCentri");
     }
 
+    /**
+     * gestisce la pressione del bottone di registrazione di un cittadino
+     * richiedendo contestualmente l'id di vaccinazione
+     * se presente, cambia la schermata visualizzata a quella dell'effettiva registrazione
+     * @throws IOException
+     */
     @FXML
     private void btnRegisterPressed() throws IOException {
         System.out.println("Button register pressed");
@@ -68,6 +86,12 @@ public class HomeCittadiniController implements Initializable {
         }
     }
 
+    /**
+     * gestisce la pressione del bottone di registrazione di un evento avverso
+     * richiedendo contestualmente il login alla piattaforma
+     * se ciò avviene, cambia la schermata visualizzata a quella dell'effettivo inserimento degli eventi avversi
+     * @throws IOException
+     */
     @FXML
     private void btnAddEventPressed() throws IOException {
         System.out.println("Button add event pressed");
@@ -100,6 +124,10 @@ public class HomeCittadiniController implements Initializable {
 
     }
 
+    /**
+     * visualizza una schermata di aiuto
+     * @throws IOException
+     */
     @FXML
     private void btnHelpPressed() throws IOException {
 
@@ -119,6 +147,13 @@ public class HomeCittadiniController implements Initializable {
         a.show();
     }
 
+    /**
+     * Gestisce la pressione del tasto escape (esc) da tastiera
+     * ritornando alla schermata precedente
+     *
+     * @param event evento che indica la pressione di un tasto
+     * @throws IOException
+     */
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)

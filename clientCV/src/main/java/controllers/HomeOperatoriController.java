@@ -13,18 +13,32 @@ import javafx.scene.input.KeyEvent;
 
 public class HomeOperatoriController {
 
+    /**
+     * gestisce la pressione del bottone di registrazione di un nuovo centro vaccinale
+     * cambiando la schermata visualizzata
+     * @throws IOException
+     */
     @FXML
     private void btnRgstCV() throws IOException {
         System.out.println("Button register centro vaccinale pressed");
         CentriVaccinali.switchScene("RegCentroVaccinale");
     }
 
+    /**
+     * gestisce la pressione del bottone di registrazione di un cittadino vaccinato
+     * cambiando la schermata visualizzata
+     * @throws IOException
+     */
     @FXML
     private void btnRgstVacc() throws IOException {
         System.out.println("Button register cittadino vaccinato pressed");
         CentriVaccinali.switchScene("RegCittVaccinato");
     }
 
+    /**
+     * visualizza una schermata di aiuto
+     * @throws IOException
+     */
     @FXML
     private void btnHelpPressed() throws IOException {
 
@@ -42,6 +56,13 @@ public class HomeOperatoriController {
         a.show();
     }
 
+    /**
+     * Gestisce la pressione del tasto escape (esc) da tastiera
+     * ritornando alla schermata precedente
+     *
+     * @param event evento che indica la pressione di un tasto
+     * @throws IOException
+     */
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)

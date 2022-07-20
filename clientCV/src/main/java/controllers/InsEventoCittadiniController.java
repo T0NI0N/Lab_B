@@ -57,14 +57,28 @@ public class InsEventoCittadiniController implements Initializable {
     public void setCenter(CentroVaccinale centroVaccinale){
         this.centroVaccinale = centroVaccinale;
     }
+
+    /**
+     * inizializza la connessione alla base di dati e dei campi della schermata
+     *
+     * @param location
+     * @param resources
+     */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL location, ResourceBundle resources) {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
 
         eventTypeBox.setItems(FXCollections.observableList(Arrays.asList(TipoEventoAvverso.values())));
         eventTypeBox.setValue(TipoEventoAvverso.Emicrania);
     }
 
+    /**
+     * Gestisce la pressione del tasto escape (esc) da tastiera
+     * ritornando alla schermata precedente
+     *
+     * @param event evento che indica la pressione di un tasto
+     * @throws IOException
+     */
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)

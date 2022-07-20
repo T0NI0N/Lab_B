@@ -14,18 +14,32 @@ import javafx.scene.control.Alert.AlertType;
 
 public class HomeController implements Initializable {
 
+    /**
+     * gestisce la pressione del bottone di accesso all'area riservata agli operatori sanitari
+     * cambiando la schermata visualizzata
+     * @throws IOException
+     */
     @FXML
     private void btnOperatorsPressed() throws IOException {
         System.out.println("Entering operators area");
         CentriVaccinali.switchScene("HomeOperatori");
     }
 
+    /**
+     * gestisce la pressione del bottone di accesso all'area riservata ai cittadini
+     * cambiando la schermata visualizzata
+     * @throws IOException
+     */
     @FXML
     private void btnCiviliansPressed() throws IOException {
         System.out.println("Entering civilians area");
         CentriVaccinali.switchScene("HomeCittadini");
     }
 
+    /**
+     * visualizza una schermata di aiuto
+     * @throws IOException
+     */
     @FXML
     private void btnHelpPressed() throws IOException {
         Alert a = new Alert(AlertType.NONE, "", ButtonType.OK);
@@ -46,9 +60,8 @@ public class HomeController implements Initializable {
         a.show();
     }
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        // TODO Auto-generated method stub
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
     }
 }

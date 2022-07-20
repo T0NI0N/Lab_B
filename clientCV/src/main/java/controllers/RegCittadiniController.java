@@ -44,11 +44,24 @@ public class RegCittadiniController implements Initializable {
 
     private ClientConnectionHandler connectionHandler;
 
+    /**
+     * inizializza la connessione alla base di dati
+     *
+     * @param location
+     * @param resources
+     */
     @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
+    public void initialize(URL location, ResourceBundle resources) {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
     }
 
+    /**
+     * Gestisce la pressione del tasto escape (esc) da tastiera
+     * ritornando alla schermata precedente
+     *
+     * @param event evento che indica la pressione di un tasto
+     * @throws IOException
+     */
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
