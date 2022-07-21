@@ -27,6 +27,26 @@
          <children>
             <HBox alignment="TOP_CENTER">
                <children>
+                  <Label alignment="CENTER" text="Centro vaccinale">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="4.0" right="4.0" />
+                     </padding>
+                  </Label>
+                  <ChoiceBox prefWidth="150.0">
+                     <HBox.margin>
+                        <Insets top="8.0" />
+                     </HBox.margin>
+                  </ChoiceBox>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER">
+               <children>
                   <Label alignment="CENTER" text="Evento avverso" textAlignment="CENTER">
                      <font>
                         <Font size="18.0" />
@@ -64,10 +84,10 @@
                            <toggleGroup>
                               <ToggleGroup fx:id="tgRbSev" />
                            </toggleGroup></RadioButton>
-                        <RadioButton fx:id="rbSevValue2" mnemonicParsing="false" text="2" toggleGroup="$tgRbSev" userData="2"/>
-                        <RadioButton fx:id="rbSevValue3" mnemonicParsing="false" text="3" toggleGroup="$tgRbSev" userData="3"/>
-                        <RadioButton fx:id="rbSevValue4" mnemonicParsing="false" text="4" toggleGroup="$tgRbSev" userData="4"/>
-                        <RadioButton fx:id="rbSevValue5" mnemonicParsing="false" text="5" toggleGroup="$tgRbSev" userData="5"/>
+                        <RadioButton fx:id="rbSevValue2" mnemonicParsing="false" text="2" toggleGroup="$tgRbSev" userData="2" />
+                        <RadioButton fx:id="rbSevValue3" mnemonicParsing="false" text="3" toggleGroup="$tgRbSev" userData="3" />
+                        <RadioButton fx:id="rbSevValue4" mnemonicParsing="false" text="4" toggleGroup="$tgRbSev" userData="4" />
+                        <RadioButton fx:id="rbSevValue5" mnemonicParsing="false" text="5" toggleGroup="$tgRbSev" userData="5" />
                      </children>
                      <HBox.margin>
                         <Insets left="4.0" top="16.0" />

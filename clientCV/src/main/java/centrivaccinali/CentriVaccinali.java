@@ -73,6 +73,7 @@ public class CentriVaccinali extends Application {
     public static void switchScene(String fxml) throws IOException {
         // primaryStage.hide();
         scene = new Scene(loadFXML(fxml));
+        //scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();
