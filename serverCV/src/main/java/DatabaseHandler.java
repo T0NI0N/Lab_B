@@ -5,6 +5,7 @@ import enums.TipoEventoAvverso;
 import enums.TipoVaccino;
 import java.sql.*;
 import java.util.ArrayList;
+import java.io.*;
 
 public class DatabaseHandler implements ConnectionHandlerInterface {
     private String connection = "jdbc:postgresql://";
@@ -63,7 +64,10 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 "cognome varchar(20) NOT NULL, " +
                                 "email varchar(50) NOT NULL, " +
                                 "userid varchar(20) NOT NULL, " +
-                                "password varchar(100) NOT NULL)");
+                                "password varchar(100) NOT NULL, " + 
+                                "codicefiscale varchar(16) NOT NULL, " +
+                                "idCentroVaccinale smallint," +
+                                "CONSTRAINT fk_CentriVaccinali FOREIGN KEY (idCentroVaccinale) REFERENCES CentriVaccinali(idCentroVaccinale))");
                 id = 0;
                 statement.executeUpdate(
                         "CREATE TABLE TipiVaccini (" +
@@ -484,10 +488,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             while (rs.next()) {
                 output.add(
                         new Cittadino(
-                                rs.getString("nome"), rs.getString("cognome"), "", rs.getString("email"),
+                                rs.getString("nome"), rs.getString("cognome"), rs.getString("codicefiscale"), rs.getString("email"),
                                 rs.getString("userid"), rs.getString("password"), 0, null, null));
             }
         } catch (Exception ex) {
+            output=null;
             System.out.println(ex);
         }
         return output;
@@ -520,6 +525,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                             + centerName + "%' GROUP BY ev.idTipologia")
                     .executeQuery();
             while (rs.next()) {
+                String note="";
                 TipoEventoAvverso tipo = null;
                 int i = 0;
                 for (TipoEventoAvverso x : TipoEventoAvverso.values()) {
@@ -529,11 +535,24 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     }
                     i++;
                 }
+                try{
+                    ResultSet rs_note=conn.prepareStatement("SELECT ev.note AS enote FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
+                    + centerName + "%' AND ev.idTipologia="+tipo.ordinal()).executeQuery();
+                    while(rs_note.next()){
+                        System.out.println(rs.getString("enote"));
+                        note+=rs.getString("enote")+"\n";
+                        System.out.println(note);
+                    }
+                }catch(Exception ex1){
+                    System.out.println("SELECT ev.note AS enote FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
+                    + centerName + "%' AND ev.idTipologia="+tipo.ordinal());
+                    note="";
+                }
                 output.add(
                         new EventoAvverso(
                                 tipo,
                                 Double.parseDouble(rs.getString("avgseverità")),
-                                ""));
+                                note));
             }
         } catch (Exception ex) {
 
@@ -694,5 +713,211 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             System.out.println(e);
         }
         return output;
+    }
+
+    public void fillDataBase(){
+        String path = System.getProperty("user.dir") + System.getProperty("file.separator") + "serverCV"
+                + System.getProperty("file.separator") + "src" + 
+                System.getProperty("file.separator") + "main"+ 
+                System.getProperty("file.separator") + "java" + 
+                System.getProperty("file.separator") + "utils" + 
+                System.getProperty("file.separator");
+        String file, query;
+        Statement statement;
+        try{
+            statement = conn.createStatement();
+            file = path+"Districts.csv";
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+                String temp=br.readLine();
+                while (temp!= null) 
+                {
+                    query=
+                        "INSERT INTO COMUNI VALUES("+
+                        temp.split(";")[0]+", '"+
+                        temp.split(";")[1]+"', '"+
+                        temp.split(";")[2]+"', '"+
+                        temp.split(";")[3]+"')";
+                    statement.executeUpdate(query);
+                    temp = br.readLine();
+                }
+                br.close();
+            } catch (UnsupportedEncodingException e) {
+                System.out.println(e);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+        catch(Exception ex1){
+            System.out.println(ex1.toString());
+        }
+        System.out.println("Popolata tabella Comuni");
+        
+        try{
+            statement = conn.createStatement();
+            file = path+"Addresses.csv";
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+                String temp=br.readLine();
+                while (temp!= null) 
+                {
+                    query=
+                    "INSERT INTO Indirizzi VALUES ("+
+                    temp.split(";")[0]+", '"+
+                    temp.split(";")[1]+"', '"+
+                    temp.split(";")[2]+"', '"+
+                    temp.split(";")[3]+"', "+
+                    temp.split(";")[4]+")";
+                    statement.executeUpdate(query);
+                    temp = br.readLine();
+                }
+                br.close();
+            } catch (UnsupportedEncodingException e) {
+                System.out.println(e);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+        catch(Exception ex1){
+            System.out.println(ex1.toString());
+        }
+        System.out.println("Popolata tabella Indirizzi");
+
+        ArrayList<String> nomi=new ArrayList<String>();
+        try{
+            statement = conn.createStatement();
+            file = path+"Centers.csv";
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+                String temp=br.readLine();
+                while (temp!= null) 
+                {
+                    query=
+                    "INSERT INTO CentriVaccinali VALUES("+
+                    temp.split(";")[0]+", '"+
+                    temp.split(";")[1]+"', "+
+                    temp.split(";")[2]+", "+
+                    temp.split(";")[3]+")";
+                    statement.executeUpdate(query);
+                    nomi.add(temp.split(";")[1]);
+                    query="CREATE TABLE Vaccinazioni_" + temp.split(";")[1] + " (" +
+                            "idVaccinazione integer PRIMARY KEY, " +
+                            "data_somministrazione date NOT NULL, " +
+                            "idCentroVaccinale smallint," +
+                            "idCittadino integer, " +
+                            "idTipologia smallint, " +
+                            "CONSTRAINT fk_CentriVaccinali FOREIGN KEY (idCentroVaccinale) REFERENCES CentriVaccinali(idCentroVaccinale), "
+                            +
+                            "CONSTRAINT fk_Cittadini FOREIGN KEY (idCittadino) REFERENCES Cittadini_Registrati(idCittadino), "
+                            +
+                            "CONSTRAINT fk_TipiEventi FOREIGN KEY (idTipologia) REFERENCES TipiVaccini(idTipologia))";
+                    statement.executeUpdate(query);
+                    temp = br.readLine();
+                }
+                br.close();
+            } catch (UnsupportedEncodingException e) {
+                System.out.println(e);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+        catch(Exception ex1){
+            System.out.println(ex1.toString());
+        }
+        System.out.println("Popolata tabella CentriVaccinali");
+        
+        try{
+            statement = conn.createStatement();
+            file = path+"Citizens.csv";
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+                String temp=br.readLine();
+                while (temp!= null) 
+                {
+                    query=
+                    "INSERT INTO Cittadini_Registrati VALUES("+
+                    temp.split(";")[0]+", '"+
+                    temp.split(";")[1]+"', '"+
+                    temp.split(";")[2]+"', '"+
+                    temp.split(";")[3]+"', '"+
+                    temp.split(";")[4]+"', '"+
+                    temp.split(";")[5]+"', '"+
+                    temp.split(";")[6]+"', "+
+                    temp.split(";")[7]+")";
+                    statement.executeUpdate(query);
+                    temp = br.readLine();
+                }
+                br.close();
+            } catch (UnsupportedEncodingException e) {
+                System.out.println(e);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+        catch(Exception ex1){
+            System.out.println(ex1.toString());
+        }
+        System.out.println("Popolata tabella Cittadini_Registrati");
+        
+        try{
+            statement = conn.createStatement();
+            file = path+"Vaccinations.csv";
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+                String temp=br.readLine();
+                while (temp!= null) 
+                {
+                    query=
+                    "INSERT INTO Vaccinazioni_"+nomi.get(Integer.parseInt(temp.split(";")[2])-1)+" VALUES ("+
+                    temp.split(";")[0]+", '"+
+                    temp.split(";")[1]+"', "+
+                    temp.split(";")[2]+", "+
+                    temp.split(";")[3]+", "+
+                    temp.split(";")[4]+")";
+                    statement.executeUpdate(query);
+                    temp = br.readLine();
+                }
+                br.close();
+            } catch (UnsupportedEncodingException e) {
+                System.out.println(e);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+        catch(Exception ex1){
+            System.out.println(ex1.toString());
+        }
+        System.out.println("Popolate le tabelle delle vaccinazioni");
+        
+        try{
+            statement = conn.createStatement();
+            file = path+"AdverseEvents.csv";
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+                String temp=br.readLine();
+                while (temp!= null) 
+                {
+                    query=
+                    "INSERT INTO EventiAvversi VALUES("+
+                    temp.split(";")[0]+", "+
+                    temp.split(";")[1]+", '"+
+                    temp.split(";")[2]+"', "+
+                    temp.split(";")[3]+", "+
+                    temp.split(";")[4]+", "+
+                    temp.split(";")[5]+")";
+                    statement.executeUpdate(query);
+                    temp = br.readLine();
+                }
+                br.close();
+            } catch (UnsupportedEncodingException e) {
+                System.out.println(e);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+        catch(Exception ex1){
+            System.out.println(ex1.toString());
+        }
+        System.out.println("Popolata la tabella EventiAvversi");
     }
 }
