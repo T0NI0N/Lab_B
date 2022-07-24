@@ -15,7 +15,7 @@ public interface ConnectionHandlerInterface extends Remote {
 
     public void registerVaccination(Cittadino user, CentroVaccinale center) throws RemoteException;
 
-    public void insertAdverseEvent(Cittadino citizen, CentroVaccinale center, EventoAvverso event) throws RemoteException;
+    public void insertAdverseEvent(String userid, String centername, EventoAvverso event) throws RemoteException;
 
     public ArrayList<CentroVaccinale> getCenters() throws RemoteException;
 

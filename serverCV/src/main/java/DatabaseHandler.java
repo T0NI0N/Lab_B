@@ -338,12 +338,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
     }
 
-    public void insertAdverseEvent(Cittadino citizen, CentroVaccinale center, EventoAvverso event) {
+    public void insertAdverseEvent(String userid, String centername, EventoAvverso event) {
         try {
             try {
                 ResultSet rs = conn.prepareStatement(
                         "SELECT idEvento FROM EventiAvversi e JOIN Cittadini_Registrati cr ON e.idCittadino=cr.idCittadino WHERE cr.userid='"
-                                + citizen.getUserid() + "' AND e.idTipologia='" + event.getEvento().ordinal() + "'")
+                                + userid + "' AND e.idTipologia='" + event.getEvento().ordinal() + "'")
                         .executeQuery();
                 rs.next();
                 rs.getInt("idEvento");
@@ -364,12 +364,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 int cittadino;
                 try {
                     rs = conn.prepareStatement(
-                            "SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + center.getNomeCentro() + "'")
+                            "SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + centername + "'")
                             .executeQuery();
                     rs.next();
                     centrovaccinale = rs.getInt("idCentroVaccinale");
                     rs = conn.prepareStatement(
-                            "SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + citizen.getUserid() + "'")
+                            "SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + userid + "'")
                             .executeQuery();
                     rs.next();
                     cittadino = rs.getInt("idCittadino");
@@ -539,8 +539,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     ResultSet rs_note=conn.prepareStatement("SELECT ev.note AS enote FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
                     + centerName + "%' AND ev.idTipologia="+tipo.ordinal()).executeQuery();
                     while(rs_note.next()){
-                        System.out.println(rs.getString("enote"));
-                        note+=rs.getString("enote")+"\n";
+                        note+=rs.getString("enote");
                         System.out.println(note);
                     }
                 }catch(Exception ex1){
