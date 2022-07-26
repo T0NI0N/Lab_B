@@ -106,6 +106,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 +
                                 "CONSTRAINT fk_TipiEventi FOREIGN KEY (idTipologia) REFERENCES TipiEventi(idTipologia))");
                 System.out.println("Creato il database...");
+                fillDataBase();
             }
             System.out.println("Connesso al database...");
         } catch (SQLException ex) {
