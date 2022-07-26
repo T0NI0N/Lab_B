@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 public interface ConnectionHandlerInterface extends Remote {
 
-    public boolean login() throws RemoteException;
-
     public void registerCitizen(Cittadino user) throws RemoteException;
 
     public void registerCenter(CentroVaccinale center) throws RemoteException;

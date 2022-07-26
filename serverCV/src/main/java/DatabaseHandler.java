@@ -114,12 +114,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
     }
 
-    public boolean login() {
-        System.out.println("logging in...");
-        return true;
-    }
-
-    public void registerCitizen(Cittadino user) {
+    public synchronized void registerCitizen(Cittadino user) {
         try {
             try {
                 ResultSet rs = conn
@@ -158,7 +153,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
     }
 
-    public void registerCenter(CentroVaccinale center) {
+    public synchronized void registerCenter(CentroVaccinale center) {
         try {
             boolean check = false;
             Statement statement = conn.createStatement();
@@ -264,7 +259,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
     }
 
-    public void registerVaccination(Cittadino user, CentroVaccinale center) {
+    public synchronized void registerVaccination(Cittadino user, CentroVaccinale center) {
         try {
             Statement statement = conn.createStatement();
             String table = "Vaccinazioni_" + center.getNomeCentro();
@@ -593,7 +588,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    public Cittadino getCitizenByLogin(String userid, String password) {
+    public synchronized Cittadino getCitizenByLogin(String userid, String password) {
         Cittadino output = null;
         try {
             ResultSet rs = conn.prepareStatement(

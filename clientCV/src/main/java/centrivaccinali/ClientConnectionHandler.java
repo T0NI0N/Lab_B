@@ -58,22 +58,16 @@ public class ClientConnectionHandler {
 
 	/**
 	 * Stabilisce la connessione al registry.
-	 * 
-	 * @return true se la connessione è andata a buon fine, false altrimanti.
 	 */
-	public boolean connect() {
-		boolean available = true;
-
+	public void connect() {
 		try {
 			registry = LocateRegistry.getRegistry(hostAddress, hostPort);
 			stub = (ConnectionHandlerInterface) registry.lookup(serverServiceName);
 			System.out.println("Connection established correctly");
 		} catch (Exception e) {
 			System.out.println("Connection error: " + e.toString());
-			available = false;
 		}
 
-		return available;
 	}
 
 	/**

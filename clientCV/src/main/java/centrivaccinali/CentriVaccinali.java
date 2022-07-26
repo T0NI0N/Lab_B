@@ -41,6 +41,7 @@ public class CentriVaccinali extends Application {
         CentriVaccinali.primaryStage = primaryStage;
         scene = new Scene(loadFXML("Home"));
         primaryStage.setScene(scene);
+        primaryStage.setTitle("CentriVaccinali-Client");
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
