@@ -117,50 +117,40 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     public synchronized void registerCitizen(Cittadino user, String centername) {
         try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = conn
+                    .prepareStatement("SELECT idCittadino FROM Cittadini_Registrati ORDER BY idCittadino DESC")
+                    .executeQuery();
+            int id;
             try {
-                ResultSet rs = conn
-                        .prepareStatement(
-                                "SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + user.getUserid() + "'")
-                        .executeQuery();
                 rs.next();
-                rs.getInt("idCittadino");
-                System.out.println("User id presente nel database");
-            } catch (Exception ex) {
-                Statement statement = conn.createStatement();
-                ResultSet rs = conn
-                        .prepareStatement("SELECT idCittadino FROM Cittadini_Registrati ORDER BY idCittadino DESC")
-                        .executeQuery();
-                int id;
-                try {
-                    rs.next();
-                    id = rs.getInt("idCittadino");
-                } catch (Exception ex1) {
-                    id = 0;
-                }
-                id++;
-                int centrovaccinale;
-                try{
-                    rs = conn
-                            .prepareStatement("SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome LIKE '%" + centername + "%' ORDER BY idCentroVaccinale DESC")
-                            .executeQuery();
-                    centrovaccinale=rs.getInt("idCentroVaccinale");
-                }
-                catch(Exception ex1){
-                    centrovaccinale=0;
-                }
-                statement.executeUpdate(
-                        "INSERT INTO Cittadini_Registrati (idCittadino, nome, cognome, email, userid, password, codicefiscale, idCentroVaccinale) VALUES ("
-                                +
-                                id + ", '" +
-                                user.getNome() + "', '" +
-                                user.getCognome() + "', '" +
-                                user.getEmail() + "', '" +
-                                user.getUserid() + "', '" +
-                                user.getPassword() + "', '" +
-                                user.getCodiceFiscale() + "', " +
-                                centrovaccinale + ")");
-                System.out.println("Inserito cittadino");
+                id = rs.getInt("idCittadino");
+            } catch (Exception ex1) {
+                id = 0;
             }
+            id++;
+            int centrovaccinale;
+            try{
+                rs = conn
+                        .prepareStatement("SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome LIKE '%" + centername + "%' ORDER BY idCentroVaccinale DESC")
+                        .executeQuery();
+                centrovaccinale=rs.getInt("idCentroVaccinale");
+            }
+            catch(Exception ex1){
+                centrovaccinale=0;
+            }
+            statement.executeUpdate(
+                    "INSERT INTO Cittadini_Registrati (idCittadino, nome, cognome, email, userid, password, codicefiscale, idCentroVaccinale) VALUES ("
+                            +
+                            id + ", '" +
+                            user.getNome() + "', '" +
+                            user.getCognome() + "', '" +
+                            user.getEmail() + "', '" +
+                            user.getUserid() + "', '" +
+                            user.getPassword() + "', '" +
+                            user.getCodiceFiscale() + "', " +
+                            centrovaccinale + ")");
+            System.out.println("Inserito cittadino");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -950,6 +940,38 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             }
         } catch (Exception ex) {
             System.out.println(ex);
+        }
+        return output;
+    }
+
+    public boolean checkUserIDPresence(String userid){
+        boolean output;
+        try {
+            ResultSet rs = conn
+                    .prepareStatement(
+                            "SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + userid + "'")
+                    .executeQuery();
+            rs.next();
+            rs.getInt("idCittadino");
+            output=true;
+        } catch (Exception ex) {
+            output=false;
+        }
+        return output;
+    }
+    
+    public boolean checkEmailPresence(String email){
+        boolean output;
+        try {
+            ResultSet rs = conn
+                    .prepareStatement(
+                            "SELECT idCittadino FROM Cittadini_Registrati WHERE email='" + email + "'")
+                    .executeQuery();
+            rs.next();
+            rs.getInt("idCittadino");
+            output=true;
+        } catch (Exception ex) {
+            output=false;
         }
         return output;
     }
