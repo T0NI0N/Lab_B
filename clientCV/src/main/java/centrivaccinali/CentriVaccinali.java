@@ -26,7 +26,7 @@ public class CentriVaccinali extends Application {
     private static ClientConnectionHandler connectionHandler;
 
     /**
-     * Lancia l'applicazione e l'interfaccia grafica instanziando constestualmente
+     * Lancia l'applicazione e l'interfaccia grafica instanziando contestualmente
      * la connessione alla base di dati
      *
      * @param primaryStage schermata di partenza predefinita di JavaFX
@@ -36,33 +36,40 @@ public class CentriVaccinali extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
-        connectionHandler.connect();
 
-        CentriVaccinali.primaryStage = primaryStage;
-        scene = new Scene(loadFXML("Home"));
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("CentriVaccinali-Client");
-        primaryStage.show();
+        if(!connectionHandler.connect()){
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Errore");
+            a.setHeaderText("Errore di connessione");
+            a.setContentText("Assicurarsi che serverCV sia in esecuzione e che \nla connessione ad internet sia attiva.");
+            a.showAndWait();
+    } else {
 
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+          CentriVaccinali.primaryStage = primaryStage;
+          scene = new Scene(loadFXML("Home"));
+          primaryStage.setScene(scene);
+          primaryStage.setTitle("CentriVaccinali-Client");
+          primaryStage.show();
 
-            @Override
-            public void handle(WindowEvent event) {
-                Alert alert = new Alert(AlertType.CONFIRMATION);
-                alert.setTitle("Uscire");
-                alert.setHeaderText("");
-                alert.setContentText("Sei sicuro di voler uscire dal programma?");
-                Optional<ButtonType> result = alert.showAndWait();
+          primaryStage.setOnCloseRequest(
+              new EventHandler<WindowEvent>() {
 
-                if (result.get() == ButtonType.OK) {
-                    System.out.println("Closing...");
-                    connectionHandler.disconnect();
-                    System.exit(0);
-                } else
-                    event.consume();
-            }
+                    @Override
+                    public void handle(WindowEvent event) {
+                          Alert alert = new Alert(AlertType.CONFIRMATION);
+                          alert.setTitle("Uscire");
+                          alert.setHeaderText("");
+                          alert.setContentText("Sei sicuro di voler uscire dal programma?");
+                          Optional<ButtonType> result = alert.showAndWait();
 
-        });
+                          if (result.get() == ButtonType.OK) {
+                            System.out.println("Closing...");
+                            connectionHandler.disconnect();
+                            System.exit(0);
+                          } else event.consume();
+                    }
+              });
+        }
     }
 
     /**

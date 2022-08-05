@@ -35,4 +35,6 @@ public interface ConnectionHandlerInterface extends Remote {
     public ArrayList<CentroVaccinale> getCenterByPlaceAndType(String comune, TipoCentroVaccinale tipo) throws RemoteException;
 
     public CentroVaccinale getCenterByVaccinatedCitizen(Cittadino user) throws RemoteException;
+
+    public boolean getCitizenByVaccinationID(int id);
 }

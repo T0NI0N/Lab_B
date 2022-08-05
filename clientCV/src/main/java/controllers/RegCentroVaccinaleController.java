@@ -43,6 +43,8 @@ public class RegCentroVaccinaleController implements Initializable {
     @FXML
     private void onEnterPressed() throws IOException {
 
+        // TODO testare gli inserimenti
+
         System.out.println("Enter button pressed");
 
         try {

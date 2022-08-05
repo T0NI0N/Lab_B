@@ -87,12 +87,14 @@ public class InsEventoCittadiniController implements Initializable {
 
     @FXML
     private void btnSubmitPressed() throws IOException {
+
+        //TODO testare l'inserimento
+
         System.out.println("Button submit pressed");
         eventType = eventTypeBox.getValue();
         sev = Integer.parseInt(tgRbSev.getSelectedToggle().getUserData().toString());
         notes = txtNotes.getText();
-		
-		//TODO inserire cittadino e nomecentro e controllare se funziona
+
         System.out.println(cittadino.toString());
         System.out.println(centroVaccinale.toString());
         System.out.println(new EventoAvverso(eventType, sev, notes));

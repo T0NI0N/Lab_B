@@ -131,6 +131,9 @@ public class CercaInfoCentriController implements Initializable {
      */
     @FXML
     private void search() {
+
+        // TODO testare la funzione di ricerca
+
         centreName = txtName.getText();
         com = txtCom.getText();
         centreType = centreTypeBox.getValue();
@@ -168,6 +171,9 @@ public class CercaInfoCentriController implements Initializable {
      */
     @FXML
     private void showEvent() {
+
+        // TODO testare la visualizzazione degli eventi avversi
+
         try {
             String centre = lvResults.getSelectionModel().getSelectedItem();
             int i = centre.indexOf(",");

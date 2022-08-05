@@ -7,10 +7,6 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class ServerMain {
-
-    private static String host = "localhost";
-    private static String user = "ospite";
-    private static String password = "DefaultUserPassword";
     private static Registry registry;
     private static DatabaseHandler obj;
 
@@ -24,29 +20,24 @@ public class ServerMain {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     System.in));
-            System.out.println("Creating stub...");
-            System.out.print("Inserisci l'host del database (default=localhost):");
-            String host1 = reader.readLine();
-            if (!host1.isBlank()) {
-                host = host1;
-            }
-            System.out.print("Inserisci l'utente del database (default=ospite):");
-            String user1 = reader.readLine();
-            if (!user1.isBlank()) {
-                user = user1;
-            }
-            System.out.print("Inserisci la password del database (default=DefaultUserPassword):");
-            String password1 = reader.readLine();
-            if (!password1.isBlank()) {
-                password = password1;
-            }
+            System.out.print("Inserisci l'host del database: ");
+            String host = reader.readLine();
+            System.out.print("Inserisci l'utente del database: ");
+            String user = reader.readLine();
+            System.out.print("Inserisci la password del database: ");
+            String password = reader.readLine();
+
             obj = new DatabaseHandler(host, user, password);
             ConnectionHandlerInterface stub = (ConnectionHandlerInterface) UnicastRemoteObject.exportObject(obj, 0);
-            System.out.println("Creating registry...");
+
+            System.out.println("Creazione registry...");
             registry = LocateRegistry.createRegistry(1099);
-            System.out.println("Binding service...");
+
+            System.out.println("Pubblicazione del servizio...");
             registry.rebind("dbconnection", stub);
-            System.out.println("Server ready and running");
+
+            System.out.println("Server pronto e in esecuzione");
+
         } catch (Exception e) {
             System.out.print("Server error: ");
             e.printStackTrace();

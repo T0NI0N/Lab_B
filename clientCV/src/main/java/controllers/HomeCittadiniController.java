@@ -72,12 +72,12 @@ public class HomeCittadiniController implements Initializable {
         }else{
             // valore inserito
             int id = Integer.parseInt(result.get());
-            // TODO sostituire / modificare if per il controllo dell'id
-            //  in base al metodo del db che verrà implementato in seguito
-            if (id == 0000) {
-                // se l'id è riconosciuto si passa alla schermata di registrazione
-                // va implementato un modo per passare alla schermata di registrazione l'id
-                // in modo da autocompilare alcuni campi
+
+            if (connectionHandler.getCitizenByVaccinationID(id)) {
+                // TODO se l'id è riconosciuto si passa alla schermata di registrazione
+                //  va implementato un modo per passare alla schermata di registrazione l'id
+                //  in modo da autocompilare alcuni campi
+
                 CentriVaccinali.switchScene("RegCittadini");
             }else{
                 // errore id non presente
@@ -94,6 +94,9 @@ public class HomeCittadiniController implements Initializable {
      */
     @FXML
     private void btnAddEventPressed() throws IOException {
+
+        // TODO testare il login
+
         System.out.println("Button add event pressed");
 
         if (!userLoggedIn) {

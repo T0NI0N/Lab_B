@@ -43,6 +43,8 @@ public class RegCittVaccinatoController implements Initializable {
     @FXML
     private void onEnterPressed() throws IOException {
 
+        // TODO testare gli inserimenti
+
         System.out.println("Enter button pressed");
         System.out.println(tf_cognome.getText() + " " + tf_nome.getText() + " vaccinato presso il centro "
                 + tf_centroV.getText() + " in data " + dp_data.getValue());
@@ -54,7 +56,6 @@ public class RegCittVaccinatoController implements Initializable {
             new Cittadino(tf_nome.getText(), tf_cognome.getText(), tf_codiceFiscale.getText(), "", "", "", 0, dp_data.getValue().getDayOfMonth()+"/"+dp_data.getValue().getMonth()+"/"+dp_data.getValue().getYear(), chb_vaccino.getValue()),
             new CentroVaccinale(tf_centroV.getText(), new Indirizzo("", "", "", "", "", 0), TipoCentroVaccinale.OSPEDALIERO)
         );
-        // TODO inserire email, userid e password
 
     }
 

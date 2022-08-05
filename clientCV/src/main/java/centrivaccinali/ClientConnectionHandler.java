@@ -57,17 +57,18 @@ public class ClientConnectionHandler {
 	}
 
 	/**
-	 * Stabilisce la connessione al registry.
+	 * Stabilisce la connessione al registry oppure ritorna false in caso di errori.
 	 */
-	public void connect() {
+	public boolean connect() {
 		try {
 			registry = LocateRegistry.getRegistry(hostAddress, hostPort);
 			stub = (ConnectionHandlerInterface) registry.lookup(serverServiceName);
 			System.out.println("Connection established correctly");
 		} catch (Exception e) {
 			System.out.println("Connection error: " + e.toString());
+			return false;
 		}
-
+		return true;
 	}
 
 	/**
@@ -265,4 +266,12 @@ public class ClientConnectionHandler {
 		loggedUser = null;
 	}
 
+	/**
+	 * Ritorna true se è presente un cittadino con id vaccinazione dato.
+	 * @param id da verificare
+	 * @return true se è presente un cittadino con id in input, false altrimenti.
+	 */
+	public boolean getCitizenByVaccinationID(int id) {
+		return stub.getCitizenByVaccinationID(id);
+	}
 }
