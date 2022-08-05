@@ -107,20 +107,18 @@ public class RegCittadiniController implements Initializable {
             success = false;
         }
 
-        // TODO completare i controlli quando saranno ultimati i metodi del db richiesti
-        /*
-        boolean idAvailable = connectionHandler.COSE;
+        boolean idAvailable = connectionHandler.checkUserIDPresence(username);
         if(!idAvailable) {
             error += "- L'userID scelto è già in uso" + "\n";
             success = false;
         }
 
-        boolean emailAvailable = connectionHandler.COSE;
+        boolean emailAvailable = connectionHandler.checkEmailPresence(email);
         if(!emailAvailable) {
             error += "- L'indirizzo email scelto è già in uso";
             success = false;
         }
-        */
+
 
         if(!success) {
             showErrorBox(error);

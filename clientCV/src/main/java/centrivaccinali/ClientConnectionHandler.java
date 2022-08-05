@@ -267,11 +267,29 @@ public class ClientConnectionHandler {
 	}
 
 	/**
-	 * Ritorna true se è presente un cittadino con id vaccinazione dato.
-	 * @param id da verificare
+	 * Ritorna il cittadino vaccinato con id vaccinazione dato, se presente.
+	 * @param id id da verificare
 	 * @return true se è presente un cittadino con id in input, false altrimenti.
 	 */
 	public boolean getCitizenByVaccinationID(int id) {
 		return stub.getCitizenByVaccinationID(id);
+	}
+
+	/**
+	 * Controlla se il nome utente dato è già stato utilizzato.
+	 * @param username il nome utente da controllare
+	 * @return true se il nome utente è già stato utilizzato, false altrimenti
+	 */
+	public boolean checkUserIDPresence(String username) {
+		return stub.checkUserIDPresence(username);
+	}
+
+	/**
+	 * Controlla se l'email data è già stata utilizzata.
+	 * @param email l'email da controllare
+	 * @return true se l'email è già stata utilizzata, false altrimenti
+	 */
+	public boolean checkEmailPresence(String email) {
+		return stub.checkEmailPresence(email);
 	}
 }

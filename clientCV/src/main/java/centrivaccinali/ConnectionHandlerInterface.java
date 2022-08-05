@@ -37,4 +37,8 @@ public interface ConnectionHandlerInterface extends Remote {
     public CentroVaccinale getCenterByVaccinatedCitizen(Cittadino user) throws RemoteException;
 
     public boolean getCitizenByVaccinationID(int id);
+
+    public boolean checkUserIDPresence(String username);
+
+    public boolean checkEmailPresence(String email);
 }
