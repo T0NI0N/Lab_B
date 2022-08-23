@@ -45,8 +45,6 @@ public class RegCentroVaccinaleController implements Initializable {
     @FXML
     private void onEnterPressed() throws IOException {
 
-        // TODO testare gli inserimenti
-
         System.out.println("Enter button pressed");
 
         try {
@@ -54,30 +52,35 @@ public class RegCentroVaccinaleController implements Initializable {
                     new Indirizzo(chb_tipoIndirizzo.getValue(), tf_via.getText(), tf_numCivico.getText(),
                             tf_comune.getText(), tf_prov.getText(), Integer.parseInt(tf_cap.getText())),
                     chb_tipoCentro.getValue()));
+            //Gestione del risultato ottenuto dal metodo di registrazione del server
             switch (result) {
                 case "ok":
                     System.out.println("Success: Centro registrato");
                     Alert a = new Alert(Alert.AlertType.INFORMATION);
-                    a.setTitle("Successo");
+                    a.setTitle("Registrazione avvenuta");
                     a.setHeaderText("Centro Registrato");
                     a.setContentText("Il centro è stato registrato con successo");
                     a.showAndWait();
                     break;
                 case "already_in":
                     System.out.println("Failure: Centro già presente");
+                    Alert b = new Alert(Alert.AlertType.ERROR);
+                    b.setTitle("Registrazione fallita");
+                    b.setHeaderText("Centro vaccinale non registrato");
+                    b.setContentText("Il centro è già presente nel database");
+                    b.showAndWait();
                     break;
                 default:
                     System.out.println("Failure: " + result);
+                    Alert c = new Alert(Alert.AlertType.ERROR);
+                    c.setTitle("Registrazione fallita");
+                    c.setHeaderText("Un errore è avvenuto durante la registrazione");
+                    c.setContentText(result);
+                    c.showAndWait();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        /*
-        System.out.println(tf_nomeCentro.getText());
-        System.out.println(chb_tipoIndirizzo.getValue() + " " + tf_via.getText() + " " + tf_numCivico.getText());
-        System.out.println(tf_comune.getText() + " (" + tf_prov.getText() + ")" + " " + tf_cap.getText());
-        System.out.println(chb_tipoCentro.getValue());
-        */
     }
 
     /**
