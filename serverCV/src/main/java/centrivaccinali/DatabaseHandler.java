@@ -116,7 +116,8 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
     }
 
-    public synchronized void registerCitizen(Cittadino user, String centername) {
+    public synchronized String registerCitizen(Cittadino user, String centername) {
+        String output="ok";
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = conn
@@ -128,6 +129,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 id = rs.getInt("idCittadino");
             } catch (Exception ex1) {
                 id = 0;
+                output=ex1.toString();
             }
             id++;
             int centrovaccinale;
@@ -139,6 +141,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             }
             catch(Exception ex1){
                 centrovaccinale=0;
+                output=ex1.toString();
             }
             statement.executeUpdate(
                     "INSERT INTO Cittadini_Registrati (idCittadino, nome, cognome, email, userid, password, codicefiscale, idCentroVaccinale) VALUES ("
@@ -152,12 +155,16 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                             user.getCodiceFiscale() + "', " +
                             centrovaccinale + ")");
             System.out.println("Inserito cittadino");
+            output="ok";
         } catch (Exception e) {
             System.out.println(e);
+            output=e.toString();
         }
+        return output;
     }
 
-    public synchronized void registerCenter(CentroVaccinale center) {
+    public synchronized String registerCenter(CentroVaccinale center) {
+        String output="ok";
         try {
             boolean check = false;
             Statement statement = conn.createStatement();
@@ -170,6 +177,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 System.out.println("Centro vaccinale presente nel database");
             } catch (Exception ex) {
                 check = true;
+                output=ex.toString();
             }
             if (check) {
                 try {
@@ -184,6 +192,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     rs.getInt("idCentroVaccinale");
                     System.out.println("Centro vaccinale presente nel database");
                 } catch (Exception ex) {
+                    output=ex.toString();
                     ResultSet rs = conn
                             .prepareStatement(
                                     "SELECT idCentroVaccinale FROM CentriVaccinali ORDER BY idCentroVaccinale DESC")
@@ -194,6 +203,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                         id = rs.getInt("idCentroVaccinale");
                     } catch (Exception ex1) {
                         id = 0;
+                        output=ex1.toString();
                     }
                     id++;
                     int indirizzo;
@@ -207,6 +217,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                         rs.next();
                         indirizzo = rs.getInt("idIndirizzo");
                     } catch (Exception ex1) {
+                        output=ex1.toString();
                         try {
                             rs = conn.prepareStatement("SELECT idIndirizzo FROM Indirizzi ORDER BY idIndirizzo DESC")
                                     .executeQuery();
@@ -214,6 +225,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                             indirizzo = rs.getInt("idIndirizzo");
                         } catch (Exception ex2) {
                             indirizzo = 0;
+                            output=ex2.toString();
                         }
                         indirizzo++;
                         int comune;
@@ -224,6 +236,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                             comune = rs.getInt("idComune");
                             System.out.println(comune);
                         } catch (Exception ex2) {
+                            output=ex2.toString();
                             try {
                                 rs = conn.prepareStatement("SELECT idComune FROM Comuni ORDER BY idComune DESC")
                                         .executeQuery();
@@ -231,6 +244,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 comune = rs.getInt("idComune");
                             } catch (Exception ex3) {
                                 comune = 0;
+                                output=ex3.toString();
                             }
                             comune++;
                             statement.executeUpdate(
@@ -256,14 +270,18 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                     center.getTipoInt() + ", " +
                                     indirizzo + ")");
                     System.out.println("Inserito centro");
+                    output="ok";
                 }
             }
         } catch (Exception e) {
             System.out.println(e);
+            output=e.toString();
         }
+        return output;
     }
 
-    public synchronized void registerVaccination(Cittadino user) {
+    public synchronized String registerVaccination(Cittadino user) {
+        String output="ok";
         try {
             int centrovaccinale;
             int cittadino;
@@ -284,6 +302,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             }
             catch(Exception ex1){
                 user.setIdVaccinazione(1);
+                output=ex1.toString();
             }
             Statement statement = conn.createStatement();
             String table = "Vaccinazioni_" + centername;
@@ -304,6 +323,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 id = 1;
                 System.out.println("Creata " + table);
             } catch (Exception ex) {
+                output=ex.toString();
                 try {
                     statement.executeUpdate(
                             "INSERT INTO " + table
@@ -320,30 +340,27 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     try{
                         statement.executeUpdate(
                             "UPDATE Cittadini_Registrati SET idVaccinazione="+user.getIdVaccinazione()+" WHERE userid='"+user.getUserid()+"'");
+                        output="ok";
                     }
                     catch(Exception ex2){
                         System.out.println(ex2.toString());
+                        output=ex2.toString();
                     }
                 } catch (Exception ex1) {
                     System.out.println("Dati inseriti errati");
                     System.out.println(ex1.getMessage());
+                    output=ex1.toString();
                 }
             }
-            // try {
-            //     rs = conn.prepareStatement("SELECT idVaccinazione FROM " + table
-            //             + " v JOIN Cittadini_Registrati cr ON v.idCittadino=cr.idCittadino WHERE cr.userid='"
-            //             + user.getUserid() + "'").executeQuery();
-            //     rs.next();
-            //     rs.getInt("idVaccinazione");
-            //     System.out.println("User id presente nel database");
-            // } catch (Exception ex) {
-            // }
         } catch (Exception e) {
             System.out.println(e);
+            output=e.toString();
         }
+        return output;
     }
 
-    public void insertAdverseEvent(String userid, String centername, EventoAvverso event) {
+    public String insertAdverseEvent(String userid, String centername, EventoAvverso event) {
+        String output="ok";
         try {
             try {
                 ResultSet rs = conn.prepareStatement(
@@ -354,6 +371,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 rs.getInt("idEvento");
                 System.out.println("Evento avverso presente nel database");
             } catch (Exception ex) {
+                output=ex.toString();
                 int id;
                 ResultSet rs = conn.prepareStatement("SELECT idEvento FROM EventiAvversi ORDER BY idEvento DESC")
                         .executeQuery();
@@ -361,6 +379,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     rs.next();
                     id = rs.getInt("idEvento");
                 } catch (Exception ex1) {
+                    output=ex1.toString();
                     id = 0;
                 }
                 id++;
@@ -388,14 +407,17 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                     (int) event.getSeverita() + ", '" +
                                     event.getNote() + "')");
                     System.out.println("Inserito evento avverso");
+                    output="ok";
                 } catch (Exception ex1) {
                     System.out.println("Dati inseriti errati");
-                    ;
+                    output=ex1.toString();
                 }
             }
         } catch (Exception e) {
             System.out.println(e);
+            output=e.toString();
         }
+        return output;
     }
 
     public ArrayList<CentroVaccinale> getCenters() {
@@ -719,7 +741,8 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    public void fillDataBase(){
+    public String fillDataBase(){
+        String output="ok";
         String path = System.getProperty("user.dir") + System.getProperty("file.separator") + "serverCV"
                 + System.getProperty("file.separator") + "src" + 
                 System.getProperty("file.separator") + "main"+ 
@@ -748,12 +771,15 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
+                output=e.toString();
             } catch (IOException e) {
                 System.out.println(e);
+                output=e.toString();
             }
         }
         catch(Exception ex1){
             System.out.println(ex1.toString());
+            output=ex1.toString();
         }
         System.out.println("Popolata tabella Comuni");
         
@@ -778,12 +804,15 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
+                output=e.toString();
             } catch (IOException e) {
                 System.out.println(e);
+                output=e.toString();
             }
         }
         catch(Exception ex1){
             System.out.println(ex1.toString());
+            output=ex1.toString();
         }
         System.out.println("Popolata tabella Indirizzi");
 
@@ -821,12 +850,15 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
+                output=e.toString();
             } catch (IOException e) {
                 System.out.println(e);
+                output=e.toString();
             }
         }
         catch(Exception ex1){
             System.out.println(ex1.toString());
+            output=ex1.toString();
         }
         System.out.println("Popolata tabella CentriVaccinali");
         
@@ -854,12 +886,15 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
+                output=e.toString();
             } catch (IOException e) {
                 System.out.println(e);
+                output=e.toString();
             }
         }
         catch(Exception ex1){
             System.out.println(ex1.toString());
+            output=ex1.toString();
         }
         System.out.println("Popolata tabella Cittadini_Registrati");
         
@@ -884,12 +919,15 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
+                output=e.toString();
             } catch (IOException e) {
                 System.out.println(e);
+                output=e.toString();
             }
         }
         catch(Exception ex1){
             System.out.println(ex1.toString());
+            output=ex1.toString();
         }
         System.out.println("Popolate le tabelle delle vaccinazioni");
         
@@ -915,14 +953,19 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
+                output=e.toString();
             } catch (IOException e) {
                 System.out.println(e);
+                output=e.toString();
             }
         }
         catch(Exception ex1){
             System.out.println(ex1.toString());
+            output=ex1.toString();
         }
         System.out.println("Popolata la tabella EventiAvversi");
+        output="ok";
+        return output;
     }
     
     public Cittadino getCitizenByVaccinationID(int id){
