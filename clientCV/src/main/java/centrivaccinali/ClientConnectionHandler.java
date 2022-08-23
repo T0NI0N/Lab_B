@@ -76,8 +76,8 @@ public class ClientConnectionHandler {
 	 * @param user l'utente da registrare
 	 * @throws RemoteException
 	 */
-	public void registerCitizen(Cittadino user) throws RemoteException {
-		stub.registerCitizen(user);
+	public String registerCitizen(Cittadino user) throws RemoteException {
+		return stub.registerCitizen(user);
 	}
 
 	/*
@@ -87,8 +87,8 @@ public class ClientConnectionHandler {
 	 * 
 	 * @throws RemoteException
 	 */
-	public void registerCenter(CentroVaccinale center) throws RemoteException {
-		stub.registerCenter(center);
+	public String registerCenter(CentroVaccinale center) throws RemoteException {
+		return stub.registerCenter(center);
 	}
 
 	/*
@@ -100,8 +100,8 @@ public class ClientConnectionHandler {
 	 * 
 	 * @throws RemoteException
 	 */
-	public void registerVaccination(Cittadino user, CentroVaccinale center) throws RemoteException {
-		stub.registerVaccination(user, center);
+	public String registerVaccination(Cittadino user, CentroVaccinale center) throws RemoteException {
+		return stub.registerVaccination(user, center);
 	}
 
 	/*
@@ -115,9 +115,9 @@ public class ClientConnectionHandler {
 	 * 
 	 * @throws RemoteException
 	 */
-	public void insertAdverseEvent(Cittadino citizen, CentroVaccinale center, EventoAvverso event)
+	public String insertAdverseEvent(Cittadino citizen, CentroVaccinale center, EventoAvverso event)
 			throws RemoteException {
-		stub.insertAdverseEvent(citizen, center, event);
+		return stub.insertAdverseEvent(citizen, center, event);
 	}
 
 	/*

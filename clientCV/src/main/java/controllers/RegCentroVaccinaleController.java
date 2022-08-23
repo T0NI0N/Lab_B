@@ -10,10 +10,12 @@ import enums.TipoCentroVaccinale;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -48,19 +50,34 @@ public class RegCentroVaccinaleController implements Initializable {
         System.out.println("Enter button pressed");
 
         try {
-            connectionHandler.registerCenter(new CentroVaccinale(tf_nomeCentro.getText(),
+            String result = connectionHandler.registerCenter(new CentroVaccinale(tf_nomeCentro.getText(),
                     new Indirizzo(chb_tipoIndirizzo.getValue(), tf_via.getText(), tf_numCivico.getText(),
                             tf_comune.getText(), tf_prov.getText(), Integer.parseInt(tf_cap.getText())),
                     chb_tipoCentro.getValue()));
+            switch (result) {
+                case "ok":
+                    System.out.println("Success: Centro registrato");
+                    Alert a = new Alert(Alert.AlertType.INFORMATION);
+                    a.setTitle("Successo");
+                    a.setHeaderText("Centro Registrato");
+                    a.setContentText("Il centro è stato registrato con successo");
+                    a.showAndWait();
+                    break;
+                case "already_in":
+                    System.out.println("Failure: Centro già presente");
+                    break;
+                default:
+                    System.out.println("Failure: " + result);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        /*
         System.out.println(tf_nomeCentro.getText());
         System.out.println(chb_tipoIndirizzo.getValue() + " " + tf_via.getText() + " " + tf_numCivico.getText());
         System.out.println(tf_comune.getText() + " (" + tf_prov.getText() + ")" + " " + tf_cap.getText());
         System.out.println(chb_tipoCentro.getValue());
-
+        */
     }
 
     /**

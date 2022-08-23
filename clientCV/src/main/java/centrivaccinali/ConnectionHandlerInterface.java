@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 public interface ConnectionHandlerInterface extends Remote {
 
-    public void registerCitizen(Cittadino user) throws RemoteException;
+    public String registerCitizen(Cittadino user) throws RemoteException;
 
-    public void registerCenter(CentroVaccinale center) throws RemoteException;
+    public String registerCenter(CentroVaccinale center) throws RemoteException;
 
-    public void registerVaccination(Cittadino user, CentroVaccinale center) throws RemoteException;
+    public String registerVaccination(Cittadino user, CentroVaccinale center) throws RemoteException;
 
-    public void insertAdverseEvent(Cittadino citizen, CentroVaccinale center, EventoAvverso event) throws RemoteException;
+    public String insertAdverseEvent(Cittadino citizen, CentroVaccinale center, EventoAvverso event) throws RemoteException;
 
     public ArrayList<CentroVaccinale> getCenters() throws RemoteException;
 

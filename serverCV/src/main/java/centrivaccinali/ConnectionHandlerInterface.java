@@ -7,13 +7,13 @@ import java.util.*;
 
 public interface ConnectionHandlerInterface extends Remote {
 
-    public void registerCitizen(Cittadino user, String centername) throws RemoteException;
+    public String registerCitizen(Cittadino user, String centername) throws RemoteException;
 
-    public void registerCenter(CentroVaccinale center) throws RemoteException;
+    public String registerCenter(CentroVaccinale center) throws RemoteException;
 
-    public void registerVaccination(Cittadino user) throws RemoteException;
+    public String registerVaccination(Cittadino user) throws RemoteException;
 
-    public void insertAdverseEvent(String userid, String centername, EventoAvverso event) throws RemoteException;
+    public String insertAdverseEvent(String userid, String centername, EventoAvverso event) throws RemoteException;
 
     public ArrayList<CentroVaccinale> getCenters() throws RemoteException;
 

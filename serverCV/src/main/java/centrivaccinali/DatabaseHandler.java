@@ -175,6 +175,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 rs.next();
                 rs.getInt("idCentroVaccinale");
                 System.out.println("Centro vaccinale presente nel database");
+                output="already_in";
             } catch (Exception ex) {
                 check = true;
                 output=ex.toString();
