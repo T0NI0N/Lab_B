@@ -12,6 +12,7 @@ import enums.TipoVaccino;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -51,11 +52,29 @@ public class RegCittVaccinatoController implements Initializable {
         System.out.println("CF: " + tf_codiceFiscale.getText());
         System.out.println("Vaccinato con una dose di " + chb_vaccino.getValue());
 
-        connectionHandler.registerVaccination
+        String result = connectionHandler.registerVaccination
         (
             new Cittadino(tf_nome.getText(), tf_cognome.getText(), tf_codiceFiscale.getText(), "", "", "", 0, dp_data.getValue().getDayOfMonth()+"/"+dp_data.getValue().getMonth()+"/"+dp_data.getValue().getYear(), chb_vaccino.getValue()),
             new CentroVaccinale(tf_centroV.getText(), new Indirizzo("", "", "", "", "", 0), TipoCentroVaccinale.OSPEDALIERO)
         );
+        switch (result){
+            case "ok" -> {
+                System.out.println("Success: Vaccinazione registrata");
+                Alert a = new Alert(Alert.AlertType.INFORMATION);
+                a.setTitle("Registrazione avvenuta");
+                a.setHeaderText("Vaccinazione cittadino avvenuta con successo");
+                a.setContentText("Il centro è stato registrato con successo");
+                a.showAndWait();
+            }
+            default -> {
+                System.out.println("Success: Centro registrato");
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Registrazione fallita");
+                a.setHeaderText("Vaccinazione cittadino non avvenuta");
+                a.setContentText(result);
+                a.showAndWait();
+            }
+        }
 
     }
 
