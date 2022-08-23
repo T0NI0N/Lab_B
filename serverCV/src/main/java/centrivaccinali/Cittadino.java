@@ -1,4 +1,4 @@
-// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
+package centrivaccinali;// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
 
 import enums.TipoVaccino;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 
 /**
- * Classe che rappresenta un oggetto di tipo Cittadino
+ * Classe che rappresenta un oggetto di tipo centrivaccinali.Cittadino
  */
 public class Cittadino implements Serializable {
 
@@ -54,7 +54,7 @@ public class Cittadino implements Serializable {
     // costruttori
 
     /**
-     * Ritorna un oggetto di tipo Cittadino
+     * Ritorna un oggetto di tipo centrivaccinali.Cittadino
      * 
      * @param nome    del cittadino
      * @param cognome del cittadino
@@ -76,7 +76,7 @@ public class Cittadino implements Serializable {
     }
 
     /**
-     * Ritorna un oggetto di tipo Cittadino
+     * Ritorna un oggetto di tipo centrivaccinali.Cittadino
      * 
      * @param nome    del cittadino
      * @param cognome del cittadino
@@ -96,7 +96,7 @@ public class Cittadino implements Serializable {
     }
 
     /**
-     * Ritorna un oggetto di tipo Cittadino
+     * Ritorna un oggetto di tipo centrivaccinali.Cittadino
      * 
      * @param nome           del cittadino
      * @param cognome        del cittadino
@@ -123,9 +123,9 @@ public class Cittadino implements Serializable {
     }
 
     /**
-     * Ritorna l'oggetto Cittadino sottoforma di stringa
+     * Ritorna l'oggetto centrivaccinali.Cittadino sottoforma di stringa
      * 
-     * @return una stringa che contiene tutti i valori dei campi di Cittadino
+     * @return una stringa che contiene tutti i valori dei campi di centrivaccinali.Cittadino
      */
     public String toString() {
         return "cittadino [id= " + this.idVaccinazione + ", cognome=" + this.cognome + ", nome=" + this.nome

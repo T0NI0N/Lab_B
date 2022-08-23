@@ -1,4 +1,4 @@
-// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
+package centrivaccinali;// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
 
 import java.io.Serializable;
 
@@ -45,7 +45,7 @@ public class Indirizzo implements Serializable {
 
     // costruttore
     /**
-     * Ritorna un oggetto di tipo Indirizzo
+     * Ritorna un oggetto di tipo centrivaccinali.Indirizzo
      * 
      * @param q   il qualificatore dell'indirizzo
      * @param n   il nome dell'indirizzo
@@ -122,7 +122,7 @@ public class Indirizzo implements Serializable {
     /**
      * Ritorna l'oggetto indirizzo sotto forma di stringa
      * 
-     * @return una stringa che contiene tutti i valori dei campi di Indirizzo
+     * @return una stringa che contiene tutti i valori dei campi di centrivaccinali.Indirizzo
      */
     public String toString() {
 

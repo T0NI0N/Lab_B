@@ -1,8 +1,9 @@
-// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
+package centrivaccinali;// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
 
 import enums.TipoCentroVaccinale;
 import enums.TipoEventoAvverso;
 import enums.TipoVaccino;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.io.*;
@@ -608,7 +609,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                         rs.getString("userid"),
                         rs.getString("password"), 0, null, null);
             } else {
-                System.out.println("Cittadino non presente");
+                System.out.println("centrivaccinali.Cittadino non presente");
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -936,7 +937,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                         rs.getString("userid"),
                         rs.getString("password"), rs.getInt("idVaccinazione"), null, null);
             } else {
-                System.out.println("Cittadino non presente");
+                System.out.println("centrivaccinali.Cittadino non presente");
             }
         } catch (Exception ex) {
             System.out.println(ex);

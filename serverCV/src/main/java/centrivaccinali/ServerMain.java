@@ -1,4 +1,4 @@
-// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
+package centrivaccinali;// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,7 +11,7 @@ public class ServerMain {
     private static DatabaseHandler obj;
 
     /**
-     * Crea l'istanza di DatabaseHandler e la pubblica sul registry alla porta di
+     * Crea l'istanza di centrivaccinali.DatabaseHandler e la pubblica sul registry alla porta di
      * default
      * 
      * @param args argomenti passati da riga di comando

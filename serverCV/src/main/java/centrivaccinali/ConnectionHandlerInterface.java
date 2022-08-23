@@ -1,4 +1,4 @@
-// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
+package centrivaccinali;// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
 
 import enums.TipoCentroVaccinale;
 import java.rmi.Remote;

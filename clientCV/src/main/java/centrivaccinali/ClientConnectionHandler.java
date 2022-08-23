@@ -9,7 +9,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
-
 /**
  * Classe che gestisce la connessione al registry del client e l'uso del
  * servizio pubblicato sul registry stesso.

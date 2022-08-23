@@ -1,11 +1,11 @@
-// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
+package centrivaccinali;// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
 
 import enums.TipoCentroVaccinale;
 
 import java.io.Serializable;
 
 /**
- * Classe che rappresenta un oggetto di tipo CentroVaccinale
+ * Classe che rappresenta un oggetto di tipo centrivaccinali.CentroVaccinale
  */
 public class CentroVaccinale implements Serializable {
 
@@ -31,7 +31,7 @@ public class CentroVaccinale implements Serializable {
     // costruttori
 
     /**
-     * Ritorna un oggetto di tipo CentroVaccinale
+     * Ritorna un oggetto di tipo centrivaccinali.CentroVaccinale
      * 
      * @param n il nome del centro
      * @param i l'indirizzo del centro
@@ -155,10 +155,10 @@ public class CentroVaccinale implements Serializable {
     }
 
     /**
-     * Ritorna l'oggetto CentroVaccinale sotto forma di stringa, informazioni e
+     * Ritorna l'oggetto centrivaccinali.CentroVaccinale sotto forma di stringa, informazioni e
      * lista di eventi avversi
      * 
-     * @return una stringa che contiene tutti i valori dei campi di CentroVaccinale
+     * @return una stringa che contiene tutti i valori dei campi di centrivaccinali.CentroVaccinale
      */
 
     @Override
