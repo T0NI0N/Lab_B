@@ -12,6 +12,7 @@ import centrivaccinali.ClientConnectionHandler;
 import cittadini.Cittadino;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import utils.EncryptData;
@@ -62,6 +63,13 @@ public class LoginController implements Initializable {
 
             System.out.println(cv.toString());
             new InsEventoCittadiniController().setCenter(cv);
+        }else {
+            System.out.println("Failure: Login fallita");
+            Alert b = new Alert(Alert.AlertType.ERROR);
+            b.setTitle("Login fallita");
+            b.setHeaderText("Credenziali errate");
+            b.setContentText("Il nome utente o la password sono errati");
+            b.showAndWait();
         }
 
         // System.out.println(username + " | " + password);
