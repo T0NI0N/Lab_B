@@ -100,8 +100,8 @@ public class ClientConnectionHandler {
 	 * 
 	 * @throws RemoteException
 	 */
-	public String registerVaccination(Cittadino user, CentroVaccinale center) throws RemoteException {
-		return stub.registerVaccination(user, center);
+	public String registerVaccination(Cittadino user, String centername) throws RemoteException {
+		return stub.registerVaccination(user, centername);
 	}
 
 	/*
