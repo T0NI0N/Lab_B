@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 import centrivaccinali.CentriVaccinali;
 import centrivaccinali.CentroVaccinale;
 import centrivaccinali.ClientConnectionHandler;
-import cittadini.Cittadino;
+import centrivaccinali.Cittadino;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -46,7 +46,7 @@ public class LoginController implements Initializable {
         username = txtUsername.getText();
         password = EncryptData.encrypt(txtPassword.getText());
 
-        boolean success = false;
+        Cittadino success = null;
 
         try {
             success = connectionHandler.login(username, password);
@@ -54,7 +54,7 @@ public class LoginController implements Initializable {
             System.out.println(e);
         }
 
-        if (success) {
+        if (success != null) {
             CentriVaccinali.switchScene("InsEventoCittadini");
             Cittadino ct = connectionHandler.getCitizenByLogin(username, password);
             CentroVaccinale cv = connectionHandler.getCenterByVaccinatedCitizen(ct);

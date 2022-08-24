@@ -3,11 +3,8 @@
 package controllers;
 
 import centrivaccinali.CentriVaccinali;
-import centrivaccinali.CentroVaccinale;
 import centrivaccinali.ClientConnectionHandler;
-import centrivaccinali.Indirizzo;
-import cittadini.Cittadino;
-import enums.TipoCentroVaccinale;
+import centrivaccinali.Cittadino;
 import enums.TipoVaccino;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

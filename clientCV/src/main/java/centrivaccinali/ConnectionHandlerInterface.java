@@ -2,7 +2,6 @@
 
 package centrivaccinali;
 
-import cittadini.Cittadino;
 import enums.TipoCentroVaccinale;
 import java.rmi.Remote;
 import java.rmi.RemoteException;

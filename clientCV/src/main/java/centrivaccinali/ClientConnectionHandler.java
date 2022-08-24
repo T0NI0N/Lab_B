@@ -2,7 +2,6 @@
 
 package centrivaccinali;
 
-import cittadini.Cittadino;
 import enums.TipoCentroVaccinale;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -225,15 +224,14 @@ public class ClientConnectionHandler {
 	}
 
 	// TODO scrivere la documentazione di login
-	public boolean login(String userid, String password) throws RemoteException {
+	public Cittadino login(String userid, String password) throws RemoteException {
 
-		boolean success = false;
+		Cittadino success = null;
 
 		try {
-			loggedUser = stub.getCitizenByLogin(userid, password);
-			success = (loggedUser != null);
+			success = stub.getCitizenByLogin(userid, password);
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
 
 		return success;

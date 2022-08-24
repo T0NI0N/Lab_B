@@ -10,7 +10,7 @@ import centrivaccinali.CentriVaccinali;
 import centrivaccinali.CentroVaccinale;
 import centrivaccinali.ClientConnectionHandler;
 import centrivaccinali.EventoAvverso;
-import cittadini.Cittadino;
+import centrivaccinali.Cittadino;
 import enums.TipoEventoAvverso;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

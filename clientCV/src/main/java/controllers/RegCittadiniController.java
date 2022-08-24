@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import centrivaccinali.CentriVaccinali;
 import centrivaccinali.ClientConnectionHandler;
-import cittadini.Cittadino;
+import centrivaccinali.Cittadino;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
