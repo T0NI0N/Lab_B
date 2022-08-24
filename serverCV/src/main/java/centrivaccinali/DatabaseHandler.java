@@ -63,9 +63,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 "idCittadino integer PRIMARY KEY, " +
                                 "nome varchar(20) NOT NULL, " +
                                 "cognome varchar(20) NOT NULL, " +
-                                "email varchar(50) NOT NULL, " +
-                                "userid varchar(20) NOT NULL, " +
-                                "password varchar(100) NOT NULL, " + 
+                                "email varchar(50) NOT NULL DEFAULT '', " +
+                                "userid varchar(20) NOT NULL DEFAULT '', " +
+                                "password varchar(100) NOT NULL DEFAULT '', " + 
                                 "codicefiscale varchar(16) NOT NULL, " +
                                 "idVaccinazione integer DEFAULT 0, " +
                                 "idCentroVaccinale smallint," +
@@ -281,84 +281,83 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    public synchronized String registerVaccination(Cittadino user) {
-        String output="ok";
-        try {
-            int centrovaccinale;
-            int cittadino;
-            String centername;
-            ResultSet rs = conn.prepareStatement(
-                "SELECT c.idCittadino AS cidCittadino, c.idCentroVaccinale AS cidCentroVaccinale, cv.nome AS cvnome FROM Cittadini_Registrati c JOIN CentriVaccinali cv ON c.idCentroVaccinale=cv.idCentroVaccinale WHERE userid='" + user.getUserid() + "'")
-                .executeQuery();
+    public synchronized String registerVaccination(Cittadino user, String centername) {
+    String output="ok";
+    try {
+        registerCitizen(user, centername);
+        int centrovaccinale;
+        int cittadino;
+        ResultSet rs = conn.prepareStatement(
+            "SELECT c.idCittadino AS cidCittadino, c.idCentroVaccinale AS cidCentroVaccinale, cv.nome AS cvnome FROM Cittadini_Registrati c JOIN CentriVaccinali cv ON c.idCentroVaccinale=cv.idCentroVaccinale WHERE userid='" + user.getUserid() + "'")
+            .executeQuery();
+        rs.next();
+        centrovaccinale = rs.getInt("cidCentroVaccinale");
+        cittadino = rs.getInt("cidCittadino");
+        try{
+            rs=conn.prepareStatement(
+                "SELECT idVaccinazione FROM Cittadini_Registrati WHERE idVaccinazione!=0 ORDER BY (idVaccinazione) DESC"
+            ).executeQuery();
             rs.next();
-            centrovaccinale = rs.getInt("cidCentroVaccinale");
-            cittadino = rs.getInt("cidCittadino");
-            centername=rs.getString("cvnome");
-            try{
-                rs=conn.prepareStatement(
-                    "SELECT idVaccinazione FROM Cittadini_Registrati WHERE idVaccinazione!=0 ORDER BY (idVaccinazione) DESC"
-                ).executeQuery();
-                rs.next();
-                user.setIdVaccinazione(rs.getInt("idVaccinazione")+1);
-            }
-            catch(Exception ex1){
-                user.setIdVaccinazione(1);
-                output=ex1.toString();
-            }
-            Statement statement = conn.createStatement();
-            String table = "Vaccinazioni_" + centername;
-            int id;
+            user.setIdVaccinazione(rs.getInt("idVaccinazione")+1);
+        }
+        catch(Exception ex1){
+            user.setIdVaccinazione(1);
+            output=ex1.toString();
+        }
+        Statement statement = conn.createStatement();
+        String table = "Vaccinazioni_" + centername;
+        int id;
+        try {
+            statement.executeUpdate(
+                    "CREATE TABLE " + table + " (" +
+                            "idVaccinazione integer PRIMARY KEY, " +
+                            "data_somministrazione date NOT NULL, " +
+                            "idCentroVaccinale smallint," +
+                            "idCittadino integer, " +
+                            "idTipologia smallint, " +
+                            "CONSTRAINT fk_CentriVaccinali FOREIGN KEY (idCentroVaccinale) REFERENCES CentriVaccinali(idCentroVaccinale), "
+                            +
+                            "CONSTRAINT fk_Cittadini FOREIGN KEY (idCittadino) REFERENCES Cittadini_Registrati(idCittadino), "
+                            +
+                            "CONSTRAINT fk_TipiEventi FOREIGN KEY (idTipologia) REFERENCES TipiVaccini(idTipologia))");
+            id = 1;
+            System.out.println("Creata " + table);
+        } catch (Exception ex) {
+            output=ex.toString();
             try {
                 statement.executeUpdate(
-                        "CREATE TABLE " + table + " (" +
-                                "idVaccinazione integer PRIMARY KEY, " +
-                                "data_somministrazione date NOT NULL, " +
-                                "idCentroVaccinale smallint," +
-                                "idCittadino integer, " +
-                                "idTipologia smallint, " +
-                                "CONSTRAINT fk_CentriVaccinali FOREIGN KEY (idCentroVaccinale) REFERENCES CentriVaccinali(idCentroVaccinale), "
+                        "INSERT INTO " + table
+                                + " (idVaccinazione, idCentroVaccinale, idCittadino, idTipologia, data_somministrazione) VALUES ("
                                 +
-                                "CONSTRAINT fk_Cittadini FOREIGN KEY (idCittadino) REFERENCES Cittadini_Registrati(idCittadino), "
-                                +
-                                "CONSTRAINT fk_TipiEventi FOREIGN KEY (idTipologia) REFERENCES TipiVaccini(idTipologia))");
-                id = 1;
-                System.out.println("Creata " + table);
-            } catch (Exception ex) {
-                output=ex.toString();
-                try {
+                                user.getIdVaccinazione() + ", " +
+                                centrovaccinale + ", " +
+                                cittadino + ", " +
+                                user.getTipo().ordinal() + ", '" +
+                                user.getDataSomministrazione().split("/")[2] + "-"
+                                + user.getDataSomministrazione().split("/")[1] + "-"
+                                + user.getDataSomministrazione().split("/")[0] + "')");
+                System.out.println("Inserita vaccinazione in " + table);
+                try{
                     statement.executeUpdate(
-                            "INSERT INTO " + table
-                                    + " (idVaccinazione, idCentroVaccinale, idCittadino, idTipologia, data_somministrazione) VALUES ("
-                                    +
-                                    user.getIdVaccinazione() + ", " +
-                                    centrovaccinale + ", " +
-                                    cittadino + ", " +
-                                    user.getTipo().ordinal() + ", '" +
-                                    user.getDataSomministrazione().split("/")[2] + "-"
-                                    + user.getDataSomministrazione().split("/")[1] + "-"
-                                    + user.getDataSomministrazione().split("/")[0] + "')");
-                    System.out.println("Inserita vaccinazione in " + table);
-                    try{
-                        statement.executeUpdate(
-                            "UPDATE Cittadini_Registrati SET idVaccinazione="+user.getIdVaccinazione()+" WHERE userid='"+user.getUserid()+"'");
-                        output="ok";
-                    }
-                    catch(Exception ex2){
-                        System.out.println(ex2.toString());
-                        output=ex2.toString();
-                    }
-                } catch (Exception ex1) {
-                    System.out.println("Dati inseriti errati");
-                    System.out.println(ex1.getMessage());
-                    output=ex1.toString();
+                        "UPDATE Cittadini_Registrati SET idVaccinazione="+user.getIdVaccinazione()+" WHERE userid='"+user.getUserid()+"'");
+                    output="ok";
                 }
+                catch(Exception ex2){
+                    System.out.println(ex2.toString());
+                    output=ex2.toString();
+                }
+            } catch (Exception ex1) {
+                System.out.println("Dati inseriti errati");
+                System.out.println(ex1.getMessage());
+                output=ex1.toString();
             }
-        } catch (Exception e) {
-            System.out.println(e);
-            output=e.toString();
         }
-        return output;
+    } catch (Exception e) {
+        System.out.println(e);
+        output=e.toString();
     }
+    return output;
+}
 
     public String insertAdverseEvent(String userid, String centername, EventoAvverso event) {
         String output="ok";
@@ -1020,4 +1019,33 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
         return output;
     }
+    
+    public synchronized String updateCitizen(Cittadino user) {
+    String output="ok";
+    try {
+        Statement statement = conn.createStatement();
+        ResultSet rs = conn
+                .prepareStatement("SELECT idCittadino, idCentroVaccinale FROM Cittadini_Registrati WHERE codicefiscale='"+user.getCodiceFiscale()+"'")
+                .executeQuery();
+        int id;
+        int centrovaccinale;
+        rs.next();
+        id = rs.getInt("idCittadino");
+        centrovaccinale=rs.getInt("idCentroVaccinale");
+        statement.executeUpdate(
+                "UPDATE Cittadini_Registrati SET"
+                        +
+                        "email='" +
+                        user.getEmail() + "', userid='" +
+                        user.getUserid() + "', password='" +
+                        user.getPassword() + "', WHERE codicefiscale='" +
+                        user.getCodiceFiscale() + "'");
+        System.out.println("Aggiornato cittadino");
+        output="ok";
+    } catch (Exception e) {
+        System.out.println(e);
+        output=e.toString();
+    }
+    return output;
+}
 }
