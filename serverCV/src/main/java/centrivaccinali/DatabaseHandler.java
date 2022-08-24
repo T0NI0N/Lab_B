@@ -288,7 +288,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         int centrovaccinale;
         int cittadino;
         ResultSet rs = conn.prepareStatement(
-            "SELECT c.idCittadino AS cidCittadino, c.idCentroVaccinale AS cidCentroVaccinale, cv.nome AS cvnome FROM Cittadini_Registrati c JOIN CentriVaccinali cv ON c.idCentroVaccinale=cv.idCentroVaccinale WHERE userid='" + user.getUserid() + "'")
+            "SELECT c.idCittadino AS cidCittadino, c.idCentroVaccinale AS cidCentroVaccinale, cv.nome AS cvnome FROM Cittadini_Registrati c JOIN CentriVaccinali cv ON c.idCentroVaccinale=cv.idCentroVaccinale WHERE codicefiscale='" + user.getCodiceFiscale() + "'")
             .executeQuery();
         rs.next();
         centrovaccinale = rs.getInt("cidCentroVaccinale");
