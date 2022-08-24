@@ -11,7 +11,7 @@ public interface ConnectionHandlerInterface extends Remote {
 
     public String registerCenter(CentroVaccinale center) throws RemoteException;
 
-    public String registerVaccination(Cittadino user) throws RemoteException;
+    public String registerVaccination(Cittadino user, String centername) throws RemoteException;
 
     public String insertAdverseEvent(String userid, String centername, EventoAvverso event) throws RemoteException;
 
@@ -38,4 +38,6 @@ public interface ConnectionHandlerInterface extends Remote {
     public boolean checkUserIDPresence(String userid) throws RemoteException;
     
     public boolean checkEmailPresence(String email) throws RemoteException;
+    
+    public String updateCitizen(Cittadino user) throws RemoteException;
 }
