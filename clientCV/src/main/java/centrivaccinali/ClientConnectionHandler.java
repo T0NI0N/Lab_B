@@ -270,7 +270,7 @@ public class ClientConnectionHandler {
 	 * @param id id da verificare
 	 * @return true se è presente un cittadino con id in input, false altrimenti.
 	 */
-	public boolean getCitizenByVaccinationID(int id) {
+	public Cittadino getCitizenByVaccinationID(int id) {
 		return stub.getCitizenByVaccinationID(id);
 	}
 

@@ -73,15 +73,20 @@ public class HomeCittadiniController implements Initializable {
             // valore inserito
             int id = Integer.parseInt(result.get());
 
-            if (connectionHandler.getCitizenByVaccinationID(id)) {
+            Cittadino c = connectionHandler.getCitizenByVaccinationID(id);
+            if(c != null) {
                 // TODO se l'id è riconosciuto si passa alla schermata di registrazione
                 //  va implementato un modo per passare alla schermata di registrazione l'id
                 //  in modo da autocompilare alcuni campi
 
                 CentriVaccinali.switchScene("RegCittadini");
             }else{
-                // errore id non presente
-                System.out.println("id non presente in db");
+                System.out.println("Failure: ID vaccinazione errato");
+                Alert b = new Alert(Alert.AlertType.ERROR);
+                b.setTitle("Verifica fallita");
+                b.setHeaderText("ID Vaccinazione errato");
+                b.setContentText("Non è stata trovata nessuna vaccinazione sotto questo id");
+                b.showAndWait();
             }
         }
     }
