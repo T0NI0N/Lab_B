@@ -33,6 +33,7 @@ public class RegCittadiniController implements Initializable {
     @FXML
     private TextField txtPassword;
 
+    private Cittadino cittadino;
 
     private String name;
     private String surname;
@@ -44,6 +45,10 @@ public class RegCittadiniController implements Initializable {
 
     private ClientConnectionHandler connectionHandler;
 
+    public void setCittadino(Cittadino cittadino) {
+        this.cittadino = cittadino;
+    }
+
     /**
      * inizializza la connessione alla base di dati
      *
@@ -53,6 +58,10 @@ public class RegCittadiniController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
+
+        txtName.setText(cittadino.getNome());
+        txtSurname.setText(cittadino.getCognome());
+        txtCodf.setText(cittadino.getCodiceFiscale());
     }
 
     /**

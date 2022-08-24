@@ -270,7 +270,7 @@ public class ClientConnectionHandler {
 	 * @param id id da verificare
 	 * @return true se è presente un cittadino con id in input, false altrimenti.
 	 */
-	public Cittadino getCitizenByVaccinationID(int id) {
+	public Cittadino getCitizenByVaccinationID(int id) throws RemoteException {
 		return stub.getCitizenByVaccinationID(id);
 	}
 

@@ -75,11 +75,9 @@ public class HomeCittadiniController implements Initializable {
 
             Cittadino c = connectionHandler.getCitizenByVaccinationID(id);
             if(c != null) {
-                // TODO se l'id è riconosciuto si passa alla schermata di registrazione
-                //  va implementato un modo per passare alla schermata di registrazione l'id
-                //  in modo da autocompilare alcuni campi
-
                 CentriVaccinali.switchScene("RegCittadini");
+
+                new RegCittadiniController().setCittadino(c);
             }else{
                 System.out.println("Failure: ID vaccinazione errato");
                 Alert b = new Alert(Alert.AlertType.ERROR);
