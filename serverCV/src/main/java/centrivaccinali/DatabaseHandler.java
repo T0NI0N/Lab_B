@@ -3,6 +3,7 @@ package centrivaccinali;// autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 7
 import enums.TipoCentroVaccinale;
 import enums.TipoEventoAvverso;
 import enums.TipoVaccino;
+import utils.EncryptData;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -877,7 +878,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     temp.split(";")[2]+"', '"+
                     temp.split(";")[3]+"', '"+
                     temp.split(";")[4]+"', '"+
-                    temp.split(";")[5]+"', '"+
+                    EncryptData.encrypt(temp.split(";")[5])+"', '"+
                     temp.split(";")[6]+"', "+
                     temp.split(";")[7]+")";
                     statement.executeUpdate(query);
