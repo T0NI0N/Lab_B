@@ -330,7 +330,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             output=ex1.toString();
         }
         Statement statement = conn.createStatement();
-        String table = "Vaccinazioni_" + centername;
+        String table = "Vaccinazioni_" + centername.replace(" ", "_");
         int id;
         try {
             statement.executeUpdate(
@@ -649,7 +649,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
      * @param center Il centro di cui si vogliono trovare i cittadini
      */
     public ArrayList<Cittadino> getVaccinatedCitizens(CentroVaccinale center) {
-        String table = "Vaccinazioni_" + center.getNomeCentro();
+        String table = "Vaccinazioni_" + center.getNomeCentro().replace(" ", "_");
         ArrayList<Cittadino> output = new ArrayList<Cittadino>();
         try {
             ResultSet rs = conn.prepareStatement(
@@ -760,7 +760,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             String table;
             for (CentroVaccinale x : getCenters()) {
                 present = false;
-                table = "Vaccinazioni_" + x.getNomeCentro();
+                table = "Vaccinazioni_" + x.getNomeCentro().replace(" ","_");
                 try {
                     rs = conn.prepareStatement(
                             "SELECT * FROM " + table)
@@ -915,7 +915,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     temp.split(";")[3]+")";
                     statement.executeUpdate(query);
                     nomi.add(temp.split(";")[1]);
-                    query="CREATE TABLE Vaccinazioni_" + temp.split(";")[1] + " (" +
+                    query="CREATE TABLE Vaccinazioni_" + temp.split(";")[1].replace(" ","_") + " (" +
                             "idVaccinazione integer PRIMARY KEY, " +
                             "data_somministrazione date NOT NULL, " +
                             "idCentroVaccinale smallint," +
@@ -926,6 +926,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                             "CONSTRAINT fk_Cittadini FOREIGN KEY (idCittadino) REFERENCES Cittadini_Registrati(idCittadino), "
                             +
                             "CONSTRAINT fk_TipiEventi FOREIGN KEY (idTipologia) REFERENCES TipiVaccini(idTipologia))";
+                    System.out.println(query);
                     statement.executeUpdate(query);
                     temp = br.readLine();
                 }
@@ -989,7 +990,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 while (temp!= null) 
                 {
                     query=
-                    "INSERT INTO Vaccinazioni_"+nomi.get(Integer.parseInt(temp.split(";")[2])-1)+" VALUES ("+
+                    "INSERT INTO Vaccinazioni_"+nomi.get(Integer.parseInt(temp.split(";")[2])-1).replace(" ","_")+" VALUES ("+
                     temp.split(";")[0]+", '"+
                     temp.split(";")[1]+"', "+
                     temp.split(";")[2]+", "+
