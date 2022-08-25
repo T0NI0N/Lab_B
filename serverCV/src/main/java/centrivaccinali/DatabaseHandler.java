@@ -13,6 +13,13 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     private String connection = "jdbc:postgresql://";
     private Connection conn;
 
+    /*
+     * Costruttore di DatabaseHandler, tenta di connettersi all'host utilizzando utente e password passati come parametro. In caso dovesse riuscire a connettersi e non ci dovessero essere le tabelle TipiCentri, Comuni, Indirizzi, CentriVaccinali, Cittadini_Registrati, TipiVaccini, TipiEventi, EventiAvversi, assegnando a TipiCentri, TipiVaccini e TipiEventi i valori salvati nelle classi TipoCentroVaccinale, TipoVaccino e TipoEventoAvverso
+     * 
+     * @param host Host a cui connettersi
+     * @param user L'utente utilizzato per connettersi all'host
+     * @param password La password dell'utente utilizzato per connettersi all'host
+     */
     public DatabaseHandler(String host, String user, String password) {
         connection += host + "/";
         try {
@@ -117,6 +124,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
     }
 
+    /*
+     * Salva in una nuova riga di Cittadini_Registrati i valori del cittadino passato come parametro, assegnando come idCentroVaccinale quello del centro con il nome passato come parametro
+     * 
+     * @param user Il cittadino da registrare
+     * @param centername Il nome del centro di cui l'id è salvato all'interno del cittadino
+     */
     public synchronized String registerCitizen(Cittadino user, String centername) {
         String output="ok";
         try {
@@ -164,6 +177,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Salva in una nuova riga di CentriVaccinali i valori del centro passato come parametro
+     * 
+     * @param center Il centro da registrare
+     */
     public synchronized String registerCenter(CentroVaccinale center) {
         String output="ok";
         try {
@@ -282,6 +300,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Salva un nuovo cittadino con solo nome, cognome, codice fiscale e id del centro vaccinale per poi assegnargli i dati della vaccinazione registrando in Vaccinati_(nomecentro) i dati e le associazioni tra cittadino e centro vaccinale
+     * 
+     * @param user I dati del cittadino e della vaccinazione da registrare
+     * @param centername Il nome del centro in cui viene registrata la vaccinazione
+     */
     public synchronized String registerVaccination(Cittadino user, String centername) {
     String output="ok";
     try {
@@ -360,6 +384,13 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     return output;
 }
 
+    /*
+     * Salva in una nuova riga di EventiAvversi l'evento avverso collegando l'id del cittadino e quello del centro vaccinale
+     * 
+     * @param userid Lo user id del cittadino che segnala l'evento avverso
+     * @param centername Il nome del centro in cui è stata eseguita la vaccinazione che ha causato l'evento avverso
+     * @param event L'evento segnalato
+     */
     public String insertAdverseEvent(String userid, String centername, EventoAvverso event) {
         String output="ok";
         try {
@@ -421,6 +452,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Restituisce tutti i centri vaccinali presenti in CentriVaccinali
+     */
     public ArrayList<CentroVaccinale> getCenters() {
         ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
         try {
@@ -464,6 +498,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Restituisce i centri vaccinali di CentriVaccinali di cui l'attributo nome sia uguale a quello passato i parametro
+     * 
+     * @param name Il nome del centro da cercare
+     */
     public ArrayList<CentroVaccinale> getCentersByName(String name) {
         ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
         try {
@@ -508,6 +547,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Restituisce tutti i cittadini presenti nella tabella Cittadini_Registrati
+     */
     public ArrayList<Cittadino> getCitizens() {
         ArrayList<Cittadino> output = new ArrayList<Cittadino>();
         try {
@@ -526,6 +568,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Restituisce tutti i cittadini presenti nella tabella Cittadini_Registrati di cui gli attributi nome e cognome siano uguali a quelli passati come parametro
+     * 
+     * @param name Il nome da cercare
+     * @param surname Il cognome da cercare
+     */
     public ArrayList<Cittadino> getCitizensByName(String name, String surname) {
         ArrayList<Cittadino> output = new ArrayList<Cittadino>();
         try {
@@ -545,6 +593,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Restituisce tutti gli eventi avversi legati al centro vaccinale di cui il nome è passato come parametro
+     * 
+     * @param centerName Il nome del centro di cui si vogliono cercare gli eventi avversi
+     */
     public ArrayList<EventoAvverso> getAdverseEvents(String centerName) {
         ArrayList<EventoAvverso> output = new ArrayList<EventoAvverso>();
         try {
@@ -588,6 +641,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Restituisce i cittadini vaccinati nel centro passato come parametro
+     * 
+     * @param center Il centro di cui si vogliono trovare i cittadini
+     */
     public ArrayList<Cittadino> getVaccinatedCitizens(CentroVaccinale center) {
         String table = "Vaccinazioni_" + center.getNomeCentro();
         ArrayList<Cittadino> output = new ArrayList<Cittadino>();
@@ -620,6 +678,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Restituisce il cittadino di cui gli attributi userid e password sono uguali a quelli passati come parametro
+     * 
+     * @param userid Lo userid da cercare
+     * @param password La password da cercare
+     */
     public synchronized Cittadino getCitizenByLogin(String userid, String password) {
         Cittadino output = null;
         try {
@@ -640,6 +704,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Restituisce i centri vaccinali il cui comune e il tipo siano uguali a quelli passati come parametro
+     * 
+     * @param comune Il nome del comune da cercare
+     * @param tipo Il tipo del centro vaccinale da cercare
+     */
     public ArrayList<CentroVaccinale> getCenterByPlaceAndType(String comune, TipoCentroVaccinale tipo) {
         ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
         try {
@@ -675,6 +745,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Restituisce il centro vaccinale in cui è presente il cittadino passato come parametro
+     * 
+     * @param user Il cittadino da cercare
+     */
     public CentroVaccinale getCenterByVaccinatedCitizen(Cittadino user) {
         CentroVaccinale output = null;
         try {
@@ -742,6 +817,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Riempe il database con i dati presenti nei file di utils
+     */
     public String fillDataBase(){
         String output="ok";
         String path = System.getProperty("user.dir") + System.getProperty("file.separator") + "serverCV"
@@ -969,6 +1047,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
     
+    /*
+     * Restituisce il cittadino il cui id della vaccinazione sia uguale a quello presente come parametro
+     * 
+     * @param id L'id della vaccinazione da cercare 
+     */
     public Cittadino getCitizenByVaccinationID(int id){
         Cittadino output=null;
         try {
@@ -989,6 +1072,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
+    /*
+     * Controlla se lo user id passato come parametro è già presente nel database
+     * 
+     * @param userid Lo user id da cercare
+     */
     public boolean checkUserIDPresence(String userid){
         boolean output;
         try {
@@ -1005,6 +1093,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
     
+    /*
+     * Controlla se l'email passata come parametro è già presente nel database
+     * 
+     * @param email L'email da cercare
+     */
     public boolean checkEmailPresence(String email){
         boolean output;
         try {
@@ -1021,6 +1114,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
     
+    /*
+     * Aggiorna i campi del cittadino registrato il cui codice fiscale sia uguale a quello passato come parametro
+     * 
+     * @param user I dati del cittadino da aggiornare
+     */
     public synchronized String updateCitizen(Cittadino user) {
     String output="ok";
     try {
