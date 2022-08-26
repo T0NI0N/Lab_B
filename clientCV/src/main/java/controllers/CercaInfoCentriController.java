@@ -174,14 +174,22 @@ public class CercaInfoCentriController implements Initializable {
 
         // TODO testare la visualizzazione degli eventi avversi
 
+        centreName
+        
         try {
             String centre = lvResults.getSelectionModel().getSelectedItem();
+            centreName=lvResults.getSelectionModel().getSelectedItem().split(",")[0].split("Centro ")[1];
             int i = centre.indexOf(",");
             String centreName = centre.substring(6, i);
-            eventList = connectionHandler.getAdverseEvents(centreName);
         } catch (Exception e) {
             System.out.println(e);
         }
+
+        
+        try{
+            eventList = connectionHandler.getAdverseEvents(centreName);
+        }
+        catch(Exception ex){}
 
         if (!eventList.isEmpty()) {
             for (EventoAvverso evento : eventList) {
