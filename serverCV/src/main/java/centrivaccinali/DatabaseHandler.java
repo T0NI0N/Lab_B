@@ -602,6 +602,8 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
      */
     public ArrayList<EventoAvverso> getAdverseEvents(String centerName) {
         ArrayList<EventoAvverso> output = new ArrayList<EventoAvverso>();
+        System.out.println("SELECT ev.idTipologia, AVG(ev.severità) AS avgseverità FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
+        + centerName + "%' GROUP BY ev.idTipologia");
         try {
             ResultSet rs = conn.prepareStatement(
                     "SELECT ev.idTipologia, AVG(ev.severità) AS avgseverità FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
@@ -622,7 +624,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     ResultSet rs_note=conn.prepareStatement("SELECT ev.note AS enote FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
                     + centerName + "%' AND ev.idTipologia="+tipo.ordinal()).executeQuery();
                     while(rs_note.next()){
-                        note+=rs_note.getString("enote");
+                        note+=rs_note.getString("enote")+";";
                         System.out.println(note);
                     }
                 }catch(Exception ex1){
