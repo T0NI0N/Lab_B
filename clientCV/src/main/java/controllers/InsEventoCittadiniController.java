@@ -20,6 +20,7 @@ import enums.TipoEventoAvverso;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
@@ -57,14 +58,10 @@ public class InsEventoCittadiniController implements Initializable {
     private Cittadino cittadino;
     private CentroVaccinale centroVaccinale;
 
-    private ClientConnectionHandler connectionHandler;
+    public void setCittadino(Cittadino c){this.cittadino = c;}
+    public void setCentroVaccinale(CentroVaccinale cv){this.centroVaccinale = cv;}
 
-    public void setCittadino(Cittadino cittadino) {
-        this.cittadino=cittadino;
-    }
-    public void setCenter(CentroVaccinale centroVaccinale){
-        this.centroVaccinale = centroVaccinale;
-    }
+    private ClientConnectionHandler connectionHandler;
 
     /**
      * inizializza la connessione alla base di dati e dei campi della schermata
@@ -75,16 +72,9 @@ public class InsEventoCittadiniController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
-        ArrayList<CentroVaccinale> listaCentri = null;
-        try {
-             listaCentri = connectionHandler.getCenters();
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
 
-        ArrayList<String> listaNomi = (ArrayList<String>) listaCentri.stream().map(CentroVaccinale::getNomeCentro).collect(Collectors.toList());
-        centerTypeBox.setItems(FXCollections.observableList(listaNomi));
-        centerTypeBox.setValue(listaNomi.get(listaNomi.indexOf(centroVaccinale.getNomeCentro())));
+        centerTypeBox.setValue(centroVaccinale.getNomeCentro());
+        centerTypeBox.setDisable(true);
 
         eventTypeBox.setItems(FXCollections.observableList(Arrays.asList(TipoEventoAvverso.values())));
         eventTypeBox.setValue(TipoEventoAvverso.Emicrania);

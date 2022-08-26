@@ -2,6 +2,8 @@
 
 package centrivaccinali;
 
+import controllers.InsEventoCittadiniController;
+import controllers.RegCittadiniController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -22,7 +25,8 @@ import java.util.Optional;
 public class CentriVaccinali extends Application {
 
     private static Scene scene;
-    private static Stage primaryStage;
+    public static Stage primaryStage;
+    private static FXMLLoader fxmlLoader;
 
     private static ClientConnectionHandler connectionHandler;
 
@@ -38,38 +42,38 @@ public class CentriVaccinali extends Application {
 
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
 
-        if(!connectionHandler.connect()){
+        if (!connectionHandler.connect()) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Errore");
             a.setHeaderText("Errore di connessione");
             a.setContentText("Assicurarsi che serverCV sia in esecuzione e che \nla connessione ad internet sia attiva.");
             a.showAndWait();
-    } else {
+        } else {
 
-          CentriVaccinali.primaryStage = primaryStage;
-          scene = new Scene(loadFXML("Home"));
-          primaryStage.setScene(scene);
-          primaryStage.setTitle("CentriVaccinali-Client");
-          primaryStage.show();
+            CentriVaccinali.primaryStage = primaryStage;
+            scene = new Scene(loadFXML("Home"));
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("CentriVaccinali-Client");
+            primaryStage.show();
 
-          primaryStage.setOnCloseRequest(
-              new EventHandler<WindowEvent>() {
+            primaryStage.setOnCloseRequest(
+                    new EventHandler<WindowEvent>() {
 
-                    @Override
-                    public void handle(WindowEvent event) {
-                          Alert alert = new Alert(AlertType.CONFIRMATION);
-                          alert.setTitle("Uscire");
-                          alert.setHeaderText("");
-                          alert.setContentText("Sei sicuro di voler uscire dal programma?");
-                          Optional<ButtonType> result = alert.showAndWait();
+                        @Override
+                        public void handle(WindowEvent event) {
+                            Alert alert = new Alert(AlertType.CONFIRMATION);
+                            alert.setTitle("Uscire");
+                            alert.setHeaderText("");
+                            alert.setContentText("Sei sicuro di voler uscire dal programma?");
+                            Optional<ButtonType> result = alert.showAndWait();
 
-                          if (result.get() == ButtonType.OK) {
-                            System.out.println("Closing...");
-                            connectionHandler.disconnect();
-                            System.exit(0);
-                          } else event.consume();
-                    }
-              });
+                            if (result.get() == ButtonType.OK) {
+                                System.out.println("Closing...");
+                                connectionHandler.disconnect();
+                                System.exit(0);
+                            } else event.consume();
+                        }
+                    });
         }
     }
 
@@ -91,9 +95,25 @@ public class CentriVaccinali extends Application {
 
     public static void switchSceneB(String fxml, ArrayList<Object> o) throws IOException {
         // primaryStage.hide();
-        scene = new Scene(loadFXML(fxml));
+
         //scene.getStylesheets().add("style.css");
-        primaryStage.setUserData(o);
+
+        switch (fxml) {
+            case "InsEventoCittadini" -> {
+                InsEventoCittadiniController insEventoCittadiniController = new InsEventoCittadiniController();
+                insEventoCittadiniController.setCittadino((Cittadino) o.get(0));
+                insEventoCittadiniController.setCentroVaccinale((CentroVaccinale) o.get(1));
+                scene = new Scene(loadFXMLSpecial(fxml, insEventoCittadiniController));
+            }
+            case "RegCittadini" ->{
+                RegCittadiniController regCittadiniController = new RegCittadiniController();
+                regCittadiniController.setCittadino((Cittadino) o.get((0)));
+                scene = new Scene(loadFXMLSpecial(fxml, regCittadiniController));
+            }
+            default -> {
+                //Ancora da implementare
+            }
+        }
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();
@@ -108,7 +128,13 @@ public class CentriVaccinali extends Application {
      * @throws IOException
      */
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(CentriVaccinali.class.getResource(fxml + ".fxml"));
+        fxmlLoader = new FXMLLoader(CentriVaccinali.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
+    }
+
+    private static Parent loadFXMLSpecial(String fxml, Object o) throws IOException{
+        fxmlLoader = new FXMLLoader(CentriVaccinali.class.getResource(fxml + ".fxml"));
+        fxmlLoader.setController(o);
         return fxmlLoader.load();
     }
 

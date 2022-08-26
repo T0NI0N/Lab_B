@@ -5,7 +5,10 @@ package controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
+
 import centrivaccinali.CentriVaccinali;
 import centrivaccinali.CentroVaccinale;
 import centrivaccinali.ClientConnectionHandler;
@@ -55,15 +58,15 @@ public class LoginController implements Initializable {
         }
 
         if (success != null) {
-            CentriVaccinali.switchScene("InsEventoCittadini");
             Cittadino ct = connectionHandler.getCitizenByLogin(username, password);
             CentroVaccinale cv = connectionHandler.getCenterByVaccinatedCitizen(ct);
-            System.out.println(ct.toString());
-            new InsEventoCittadiniController().setCittadino(ct);
 
-            System.out.println(cv.toString());
-            new InsEventoCittadiniController().setCenter(cv);
-        }else {
+            ArrayList<Object> sendingDatas = new ArrayList<>();
+            sendingDatas.add(ct);
+            sendingDatas.add(cv);
+
+            CentriVaccinali.switchSceneB("InsEventoCittadini", sendingDatas);
+        } else {
             System.out.println("Failure: Login fallita");
             Alert b = new Alert(Alert.AlertType.ERROR);
             b.setTitle("Login fallita");
