@@ -4,8 +4,13 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
 import centrivaccinali.CentriVaccinali;
 import centrivaccinali.CentroVaccinale;
 import centrivaccinali.ClientConnectionHandler;
@@ -39,11 +44,14 @@ public class InsEventoCittadiniController implements Initializable {
 
     @FXML
     private ChoiceBox<TipoEventoAvverso> eventTypeBox;
+    @FXML
+    private ChoiceBox<String> centerTypeBox;
 
     @FXML
     private TextArea txtNotes;
 
     private TipoEventoAvverso eventType;
+    private String nomeCentro;
     private int sev;
     private String notes;
     private Cittadino cittadino;
@@ -67,6 +75,16 @@ public class InsEventoCittadiniController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
+        ArrayList<CentroVaccinale> listaCentri = null;
+        try {
+             listaCentri = connectionHandler.getCenters();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<String> listaNomi = (ArrayList<String>) listaCentri.stream().map(CentroVaccinale::getNomeCentro).collect(Collectors.toList());
+        centerTypeBox.setItems(FXCollections.observableList(listaNomi));
+        centerTypeBox.setValue(listaNomi.get(listaNomi.indexOf(centroVaccinale.getNomeCentro())));
 
         eventTypeBox.setItems(FXCollections.observableList(Arrays.asList(TipoEventoAvverso.values())));
         eventTypeBox.setValue(TipoEventoAvverso.Emicrania);
@@ -92,13 +110,14 @@ public class InsEventoCittadiniController implements Initializable {
 
         System.out.println("Button submit pressed");
         eventType = eventTypeBox.getValue();
+        nomeCentro  = centerTypeBox.getValue();
         sev = Integer.parseInt(tgRbSev.getSelectedToggle().getUserData().toString());
         notes = txtNotes.getText();
 
         System.out.println(cittadino.toString());
-        System.out.println(centroVaccinale.toString());
+        System.out.println(nomeCentro.toString());
         System.out.println(new EventoAvverso(eventType, sev, notes));
-		connectionHandler.insertAdverseEvent(cittadino, centroVaccinale, new EventoAvverso(eventType, sev, notes));
+		connectionHandler.insertAdverseEvent(cittadino.getUserid(), nomeCentro, new EventoAvverso(eventType, sev, notes));
 
         System.out.println(eventType + " | " + sev + " | " + notes);
     }

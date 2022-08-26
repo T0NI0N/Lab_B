@@ -4,6 +4,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import centrivaccinali.CentriVaccinali;
@@ -17,6 +18,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 public class HomeCittadiniController implements Initializable {
 
@@ -75,9 +77,9 @@ public class HomeCittadiniController implements Initializable {
 
             Cittadino c = connectionHandler.getCitizenByVaccinationID(id);
             if(c != null) {
-                CentriVaccinali.switchScene("RegCittadini");
-
-                new RegCittadiniController().setCittadino(c);
+                ArrayList<Object> sendingDatas = new ArrayList<>();
+                sendingDatas.add(c);
+                CentriVaccinali.switchSceneB("RegCittadini", sendingDatas);
             }else{
                 System.out.println("Failure: ID vaccinazione errato");
                 Alert b = new Alert(Alert.AlertType.ERROR);

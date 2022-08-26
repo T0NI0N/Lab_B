@@ -114,9 +114,9 @@ public class ClientConnectionHandler {
 	 * 
 	 * @throws RemoteException
 	 */
-	public String insertAdverseEvent(Cittadino citizen, CentroVaccinale center, EventoAvverso event)
+	public String insertAdverseEvent(String userid, String centerName, EventoAvverso event)
 			throws RemoteException {
-		return stub.insertAdverseEvent(citizen, center, event);
+		return stub.insertAdverseEvent(userid, centerName, event);
 	}
 
 	/*

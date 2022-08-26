@@ -5,6 +5,7 @@ package controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import centrivaccinali.CentriVaccinali;
 import centrivaccinali.ClientConnectionHandler;
@@ -45,10 +46,6 @@ public class RegCittadiniController implements Initializable {
 
     private ClientConnectionHandler connectionHandler;
 
-    public void setCittadino(Cittadino cittadino) {
-        this.cittadino = cittadino;
-    }
-
     /**
      * inizializza la connessione alla base di dati
      *
@@ -58,6 +55,9 @@ public class RegCittadiniController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
+
+        ArrayList<Object> receivingData = (ArrayList<Object>) txtName.getScene().getWindow().getUserData();
+        this.cittadino = (Cittadino) receivingData.get(0);
 
         txtName.setText(cittadino.getNome());
         txtSurname.setText(cittadino.getCognome());

@@ -38,7 +38,7 @@
                         <Insets left="4.0" right="4.0" />
                      </padding>
                   </Label>
-                  <ChoiceBox prefWidth="150.0">
+                  <ChoiceBox fx:id="centerTypeBox" prefWidth="150.0">
                      <HBox.margin>
                         <Insets top="8.0" />
                      </HBox.margin>

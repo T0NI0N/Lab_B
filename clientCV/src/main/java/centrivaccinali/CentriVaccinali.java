@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -82,6 +83,17 @@ public class CentriVaccinali extends Application {
         // primaryStage.hide();
         scene = new Scene(loadFXML(fxml));
         //scene.getStylesheets().add("style.css");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.centerOnScreen();
+        primaryStage.show();
+    }
+
+    public static void switchSceneB(String fxml, ArrayList<Object> o) throws IOException {
+        // primaryStage.hide();
+        scene = new Scene(loadFXML(fxml));
+        //scene.getStylesheets().add("style.css");
+        primaryStage.setUserData(o);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();
