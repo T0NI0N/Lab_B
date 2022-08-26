@@ -79,7 +79,7 @@ public class HomeCittadiniController implements Initializable {
             if(c != null) {
                 ArrayList<Object> sendingDatas = new ArrayList<>();
                 sendingDatas.add(c);
-                //CentriVaccinali.switchSceneB("RegCittadini", sendingDatas);
+                CentriVaccinali.switchSceneB("RegCittadini", sendingDatas);
             }else{
                 System.out.println("Failure: ID vaccinazione errato");
                 Alert b = new Alert(Alert.AlertType.ERROR);

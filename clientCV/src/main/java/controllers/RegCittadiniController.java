@@ -44,6 +44,7 @@ public class RegCittadiniController implements Initializable {
     private String password;
     private long idVacc;
 
+    public void setCittadino(Cittadino cittadino){this.cittadino = cittadino;}
     private ClientConnectionHandler connectionHandler;
 
     /**
@@ -55,9 +56,6 @@ public class RegCittadiniController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
-
-        ArrayList<Object> receivingData = (ArrayList<Object>) txtName.getScene().getWindow().getUserData();
-        this.cittadino = (Cittadino) receivingData.get(0);
 
         txtName.setText(cittadino.getNome());
         txtSurname.setText(cittadino.getCognome());
