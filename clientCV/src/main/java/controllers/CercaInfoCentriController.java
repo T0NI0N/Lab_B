@@ -121,7 +121,7 @@ public class CercaInfoCentriController implements Initializable {
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
-            CentriVaccinali.switchScene("HomeCittadini");
+            CentriVaccinali.switchScene("HomeCittadini", null);
     }
 
     /**

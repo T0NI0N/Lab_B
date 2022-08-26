@@ -65,7 +65,7 @@ public class LoginController implements Initializable {
             sendingDatas.add(ct);
             sendingDatas.add(cv);
 
-            CentriVaccinali.switchSceneB("InsEventoCittadini", sendingDatas);
+            CentriVaccinali.switchScene("InsEventoCittadini", sendingDatas);
         } else {
             System.out.println("Failure: Login fallita");
             Alert b = new Alert(Alert.AlertType.ERROR);

@@ -22,7 +22,7 @@ public class HomeController implements Initializable {
     @FXML
     private void btnOperatorsPressed() throws IOException {
         System.out.println("Entering operators area");
-        CentriVaccinali.switchScene("HomeOperatori");
+        CentriVaccinali.switchScene("HomeOperatori", null);
     }
 
     /**
@@ -33,7 +33,7 @@ public class HomeController implements Initializable {
     @FXML
     private void btnCiviliansPressed() throws IOException {
         System.out.println("Entering civilians area");
-        CentriVaccinali.switchScene("HomeCittadini");
+        CentriVaccinali.switchScene("HomeCittadini", null);
     }
 
     /**

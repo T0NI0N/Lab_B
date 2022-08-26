@@ -21,7 +21,7 @@ public class HomeOperatoriController {
     @FXML
     private void btnRgstCV() throws IOException {
         System.out.println("Button register centro vaccinale pressed");
-        CentriVaccinali.switchScene("RegCentroVaccinale");
+        CentriVaccinali.switchScene("RegCentroVaccinale", null);
     }
 
     /**
@@ -32,7 +32,7 @@ public class HomeOperatoriController {
     @FXML
     private void btnRgstVacc() throws IOException {
         System.out.println("Button register cittadino vaccinato pressed");
-        CentriVaccinali.switchScene("RegCittVaccinato");
+        CentriVaccinali.switchScene("RegCittVaccinato", null);
     }
 
     /**
@@ -66,7 +66,7 @@ public class HomeOperatoriController {
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
-            CentriVaccinali.switchScene("Home");
+            CentriVaccinali.switchScene("Home", null);
     }
 
 }

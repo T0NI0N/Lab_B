@@ -93,7 +93,7 @@ public class RegCentroVaccinaleController implements Initializable {
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
-            CentriVaccinali.switchScene("HomeOperatori");
+            CentriVaccinali.switchScene("HomeOperatori", null);
     }
 
     /**

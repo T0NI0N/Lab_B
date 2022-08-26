@@ -2,6 +2,7 @@
 
 package centrivaccinali;
 
+import controllers.HomeCittadiniController;
 import controllers.InsEventoCittadiniController;
 import controllers.RegCittadiniController;
 import javafx.application.Application;
@@ -51,7 +52,7 @@ public class CentriVaccinali extends Application {
         } else {
 
             CentriVaccinali.primaryStage = primaryStage;
-            scene = new Scene(loadFXML("Home"));
+            scene = new Scene(loadFXML("Home", null));
             primaryStage.setScene(scene);
             primaryStage.setTitle("CentriVaccinali-Client");
             primaryStage.show();
@@ -83,17 +84,7 @@ public class CentriVaccinali extends Application {
      * @param fxml nome del file di layout della scena
      * @throws IOException
      */
-    public static void switchScene(String fxml) throws IOException {
-        // primaryStage.hide();
-        scene = new Scene(loadFXML(fxml));
-        //scene.getStylesheets().add("style.css");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.centerOnScreen();
-        primaryStage.show();
-    }
-
-    public static void switchSceneB(String fxml, ArrayList<Object> o) throws IOException {
+    public static void switchScene(String fxml, ArrayList<Object> o) throws IOException {
         // primaryStage.hide();
 
         //scene.getStylesheets().add("style.css");
@@ -103,15 +94,19 @@ public class CentriVaccinali extends Application {
                 InsEventoCittadiniController insEventoCittadiniController = new InsEventoCittadiniController();
                 insEventoCittadiniController.setCittadino((Cittadino) o.get(0));
                 insEventoCittadiniController.setCentroVaccinale((CentroVaccinale) o.get(1));
-                scene = new Scene(loadFXMLSpecial(fxml, insEventoCittadiniController));
+                scene = new Scene(loadFXML(fxml, insEventoCittadiniController));
             }
             case "RegCittadini" ->{
                 RegCittadiniController regCittadiniController = new RegCittadiniController();
                 regCittadiniController.setCittadino((Cittadino) o.get((0)));
-                scene = new Scene(loadFXMLSpecial(fxml, regCittadiniController));
+                scene = new Scene(loadFXML(fxml, regCittadiniController));
             }
             default -> {
-                //Ancora da implementare
+                scene = new Scene(loadFXML(fxml, null));
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.centerOnScreen();
+                primaryStage.show();
             }
         }
         primaryStage.setScene(scene);
@@ -127,14 +122,10 @@ public class CentriVaccinali extends Application {
      * @return il layout caricato
      * @throws IOException
      */
-    private static Parent loadFXML(String fxml) throws IOException {
+    private static Parent loadFXML(String fxml, Object o) throws IOException{
         fxmlLoader = new FXMLLoader(CentriVaccinali.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
-
-    private static Parent loadFXMLSpecial(String fxml, Object o) throws IOException{
-        fxmlLoader = new FXMLLoader(CentriVaccinali.class.getResource(fxml + ".fxml"));
-        fxmlLoader.setController(o);
+        if(o !=null)
+            fxmlLoader.setController(o);
         return fxmlLoader.load();
     }
 

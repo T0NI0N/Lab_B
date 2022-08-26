@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import centrivaccinali.CentriVaccinali;
+import centrivaccinali.CentroVaccinale;
 import centrivaccinali.ClientConnectionHandler;
 import centrivaccinali.Cittadino;
 import javafx.fxml.FXML;
@@ -25,6 +26,8 @@ public class HomeCittadiniController implements Initializable {
     private ClientConnectionHandler connectionHandler;
     private boolean userLoggedIn = false;
     private Cittadino loggedUser;
+    public void setLoggedUser(Cittadino cittadino){this.loggedUser = cittadino;}
+    public void setUserLoggedIn(Boolean clause){this.userLoggedIn=clause;}
 
     /**
      * inizializza la connessione alla base di dati
@@ -48,7 +51,7 @@ public class HomeCittadiniController implements Initializable {
     @FXML
     private void btnInfoPressed() throws IOException {
         System.out.println("Button info pressed");
-        CentriVaccinali.switchScene("CercaInfoCentri");
+        CentriVaccinali.switchScene("CercaInfoCentri", null);
     }
 
     /**
@@ -79,7 +82,7 @@ public class HomeCittadiniController implements Initializable {
             if(c != null) {
                 ArrayList<Object> sendingDatas = new ArrayList<>();
                 sendingDatas.add(c);
-                CentriVaccinali.switchSceneB("RegCittadini", sendingDatas);
+                CentriVaccinali.switchScene("RegCittadini", sendingDatas);
             }else{
                 System.out.println("Failure: ID vaccinazione errato");
                 Alert b = new Alert(Alert.AlertType.ERROR);
@@ -121,13 +124,19 @@ public class HomeCittadiniController implements Initializable {
             Optional<ButtonType> option = alert.showAndWait();
 
             if (option.get() == login) {
-                CentriVaccinali.switchScene("Login");
+                CentriVaccinali.switchScene("Login", null);
             } else if (option.get() == cancel) {
                 System.out.println("cancel pressed");
             }
 
         } else {
-            CentriVaccinali.switchScene("InsEventoCittadini");
+            CentroVaccinale cv = connectionHandler.getCenterByVaccinatedCitizen(loggedUser);
+
+            ArrayList<Object> sendingDatas = new ArrayList<>();
+            sendingDatas.add(loggedUser);
+            sendingDatas.add(cv);
+
+            CentriVaccinali.switchScene("InsEventoCittadini", sendingDatas);
         }
 
     }
@@ -165,7 +174,7 @@ public class HomeCittadiniController implements Initializable {
     @FXML
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
-            CentriVaccinali.switchScene("Home");
+            CentriVaccinali.switchScene("Home", null);
     }
 
 }

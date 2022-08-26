@@ -230,6 +230,7 @@ public class ClientConnectionHandler {
 
 		try {
 			success = stub.getCitizenByLogin(userid, password);
+			loggedUser = success;
 		} catch (Exception e) {
 			return null;
 		}
