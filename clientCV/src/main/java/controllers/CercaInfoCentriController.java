@@ -45,10 +45,8 @@ public class CercaInfoCentriController implements Initializable {
     private ChoiceBox<TipoCentroVaccinale> centreTypeBox;
 
     @FXML
-    // ci sarà da modificare il tipo <T> in seguito in base al codice
     private ListView<String> lvResults;
     @FXML
-    // ci sarà da modificare il tipo <T> in seguito in base al codice
     private ListView<String> lvInfo;
 
     private String centreName;
@@ -61,7 +59,7 @@ public class CercaInfoCentriController implements Initializable {
     private ArrayList<EventoAvverso> eventList;
 
     /**
-     * inizializza la connessione alla base di dati e dei campi della schermata
+     * inizializza la connessione alla base di dati e i campi della schermata
      *
      * @param location
      * @param resources
@@ -132,7 +130,7 @@ public class CercaInfoCentriController implements Initializable {
     @FXML
     private void search() {
 
-        // TODO testare la funzione di ricerca
+        lvResults.getItems().clear();
 
         centreName = txtName.getText();
         com = txtCom.getText();
@@ -155,8 +153,9 @@ public class CercaInfoCentriController implements Initializable {
                     showInfoBox("Nessun centro vaccinale trovato");
                 }
 
-            } catch (Exception ex) {
-                System.out.println(ex);
+            } catch (Exception e) {
+                System.out.println(e);
+                showErrorBox("Errore durante il recupero dei dati");
             }
 
         } else {
@@ -172,10 +171,8 @@ public class CercaInfoCentriController implements Initializable {
     @FXML
     private void showEvent() {
 
-        // TODO testare la visualizzazione degli eventi avversi
+        lvInfo.getItems().clear();
 
-        centreName
-        
         try {
             String centre = lvResults.getSelectionModel().getSelectedItem();
             centreName=lvResults.getSelectionModel().getSelectedItem().split(",")[0].split("Centro ")[1];
@@ -189,7 +186,10 @@ public class CercaInfoCentriController implements Initializable {
         try{
             eventList = connectionHandler.getAdverseEvents(centreName);
         }
-        catch(Exception ex){}
+        catch(Exception e){
+            System.out.println(e);
+            showErrorBox("Errore durante il recupero dei dati");
+        }
 
         if (!eventList.isEmpty()) {
             for (EventoAvverso evento : eventList) {

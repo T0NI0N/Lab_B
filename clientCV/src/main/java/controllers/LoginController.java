@@ -18,6 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import utils.EncryptData;
 
 public class LoginController implements Initializable {
@@ -44,6 +46,12 @@ public class LoginController implements Initializable {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
     }
 
+    /**
+     * Esegue l'accesso alla piattaforma
+     * o mostra gli errori avvenuti durante il processo
+     *
+     * @throws IOException
+     */
     @FXML
     private void login() throws IOException {
         username = txtUsername.getText();
@@ -53,8 +61,11 @@ public class LoginController implements Initializable {
 
         try {
             success = connectionHandler.login(username, password);
+
         } catch (RemoteException e) {
             System.out.println(e);
+
+            showErrorBox("Errore di connessione durante il recupero delle credenziali");
         }
 
         if (success != null) {
@@ -66,15 +77,40 @@ public class LoginController implements Initializable {
             sendingDatas.add(cv);
 
             CentriVaccinali.switchScene("InsEventoCittadini", sendingDatas);
+
         } else {
             System.out.println("Failure: Login fallita");
-            Alert b = new Alert(Alert.AlertType.ERROR);
-            b.setTitle("Login fallita");
-            b.setHeaderText("Credenziali errate");
-            b.setContentText("Il nome utente o la password sono errati");
-            b.showAndWait();
+
+            showErrorBox("Credenziali errate, il nome utente o la password sono errati");
         }
 
         // System.out.println(username + " | " + password);
+    }
+
+    /**
+     * Mostra un messaggio di errore
+     *
+     * @param error i problemi riscontrati da visualizzare
+     */
+    @FXML
+    private void showErrorBox(String error){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Errore");
+        a.setHeaderText("");
+        a.setContentText(error);
+        a.showAndWait();
+    }
+
+    /**
+     * Gestisce la pressione del tasto escape (esc) da tastiera
+     * ritornando alla schermata precedente
+     *
+     * @param event evento che indica la pressione di un tasto
+     * @throws IOException
+     */
+    @FXML
+    private void onEscapePressed(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ESCAPE)
+            CentriVaccinali.switchScene("HomeCittadini", null);
     }
 }

@@ -98,7 +98,6 @@ public class InsEventoCittadiniController implements Initializable {
 
         //TODO testare l'inserimento
 
-        System.out.println("Button submit pressed");
         eventType = eventTypeBox.getValue();
         nomeCentro  = centerTypeBox.getValue();
         sev = Integer.parseInt(tgRbSev.getSelectedToggle().getUserData().toString());
@@ -107,6 +106,7 @@ public class InsEventoCittadiniController implements Initializable {
         System.out.println(cittadino.toString());
         System.out.println(nomeCentro.toString());
         System.out.println(new EventoAvverso(eventType, sev, notes));
+
 		connectionHandler.insertAdverseEvent(cittadino.getUserid(), nomeCentro, new EventoAvverso(eventType, sev, notes));
 
         System.out.println(eventType + " | " + sev + " | " + notes);

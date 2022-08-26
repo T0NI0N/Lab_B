@@ -26,12 +26,26 @@ public class HomeCittadiniController implements Initializable {
     private ClientConnectionHandler connectionHandler;
     private boolean userLoggedIn = false;
     private Cittadino loggedUser;
-    public void setLoggedUser(Cittadino cittadino){this.loggedUser = cittadino;}
-    public void setUserLoggedIn(Boolean clause){this.userLoggedIn=clause;}
+
+    /**
+     * Imposta il cittadino che ha eseguito l'accesso
+     * @param cittadino il cittadino che ha fatto il login
+     */
+    public void setLoggedUser(Cittadino cittadino){
+        this.loggedUser = cittadino;
+    }
+
+    /**
+     * Imposta lo stato del login dell'utente
+     * @param clause true se l'utente ha eseguito l'accesso, false altrimenti
+     */
+    public void setUserLoggedIn(Boolean clause){
+        this.userLoggedIn = clause;
+    }
 
     /**
      * inizializza la connessione alla base di dati
-     * e recupera il cittadino che ha fatto il login, se c'è
+     * e recupera il cittadino che ha fatto il login, se presente
      *
      * @param location
      * @param resources
@@ -72,24 +86,21 @@ public class HomeCittadiniController implements Initializable {
         Optional<String> result = dialog.showAndWait();
 
         if (result.isEmpty() || result.get().trim().isBlank()) {
-            // errore no risultato
-            System.out.println("id non inserito");
+            showErrorBox("id non inserito");
+
         }else{
-            // valore inserito
             int id = Integer.parseInt(result.get());
 
             Cittadino c = connectionHandler.getCitizenByVaccinationID(id);
+
             if(c != null) {
                 ArrayList<Object> sendingDatas = new ArrayList<>();
                 sendingDatas.add(c);
                 CentriVaccinali.switchScene("RegCittadini", sendingDatas);
+
             }else{
                 System.out.println("Failure: ID vaccinazione errato");
-                Alert b = new Alert(Alert.AlertType.ERROR);
-                b.setTitle("Verifica fallita");
-                b.setHeaderText("ID Vaccinazione errato");
-                b.setContentText("Non è stata trovata nessuna vaccinazione sotto questo id");
-                b.showAndWait();
+                showErrorBox("Non è stata trovata nessuna vaccinazione sotto questo id");
             }
         }
     }
@@ -103,8 +114,6 @@ public class HomeCittadiniController implements Initializable {
     @FXML
     private void btnAddEventPressed() throws IOException {
 
-        // TODO testare il login
-
         System.out.println("Button add event pressed");
 
         if (!userLoggedIn) {
@@ -112,7 +121,6 @@ public class HomeCittadiniController implements Initializable {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Login richiesto");
 
-            // Header Text: null
             alert.setHeaderText(null);
             alert.setContentText("Per usare questa funzionalità è richiesto il login");
             ButtonType login = new ButtonType("Login");
@@ -175,6 +183,20 @@ public class HomeCittadiniController implements Initializable {
     private void onEscapePressed(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE)
             CentriVaccinali.switchScene("Home", null);
+    }
+
+    /**
+     * Mostra un messaggio di errore
+     *
+     * @param error i problemi riscontrati da visualizzare
+     */
+    @FXML
+    private void showErrorBox(String error){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Errore");
+        a.setHeaderText("");
+        a.setContentText(error);
+        a.showAndWait();
     }
 
 }
