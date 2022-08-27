@@ -127,7 +127,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
     }
 
-    /*
+    /**
      * Salva in una nuova riga di Cittadini_Registrati i valori del cittadino passato come parametro, assegnando come idCentroVaccinale quello del centro con il nome passato come parametro
      *
      * @param user Il cittadino da registrare
@@ -181,7 +181,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Salva in una nuova riga di CentriVaccinali i valori del centro passato come parametro
      *
      * @param center Il centro da registrare
@@ -305,7 +305,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Salva un nuovo cittadino con solo nome, cognome, codice fiscale e id del centro vaccinale per poi assegnargli i dati della vaccinazione registrando in Vaccinati_(nomecentro) i dati e le associazioni tra cittadino e centro vaccinale
      *
      * @param user I dati del cittadino e della vaccinazione da registrare
@@ -390,7 +390,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     return output;
 }
 
-    /*
+    /**
      * Salva in una nuova riga di EventiAvversi l'evento avverso collegando l'id del cittadino e quello del centro vaccinale
      *
      * @param userid Lo user id del cittadino che segnala l'evento avverso
@@ -459,7 +459,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Restituisce tutti i centri vaccinali presenti in CentriVaccinali
      *
      * @return I centri vaccinali presenti in CentriVaccinali
@@ -507,7 +507,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Restituisce i centri vaccinali di CentriVaccinali di cui l'attributo nome sia uguale a quello passato come parametro
      *
      * @param name Il nome del centro da cercare
@@ -557,7 +557,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Restituisce tutti i cittadini presenti nella tabella Cittadini_Registrati
      *
      * @return I cittadini presenti in Cittadini_Registrati
@@ -580,7 +580,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Restituisce tutti i cittadini presenti nella tabella Cittadini_Registrati di cui gli attributi nome e cognome siano uguali a quelli passati come parametro
      *
      * @param name Il nome da cercare
@@ -606,7 +606,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Restituisce tutti gli eventi avversi legati al centro vaccinale di cui il nome è passato come parametro
      *
      * @param centerName Il nome del centro di cui si vogliono cercare gli eventi avversi
@@ -657,7 +657,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Restituisce i cittadini vaccinati nel centro passato come parametro
      *
      * @param center Il centro di cui si vogliono trovare i cittadini
@@ -695,7 +695,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Restituisce il cittadino di cui gli attributi userid e password sono uguali a quelli passati come parametro
      *
      * @param userid Lo userid da cercare
@@ -722,7 +722,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Restituisce i centri vaccinali il cui comune e il tipo siano uguali a quelli passati come parametro
      *
      * @param comune Il nome del comune da cercare
@@ -764,7 +764,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Restituisce il centro vaccinale in cui è presente il cittadino passato come parametro
      *
      * @param user Il cittadino da cercare
@@ -837,7 +837,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Riempe il database con i dati presenti nei file di utils
      *
      * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
@@ -1070,7 +1070,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Restituisce il cittadino il cui id della vaccinazione sia uguale a quello presente come parametro
      *
      * @param id L'id della vaccinazione da cercare
@@ -1096,7 +1096,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Controlla se lo user id passato come parametro è già presente nel database
      *
      * @param userid Lo user id da cercare
@@ -1118,7 +1118,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Controlla se l'email passata come parametro è già presente nel database
      *
      * @param email L'email da cercare
@@ -1140,7 +1140,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-    /*
+    /**
      * Aggiorna i campi del cittadino registrato il cui codice fiscale sia uguale a quello passato come parametro
      * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      * @param user I dati del cittadino da aggiornare
