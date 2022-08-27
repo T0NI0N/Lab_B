@@ -21,10 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -98,18 +95,62 @@ public class InsEventoCittadiniController implements Initializable {
 
         //TODO testare l'inserimento
 
+        if(tgRbSev.getSelectedToggle() == null){
+            showErrorBox("Inserire la severità dell'evento");
+            return;
+        }
+
         eventType = eventTypeBox.getValue();
         nomeCentro  = centerTypeBox.getValue();
         sev = Integer.parseInt(tgRbSev.getSelectedToggle().getUserData().toString());
         notes = txtNotes.getText();
 
         System.out.println(cittadino.toString());
-        System.out.println(nomeCentro.toString());
-        System.out.println(new EventoAvverso(eventType, sev, notes));
-
-		connectionHandler.insertAdverseEvent(cittadino.getUserid(), nomeCentro, new EventoAvverso(eventType, sev, notes));
-
+        System.out.println(nomeCentro);
         System.out.println(eventType + " | " + sev + " | " + notes);
+
+
+		String result = connectionHandler.insertAdverseEvent(cittadino.getUserid(), nomeCentro, new EventoAvverso(eventType, sev, notes));
+
+        switch (result){
+            case "ok" -> {
+                System.out.println("Success: registrazione evento ok");
+                showInfoBox("Segnalazione evento avvenuta con successo");
+                break;
+            }
+            default -> {
+                System.out.println(result);
+                showErrorBox("Errore durante la registrazione");
+            }
+        }
+
+    }
+
+    /**
+     * Mostra un messaggio di errore
+     *
+     * @param error i problemi riscontrati da visualizzare
+     */
+    @FXML
+    private void showErrorBox(String error){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Errore");
+        a.setHeaderText("");
+        a.setContentText(error);
+        a.showAndWait();
+    }
+
+    /**
+     * Mostra un messaggio informativo
+     *
+     * @param info le informazioni da visualizzare
+     */
+    private void showInfoBox(String info) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Registrazione avvenuta");
+        alert.setHeaderText("");
+        alert.setContentText(info);
+        alert.showAndWait();
     }
 
 }

@@ -147,11 +147,28 @@ public class RegCittadiniController implements Initializable {
         // TODO testare gli inserimenti
 
         Cittadino user = new Cittadino(name, surname, codf, email, username, EncryptData.encrypt(password), idVacc);
+
         try {
-            connectionHandler.registerCitizen(user);
+            String result = connectionHandler.registerCitizen(user);
+
+            switch (result){
+                case "ok" -> {
+                    System.out.println("Success: registrazione ok");
+                    showInfoBox("Registrazione avvenuta con successo");
+                    break;
+                }
+                default -> {
+                    System.out.println(result);
+                    showSimpleErrorBox("Errore durante la registrazione");
+                }
+            }
+
         } catch (RemoteException e) {
             e.printStackTrace();
+            showSimpleErrorBox("Errore di connessione");
         }
+
+
 
         System.out.println(name + " | " + surname + " | " + codf + " | " + email + " | " + username + " | " + password
                 + " | " + idVacc);
@@ -168,5 +185,32 @@ public class RegCittadiniController implements Initializable {
         a.setHeaderText("");
         a.setContentText("Problemi riscontrati durante la registrazione: " + "\n" + error);
         a.showAndWait();
+    }
+
+    /**
+     * Mostra un messaggio di errore
+     *
+     * @param error i problemi riscontrati da visualizzare
+     */
+    @FXML
+    private void showSimpleErrorBox(String error){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Errore");
+        a.setHeaderText("");
+        a.setContentText(error);
+        a.showAndWait();
+    }
+
+    /**
+     * Mostra un messaggio informativo
+     *
+     * @param info le informazioni da visualizzare
+     */
+    private void showInfoBox(String info) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Registrazione avvenuta");
+        alert.setHeaderText("");
+        alert.setContentText(info);
+        alert.showAndWait();
     }
 }

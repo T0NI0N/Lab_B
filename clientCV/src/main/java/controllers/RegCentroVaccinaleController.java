@@ -47,36 +47,34 @@ public class RegCentroVaccinaleController implements Initializable {
 
         System.out.println("Enter button pressed");
 
+        String cap = tf_cap.getText();
+
+        if(!cap.matches("[0-9]{5}")){
+            showErrorBox("Il cap deve essere un numero a 5 cifre");
+            return;
+        }
+
         try {
             String result = connectionHandler.registerCenter(new CentroVaccinale(tf_nomeCentro.getText(),
                     new Indirizzo(chb_tipoIndirizzo.getValue(), tf_via.getText(), tf_numCivico.getText(),
-                            tf_comune.getText(), tf_prov.getText(), Integer.parseInt(tf_cap.getText())),
+                            tf_comune.getText(), tf_prov.getText().toUpperCase(), Integer.parseInt(cap)),
                     chb_tipoCentro.getValue()));
+
             //Gestione del risultato ottenuto dal metodo di registrazione del server
             switch (result) {
                 case "ok":
                     System.out.println("Success: Centro registrato");
-                    Alert a = new Alert(Alert.AlertType.INFORMATION);
-                    a.setTitle("Registrazione avvenuta");
-                    a.setHeaderText("Centro Registrato");
-                    a.setContentText("Il centro è stato registrato con successo");
-                    a.showAndWait();
+                    showInfoBox("Il centro è stato registrato con successo");
                     break;
+
                 case "already_in":
                     System.out.println("Failure: Centro già presente");
-                    Alert b = new Alert(Alert.AlertType.ERROR);
-                    b.setTitle("Registrazione fallita");
-                    b.setHeaderText("Centro vaccinale non registrato");
-                    b.setContentText("Il centro è già presente nel database");
-                    b.showAndWait();
+                    showErrorBox("Il centro è già presente nel database");
                     break;
+
                 default:
                     System.out.println("Failure: " + result);
-                    Alert c = new Alert(Alert.AlertType.ERROR);
-                    c.setTitle("Registrazione fallita");
-                    c.setHeaderText("Un errore è avvenuto durante la registrazione");
-                    c.setContentText(result);
-                    c.showAndWait();
+                    showErrorBox("Un errore è avvenuto durante la registrazione");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,6 +111,33 @@ public class RegCentroVaccinaleController implements Initializable {
         chb_tipoCentro.setItems(FXCollections.observableList(Arrays.asList(TipoCentroVaccinale.values())));
         chb_tipoCentro.setValue(TipoCentroVaccinale.OSPEDALIERO);
 
+    }
+
+    /**
+     * Mostra un messaggio di errore
+     *
+     * @param error i problemi riscontrati da visualizzare
+     */
+    @FXML
+    private void showErrorBox(String error){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Errore");
+        a.setHeaderText("");
+        a.setContentText(error);
+        a.showAndWait();
+    }
+
+    /**
+     * Mostra un messaggio informativo
+     *
+     * @param info le informazioni da visualizzare
+     */
+    private void showInfoBox(String info) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Registrazione avvenuta");
+        alert.setHeaderText("");
+        alert.setContentText(info);
+        alert.showAndWait();
     }
 
 }

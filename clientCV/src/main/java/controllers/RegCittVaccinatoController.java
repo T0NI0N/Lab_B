@@ -15,6 +15,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import utils.ValidateData;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -44,6 +46,14 @@ public class RegCittVaccinatoController implements Initializable {
         // TODO testare gli inserimenti
 
         System.out.println("Enter button pressed");
+
+        String codf = tf_codiceFiscale.getText();
+
+        if(!ValidateData.validateCodf(codf)){
+            showErrorBox("Codice fiscale non valido");
+            return;
+        }
+
         System.out.println(tf_cognome.getText() + " " + tf_nome.getText() + " vaccinato presso il centro "
                 + tf_centroV.getText() + " in data " + dp_data.getValue());
         System.out.println("CF: " + tf_codiceFiscale.getText());
@@ -51,25 +61,19 @@ public class RegCittVaccinatoController implements Initializable {
 
         String result = connectionHandler.registerVaccination
         (
-            new Cittadino(tf_nome.getText(), tf_cognome.getText(), tf_codiceFiscale.getText(), "", "", "", 0, dp_data.getValue().getDayOfMonth()+"/"+dp_data.getValue().getMonth()+"/"+dp_data.getValue().getYear(), chb_vaccino.getValue()),
+            new Cittadino(tf_nome.getText(), tf_cognome.getText(), codf, "", "", "", 0, dp_data.getValue().getDayOfMonth()+"/"+dp_data.getValue().getMonth()+"/"+dp_data.getValue().getYear(), chb_vaccino.getValue()),
             tf_centroV.getText()
         );
+
         switch (result){
             case "ok" -> {
                 System.out.println("Success: Vaccinazione registrata");
-                Alert a = new Alert(Alert.AlertType.INFORMATION);
-                a.setTitle("Registrazione avvenuta");
-                a.setHeaderText("Vaccinazione cittadino avvenuta con successo");
-                a.setContentText("Il centro è stato registrato con successo");
-                a.showAndWait();
+                showInfoBox("Vaccinazione cittadino registrata con successo");
+                break;
             }
             default -> {
-                System.out.println("Success: Centro registrato");
-                Alert a = new Alert(Alert.AlertType.ERROR);
-                a.setTitle("Registrazione fallita");
-                a.setHeaderText("Vaccinazione cittadino non avvenuta");
-                a.setContentText(result);
-                a.showAndWait();
+                System.out.println(result);
+                showErrorBox("Errore durante la registrazione della vaccinazione");
             }
         }
 
@@ -102,5 +106,32 @@ public class RegCittVaccinatoController implements Initializable {
         chb_vaccino.setItems(FXCollections.observableList(Arrays.asList(TipoVaccino.values())));
         dp_data.setValue(LocalDate.now());
 
+    }
+
+    /**
+     * Mostra un messaggio di errore
+     *
+     * @param error i problemi riscontrati da visualizzare
+     */
+    @FXML
+    private void showErrorBox(String error){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Errore");
+        a.setHeaderText("");
+        a.setContentText(error);
+        a.showAndWait();
+    }
+
+    /**
+     * Mostra un messaggio informativo
+     *
+     * @param info le informazioni da visualizzare
+     */
+    private void showInfoBox(String info) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Registrazione avvenuta");
+        alert.setHeaderText("");
+        alert.setContentText(info);
+        alert.showAndWait();
     }
 }
