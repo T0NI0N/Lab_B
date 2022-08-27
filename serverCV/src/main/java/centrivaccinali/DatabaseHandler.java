@@ -15,6 +15,7 @@ import java.io.*;
 public class DatabaseHandler implements ConnectionHandlerInterface {
     private String connection = "jdbc:postgresql://";
     private Connection conn;
+    private int curr_IDVacc;
 
     /*
      * Costruttore di DatabaseHandler, tenta di connettersi all'host utilizzando utente e password passati come parametro. In caso dovesse riuscire a connettersi e non ci dovessero essere le tabelle TipiCentri, Comuni, Indirizzi, CentriVaccinali, Cittadini_Registrati, TipiVaccini, TipiEventi, EventiAvversi, assegnando a TipiCentri, TipiVaccini e TipiEventi i valori salvati nelle classi TipoCentroVaccinale, TipoVaccino e TipoEventoAvverso
@@ -121,6 +122,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 System.out.println("Creato il database...");
                 fillDataBase();
             }
+            setLastVaccination();
             System.out.println("Connesso al database...");
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -1173,4 +1175,10 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     }
     return output;
 }
+
+    private void setLastVaccination(){
+        //Ricerca nella tabella delle vaccinazioni dell'ultimo ID utilizzato.
+        //Da richiamare solamente quando si fa partire il server, quindi nel costruttore del dbhelper
+        curr_IDVacc = 0;
+    }
 }
