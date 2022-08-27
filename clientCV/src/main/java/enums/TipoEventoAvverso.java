@@ -2,6 +2,9 @@
 
 package enums;
 
+/**
+ * <p>Classe TipoEventoAvverso.</p>
+ */
 public enum TipoEventoAvverso {
     Emicrania,
     Febbre,

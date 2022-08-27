@@ -21,6 +21,9 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+/**
+ * <p>Classe RegCentroVaccinaleController.</p>
+ */
 public class RegCentroVaccinaleController implements Initializable {
 
     @FXML
@@ -95,10 +98,9 @@ public class RegCentroVaccinaleController implements Initializable {
     }
 
     /**
-     * inizializza la connessione alla base di dati e dei campi della schermata
+     * {@inheritDoc}
      *
-     * @param location
-     * @param resources
+     * inizializza la connessione alla base di dati e dei campi della schermata
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -11,12 +11,12 @@ import java.util.ArrayList;
 /**
  * Classe che gestisce la connessione al registry del client e l'uso del
  * servizio pubblicato sul registry stesso.
- * 
+ *
  * Implementata con l'ausilio del pattern singleton
  */
 public class ClientConnectionHandler {
 
-	// required for singleton pattern
+	// singleton pattern
 	private static ClientConnectionHandler handler;
 
 	private String defaultHostAddress = "localhost";
@@ -33,7 +33,7 @@ public class ClientConnectionHandler {
 	private Cittadino loggedUser;
 
 	/**
-	 * Costuttore privato per il pattern singleton.
+	 * Costruttore privato per il pattern singleton.
 	 * Definisce l'host e la porta per la connessione al registry.
 	 */
 	private ClientConnectionHandler() {
@@ -44,7 +44,7 @@ public class ClientConnectionHandler {
 	/**
 	 * Classe implementata con pattern singleton, questo metodo è necessario per
 	 * recuperare l'istanza di ClientConnectionHandler
-	 * 
+	 *
 	 * @return l'istanza di ClientConnectionHandler
 	 */
 	public static ClientConnectionHandler getClientConnectionHandler() {
@@ -56,6 +56,8 @@ public class ClientConnectionHandler {
 
 	/**
 	 * Stabilisce la connessione al registry oppure ritorna false in caso di errori.
+	 *
+	 * @return a boolean
 	 */
 	public boolean connect() {
 		try {
@@ -71,9 +73,10 @@ public class ClientConnectionHandler {
 
 	/**
 	 * Registra un nuovo utente
-	 * 
+	 *
 	 * @param user l'utente da registrare
-	 * @throws RemoteException
+	 * @throws java.rmi.RemoteException
+	 * @return stringa di controllo
 	 */
 	public String registerCitizen(Cittadino user) throws RemoteException {
 		return stub.registerCitizen(user);
@@ -83,8 +86,8 @@ public class ClientConnectionHandler {
 	 * registra un centro vaccinale
 	 * 
 	 * @param center il centro da inserire
-	 * 
 	 * @throws RemoteException
+	 * @return stringa di controllo
 	 */
 	public String registerCenter(CentroVaccinale center) throws RemoteException {
 		return stub.registerCenter(center);
@@ -94,10 +97,9 @@ public class ClientConnectionHandler {
 	 * crea la connessione tra un cittadino e un centro vaccinale
 	 * 
 	 * @param user il cittadino a cui è stata fatta la vaccinazione
-	 * 
 	 * @param center il centro da cui è stata fatta la vaccinazione
-	 * 
 	 * @throws RemoteException
+	 * @return stringa di controllo
 	 */
 	public String registerVaccination(Cittadino user, String centername) throws RemoteException {
 		return stub.registerVaccination(user, centername);
@@ -107,12 +109,10 @@ public class ClientConnectionHandler {
 	 * inserisce un evento avverso
 	 * 
 	 * @param citizen il cittadino che ha segnalato l'evento avverso
-	 * 
 	 * @param center il centro su cui è stato segnalato l'evento avverso
-	 * 
 	 * @param event l'evento segnalato dal cittadino
-	 * 
 	 * @throws RemoteException
+	 * @return stringa di controllo
 	 */
 	public String insertAdverseEvent(String userid, String centerName, EventoAvverso event)
 			throws RemoteException {
@@ -132,7 +132,6 @@ public class ClientConnectionHandler {
 	 * ottiene i centri vaccinali con il nome che contiene il parametro passato
 	 * 
 	 * @param name il nome del centro ricercato
-	 * 
 	 * @return i centri vaccinali con un nome che contiene il parametro passato
 	 */
 	public ArrayList<CentroVaccinale> getCentersByName(String name) throws RemoteException {
@@ -144,9 +143,7 @@ public class ClientConnectionHandler {
 	 * passati
 	 * 
 	 * @param name il nome del cittadino
-	 * 
 	 * @param surname il cognome del cittadino
-	 * 
 	 * @return i cittadini con il nome e il congnome che contengono i parametri
 	 * passati
 	 */
@@ -159,7 +156,6 @@ public class ClientConnectionHandler {
 	 * parametro
 	 * 
 	 * @param center il centro di cui si vogliono ottenere i parametri
-	 * 
 	 * @return gli eventi avversi collegati al centro passato in input
 	 */
 	public ArrayList<EventoAvverso> getAdverseEvents(String centerName) throws RemoteException {
@@ -179,8 +175,7 @@ public class ClientConnectionHandler {
 	 * restituisce tutti i cittadini vaccinati nel centro passato come parametro
 	 * 
 	 * @param center il centro di cui si vogliono ottenere i cittadini registrati
-	 * 
-	 * @return i cittadni vaccinati nel centro passato in input
+	 * @return i cittadini vaccinati nel centro passato in input
 	 */
 	public ArrayList<Cittadino> getVaccinatedCitizens(CentroVaccinale center) throws RemoteException {
 		return stub.getVaccinatedCitizens(center);
@@ -190,9 +185,7 @@ public class ClientConnectionHandler {
 	 * ottiene il cittadino che esegue il login mediante userid e password
 	 * 
 	 * @param userid lo userid del cittadino che vuole fare l'accesso
-	 * 
 	 * @param password la password del cittadino che vuole fare l'accesso
-	 * 
 	 * @return il cittadino per cui lo userid e la password sono corrette
 	 */
 	public Cittadino getCitizenByLogin(String userid, String password) throws RemoteException {
@@ -204,8 +197,8 @@ public class ClientConnectionHandler {
 	 * sono della tipologia inserita mediante parametro
 	 * 
 	 * @param comune il comune in cui si trova il centro vaccinale
-	 * 
 	 * @param tipo il tipo che deve essere il centro vaccinale
+	 * @return i centri vaccinali presenti in un dato comune e di un dato tipo
 	 */
 	public ArrayList<CentroVaccinale> getCenterByPlaceAndType(String comune, TipoCentroVaccinale tipo)
 			throws RemoteException {
@@ -216,14 +209,19 @@ public class ClientConnectionHandler {
 	 * restituisce il centro in cui è stato vaccinato il cittadino
 	 * 
 	 * @param user il cittadino per cui si cerca il centro
-	 * 
 	 * @return il centro qualora sia presente
 	 */
 	public CentroVaccinale getCenterByVaccinatedCitizen(Cittadino user) throws RemoteException {
 		return stub.getCenterByVaccinatedCitizen(user);
 	}
 
-	// TODO scrivere la documentazione di login
+	/**
+	 * effettua il login di un utente
+	 * @param userid nome utente da usare per il login
+	 * @param password password da usare per il login
+	 * @return
+	 * @throws RemoteException
+	 */
 	public Cittadino login(String userid, String password) throws RemoteException {
 
 		Cittadino success = null;
@@ -240,7 +238,7 @@ public class ClientConnectionHandler {
 
 	/**
 	 * Controlla se è stato effettuato l'accesso
-	 * 
+	 *
 	 * @return true se l'accesso è stato effettuato, false altrimenti
 	 */
 	public boolean isLogged() {
@@ -249,7 +247,7 @@ public class ClientConnectionHandler {
 
 	/**
 	 * Ritorna l'istanza dell'utente che ha effettuato il login
-	 * 
+	 *
 	 * @return l'utente che ha effettuato l'accesso
 	 */
 	public Cittadino getLoggedUser() {
@@ -266,8 +264,10 @@ public class ClientConnectionHandler {
 
 	/**
 	 * Ritorna il cittadino vaccinato con id vaccinazione dato, se presente.
+	 *
 	 * @param id id da verificare
 	 * @return true se è presente un cittadino con id in input, false altrimenti.
+	 * @throws java.rmi.RemoteException
 	 */
 	public Cittadino getCitizenByVaccinationID(int id) throws RemoteException {
 		return stub.getCitizenByVaccinationID(id);
@@ -275,6 +275,7 @@ public class ClientConnectionHandler {
 
 	/**
 	 * Controlla se il nome utente dato è già stato utilizzato.
+	 *
 	 * @param username il nome utente da controllare
 	 * @return true se il nome utente è già stato utilizzato, false altrimenti
 	 */
@@ -284,6 +285,7 @@ public class ClientConnectionHandler {
 
 	/**
 	 * Controlla se l'email data è già stata utilizzata.
+	 *
 	 * @param email l'email da controllare
 	 * @return true se l'email è già stata utilizzata, false altrimenti
 	 */

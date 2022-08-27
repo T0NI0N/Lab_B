@@ -1,6 +1,9 @@
 // autori: Gaudiano Antonio 744102 VA, Bonaldo Samuele 744054 VA, Costantini Mirko 744982 VA
 
 package enums;
+/**
+ * <p>Classe TipoVaccino.</p>
+ */
 public enum TipoVaccino{
     PFIZER,
     MODERNA,

@@ -11,6 +11,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * <p>Classe HomeOperatoriController.</p>
+ */
 public class HomeOperatoriController {
 
     /**

@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
  * classe di supporto usata per il controllo degli input dell'utente tramite
  * espressioni regolari
  */
-
 public class ValidateData {
 
     /**
@@ -50,7 +49,7 @@ public class ValidateData {
 
     /**
      * Controlla se la password in input rispetta il pattern richiesto
-     * 
+     *
      * @param psswd la password da controllare
      * @return true se il controllo va a buon fine, false altrimenti
      */
@@ -61,7 +60,7 @@ public class ValidateData {
 
     /**
      * Controlla se l'email in input rispetta il pattern richiesto
-     * 
+     *
      * @param email l'email da controllare
      * @return true se il controllo va a buon fine, false altrimenti
      */

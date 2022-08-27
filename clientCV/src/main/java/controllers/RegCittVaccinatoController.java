@@ -23,6 +23,9 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+/**
+ * <p>Classe RegCittVaccinatoController.</p>
+ */
 public class RegCittVaccinatoController implements Initializable {
 
     @FXML
@@ -93,10 +96,9 @@ public class RegCittVaccinatoController implements Initializable {
     }
 
     /**
-     * inizializza la connessione alla base di dati e dei campi della schermata
+     * {@inheritDoc}
      *
-     * @param location
-     * @param resources
+     * inizializza la connessione alla base di dati e dei campi della schermata
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

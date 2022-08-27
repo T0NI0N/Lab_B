@@ -7,11 +7,10 @@ import java.security.*;
 /**
  * Classe adibita alla criptazione dei dati tramite MD5
  */
-
 public class EncryptData {
     /**
      * Utilizza l'agoritmo MD5 per criptare una stringa passata in input
-     * 
+     *
      * @param input stringa da criptare
      * @return una stringa criptata tramite l'algoritmo MD5
      */

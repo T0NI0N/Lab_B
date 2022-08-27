@@ -25,6 +25,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * <p>Classe InsEventoCittadiniController.</p>
+ */
 public class InsEventoCittadiniController implements Initializable {
 
     @FXML
@@ -55,16 +58,25 @@ public class InsEventoCittadiniController implements Initializable {
     private Cittadino cittadino;
     private CentroVaccinale centroVaccinale;
 
+    /**
+     * <p>Setter for the field <code>cittadino</code>.</p>
+     *
+     * @param c a {@link centrivaccinali.Cittadino} object
+     */
     public void setCittadino(Cittadino c){this.cittadino = c;}
+    /**
+     * <p>Setter for the field <code>centroVaccinale</code>.</p>
+     *
+     * @param cv a {@link centrivaccinali.CentroVaccinale} object
+     */
     public void setCentroVaccinale(CentroVaccinale cv){this.centroVaccinale = cv;}
 
     private ClientConnectionHandler connectionHandler;
 
     /**
-     * inizializza la connessione alla base di dati e dei campi della schermata
+     * {@inheritDoc}
      *
-     * @param location
-     * @param resources
+     * inizializza la connessione alla base di dati e dei campi della schermata
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

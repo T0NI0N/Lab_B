@@ -27,7 +27,7 @@ public class EventoAvverso implements Serializable {
 
     /**
      * Costruttore dell'oggetto EventiAvversi.
-     * 
+     *
      * @param e Sintomo della segnalazione.
      * @param s Severità del sintomo.
      * @param n Nota aggiuntiva della segnalazione (255 caratteri max).
@@ -40,7 +40,7 @@ public class EventoAvverso implements Serializable {
 
     /**
      * Restituisce il sintomo, o evento avverso, della segnalazione
-     * 
+     *
      * @return Il valore di ritorno è un'istanza della variabile enum Evento
      */
     public TipoEventoAvverso getEvento() {
@@ -49,7 +49,7 @@ public class EventoAvverso implements Serializable {
 
     /**
      * Imposta su evento il valore passato con il parametro
-     * 
+     *
      * @param evento valore da salvare all'interno di evento
      */
     public void setEvento(TipoEventoAvverso evento) {
@@ -58,7 +58,7 @@ public class EventoAvverso implements Serializable {
 
     /**
      * Restituisce la severità del sintomo
-     * 
+     *
      * @return Il valore di ritorno è un intero
      */
     public double getSeverita() {
@@ -67,7 +67,7 @@ public class EventoAvverso implements Serializable {
 
     /**
      * Imposta su severita il valore del parametro passato in input
-     * 
+     *
      * @param severita valore da salvare su severita
      */
     public void setSeverita(double severita) {
@@ -76,7 +76,7 @@ public class EventoAvverso implements Serializable {
 
     /**
      * Restituisce la nota aggiuntiva della segnalazione
-     * 
+     *
      * @return Il valore restituito è una stringa di lunghezza massima 255 caratteri
      */
     public String getNote() {
@@ -89,7 +89,7 @@ public class EventoAvverso implements Serializable {
 
     /**
      * Imposta il valore di note sul parametro passato in input
-     * 
+     *
      * @param note stringa da salvare su note
      */
     public void setNote(String note) {
@@ -98,7 +98,7 @@ public class EventoAvverso implements Serializable {
 
     /**
      * Ritorna l'oggetto EventiAvversi sotto forma di stringa
-     * 
+     *
      * @return una stringa che contiene tutti i valori dei campi di EventiAvversi
      */
     public String toString() {

@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * Classe che rappresenta un oggetto di tipo indirizzo, di supporto a
- * {@link CentroVaccinale}
+ * {@link centrivaccinali.CentroVaccinale}
  */
 public class Indirizzo implements Serializable {
 
@@ -48,7 +48,7 @@ public class Indirizzo implements Serializable {
     // costruttore
     /**
      * Ritorna un oggetto di tipo Indirizzo
-     * 
+     *
      * @param q   il qualificatore dell'indirizzo
      * @param n   il nome dell'indirizzo
      * @param nC  il numero civico dell'indirizzo
@@ -69,7 +69,7 @@ public class Indirizzo implements Serializable {
 
     /**
      * Ritorna il qualificatore
-     * 
+     *
      * @return il qualificatore dell'indirizzo
      */
     public String getQualificatore() {
@@ -78,7 +78,7 @@ public class Indirizzo implements Serializable {
 
     /**
      * Ritorna il nome dell'indirizzo
-     * 
+     *
      * @return il nome dell'indirizzo
      */
     public String getNome() {
@@ -87,7 +87,7 @@ public class Indirizzo implements Serializable {
 
     /**
      * Ritorna il numero civico
-     * 
+     *
      * @return il numero civico dell'indirizzo
      */
     public String getnCivico() {
@@ -96,7 +96,7 @@ public class Indirizzo implements Serializable {
 
     /**
      * Ritorna il comune del centro vaccinale
-     * 
+     *
      * @return il comune del centro vaccinale
      */
     public String getComune() {
@@ -105,7 +105,7 @@ public class Indirizzo implements Serializable {
 
     /**
      * Ritorna la provincia del centro vaccinale
-     * 
+     *
      * @return la provincia del centro vaccinale
      */
     public String getProvincia() {
@@ -114,7 +114,7 @@ public class Indirizzo implements Serializable {
 
     /**
      * Ritorna il cap del centro vaccinale
-     * 
+     *
      * @return il cap del centro vaccinale
      */
     public int getCap() {
@@ -123,7 +123,7 @@ public class Indirizzo implements Serializable {
 
     /**
      * Ritorna l'oggetto indirizzo sotto forma di stringa
-     * 
+     *
      * @return una stringa che contiene tutti i valori dei campi di Indirizzo
      */
     public String toString() {

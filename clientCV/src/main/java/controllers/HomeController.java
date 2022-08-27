@@ -12,6 +12,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * <p>Classe HomeController.</p>
+ */
 public class HomeController implements Initializable {
 
     /**
@@ -61,6 +64,7 @@ public class HomeController implements Initializable {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // schermata iniziale, nessun dato da inizializzare

@@ -21,6 +21,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+/**
+ * <p>Classe HomeCittadiniController.</p>
+ */
 public class HomeCittadiniController implements Initializable {
 
     private ClientConnectionHandler connectionHandler;
@@ -29,6 +32,7 @@ public class HomeCittadiniController implements Initializable {
 
     /**
      * Imposta il cittadino che ha eseguito l'accesso
+     *
      * @param cittadino il cittadino che ha fatto il login
      */
     public void setLoggedUser(Cittadino cittadino){
@@ -37,6 +41,7 @@ public class HomeCittadiniController implements Initializable {
 
     /**
      * Imposta lo stato del login dell'utente
+     *
      * @param clause true se l'utente ha eseguito l'accesso, false altrimenti
      */
     public void setUserLoggedIn(Boolean clause){
@@ -46,9 +51,6 @@ public class HomeCittadiniController implements Initializable {
     /**
      * inizializza la connessione alla base di dati
      * e recupera il cittadino che ha fatto il login, se presente
-     *
-     * @param location
-     * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

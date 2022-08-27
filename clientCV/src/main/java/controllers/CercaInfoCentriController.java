@@ -27,6 +27,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.fxml.Initializable;
 
+/**
+ * <p>Classe CercaInfoCentriController.</p>
+ */
 public class CercaInfoCentriController implements Initializable {
 
     @FXML
@@ -60,9 +63,6 @@ public class CercaInfoCentriController implements Initializable {
 
     /**
      * inizializza la connessione alla base di dati e i campi della schermata
-     *
-     * @param location
-     * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

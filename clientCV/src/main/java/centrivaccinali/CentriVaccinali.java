@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 /**
- * JavaFX App
+ * Main dell'applicazione
  */
 public class CentriVaccinali extends Application {
 
@@ -34,9 +34,6 @@ public class CentriVaccinali extends Application {
     /**
      * Lancia l'applicazione e l'interfaccia grafica instanziando contestualmente
      * la connessione alla base di dati
-     *
-     * @param primaryStage schermata di partenza predefinita di JavaFX
-     * @throws IOException
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -82,10 +79,11 @@ public class CentriVaccinali extends Application {
      * Cambia la scena visualizzata a schermo
      *
      * @param fxml nome del file di layout della scena
-     * @throws IOException
+     * @throws java.io.IOException
+     * @param o oggetti da passare alla scena
      */
     public static void switchScene(String fxml, ArrayList<Object> o) throws IOException {
-        // primaryStage.hide();
+        //primaryStage.hide();
 
         //scene.getStylesheets().add("style.css");
 
@@ -129,6 +127,11 @@ public class CentriVaccinali extends Application {
         return fxmlLoader.load();
     }
 
+    /**
+     * <p>main.</p>
+     *
+     * @param args array di {@link java.lang.String}
+     */
     public static void main(String[] args) {
         launch();
     }

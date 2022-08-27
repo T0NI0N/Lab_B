@@ -22,6 +22,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import utils.EncryptData;
 
+/**
+ * <p>Classe LoginController.</p>
+ */
 public class LoginController implements Initializable {
 
     @FXML
@@ -36,10 +39,9 @@ public class LoginController implements Initializable {
     private ClientConnectionHandler connectionHandler;
 
     /**
-     * inizializza la connessione alla base di dati
+     * {@inheritDoc}
      *
-     * @param location
-     * @param resources
+     * inizializza la connessione alla base di dati
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

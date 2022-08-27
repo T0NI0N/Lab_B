@@ -9,13 +9,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.io.*;
 
+/**
+ * Classe che gestisce la base di dati del server
+ */
 public class DatabaseHandler implements ConnectionHandlerInterface {
     private String connection = "jdbc:postgresql://";
     private Connection conn;
 
     /*
      * Costruttore di DatabaseHandler, tenta di connettersi all'host utilizzando utente e password passati come parametro. In caso dovesse riuscire a connettersi e non ci dovessero essere le tabelle TipiCentri, Comuni, Indirizzi, CentriVaccinali, Cittadini_Registrati, TipiVaccini, TipiEventi, EventiAvversi, assegnando a TipiCentri, TipiVaccini e TipiEventi i valori salvati nelle classi TipoCentroVaccinale, TipoVaccino e TipoEventoAvverso
-     * 
+     *
      * @param host Host a cui connettersi
      * @param user L'utente utilizzato per connettersi all'host
      * @param password La password dell'utente utilizzato per connettersi all'host
@@ -73,7 +76,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 "cognome varchar(20) NOT NULL, " +
                                 "email varchar(50) NOT NULL DEFAULT '', " +
                                 "userid varchar(20) NOT NULL DEFAULT '', " +
-                                "password varchar(100) NOT NULL DEFAULT '', " + 
+                                "password varchar(100) NOT NULL DEFAULT '', " +
                                 "codicefiscale varchar(16) NOT NULL, " +
                                 "idVaccinazione integer DEFAULT 0, " +
                                 "idCentroVaccinale smallint," +
@@ -126,9 +129,10 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Salva in una nuova riga di Cittadini_Registrati i valori del cittadino passato come parametro, assegnando come idCentroVaccinale quello del centro con il nome passato come parametro
-     * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
+     *
      * @param user Il cittadino da registrare
      * @param centername Il nome del centro di cui l'id è salvato all'interno del cittadino
+     * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
     public synchronized String registerCitizen(Cittadino user, String centername) {
         String output="ok";
@@ -179,8 +183,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Salva in una nuova riga di CentriVaccinali i valori del centro passato come parametro
-     * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
+     *
      * @param center Il centro da registrare
+     * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
     public synchronized String registerCenter(CentroVaccinale center) {
         String output="ok";
@@ -302,9 +307,10 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Salva un nuovo cittadino con solo nome, cognome, codice fiscale e id del centro vaccinale per poi assegnargli i dati della vaccinazione registrando in Vaccinati_(nomecentro) i dati e le associazioni tra cittadino e centro vaccinale
-     * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
+     *
      * @param user I dati del cittadino e della vaccinazione da registrare
      * @param centername Il nome del centro in cui viene registrata la vaccinazione
+     * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
     public synchronized String registerVaccination(Cittadino user, String centername) {
     String output="ok";
@@ -386,10 +392,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Salva in una nuova riga di EventiAvversi l'evento avverso collegando l'id del cittadino e quello del centro vaccinale
-     * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
+     *
      * @param userid Lo user id del cittadino che segnala l'evento avverso
      * @param centername Il nome del centro in cui è stata eseguita la vaccinazione che ha causato l'evento avverso
      * @param event L'evento segnalato
+     * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
     public String insertAdverseEvent(String userid, String centername, EventoAvverso event) {
         String output="ok";
@@ -454,6 +461,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Restituisce tutti i centri vaccinali presenti in CentriVaccinali
+     *
      * @return I centri vaccinali presenti in CentriVaccinali
      */
     public ArrayList<CentroVaccinale> getCenters() {
@@ -501,8 +509,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Restituisce i centri vaccinali di CentriVaccinali di cui l'attributo nome sia uguale a quello passato come parametro
-     * @return I centri vaccinali di cui l'attributo nome sia uguale a quello passato come parametro
+     *
      * @param name Il nome del centro da cercare
+     * @return I centri vaccinali di cui l'attributo nome sia uguale a quello passato come parametro
      */
     public ArrayList<CentroVaccinale> getCentersByName(String name) {
         ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
@@ -550,6 +559,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Restituisce tutti i cittadini presenti nella tabella Cittadini_Registrati
+     *
      * @return I cittadini presenti in Cittadini_Registrati
      */
     public ArrayList<Cittadino> getCitizens() {
@@ -572,9 +582,10 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Restituisce tutti i cittadini presenti nella tabella Cittadini_Registrati di cui gli attributi nome e cognome siano uguali a quelli passati come parametro
-     * @return I cittadini di cui il nome e il cognome sono uguali a quelli passati come parametro
+     *
      * @param name Il nome da cercare
      * @param surname Il cognome da cercare
+     * @return I cittadini di cui il nome e il cognome sono uguali a quelli passati come parametro
      */
     public ArrayList<Cittadino> getCitizensByName(String name, String surname) {
         ArrayList<Cittadino> output = new ArrayList<Cittadino>();
@@ -597,8 +608,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Restituisce tutti gli eventi avversi legati al centro vaccinale di cui il nome è passato come parametro
-     * @return Gli eventi avversi legati al centro vaccinale di cui il nome è passato come parametro
+     *
      * @param centerName Il nome del centro di cui si vogliono cercare gli eventi avversi
+     * @return Gli eventi avversi legati al centro vaccinale di cui il nome è passato come parametro
      */
     public ArrayList<EventoAvverso> getAdverseEvents(String centerName) {
         ArrayList<EventoAvverso> output = new ArrayList<EventoAvverso>();
@@ -647,8 +659,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Restituisce i cittadini vaccinati nel centro passato come parametro
-     * @return I cittadini vaccinati presenti nel centro passato come parametro
+     *
      * @param center Il centro di cui si vogliono trovare i cittadini
+     * @return I cittadini vaccinati presenti nel centro passato come parametro
      */
     public ArrayList<Cittadino> getVaccinatedCitizens(CentroVaccinale center) {
         String table = "Vaccinazioni_" + center.getNomeCentro().replace(" ", "_");
@@ -684,9 +697,10 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Restituisce il cittadino di cui gli attributi userid e password sono uguali a quelli passati come parametro
-     * @return Il cittadino il cui userid e password sono uguali a quelli passati come parametro
+     *
      * @param userid Lo userid da cercare
      * @param password La password da cercare
+     * @return Il cittadino il cui userid e password sono uguali a quelli passati come parametro
      */
     public synchronized Cittadino getCitizenByLogin(String userid, String password) {
         Cittadino output = null;
@@ -710,9 +724,10 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Restituisce i centri vaccinali il cui comune e il tipo siano uguali a quelli passati come parametro
-     * @return I centri vaccinali il cui nome e tipo sono uguali a quelli passati come parametro
+     *
      * @param comune Il nome del comune da cercare
      * @param tipo Il tipo del centro vaccinale da cercare
+     * @return I centri vaccinali il cui nome e tipo sono uguali a quelli passati come parametro
      */
     public ArrayList<CentroVaccinale> getCenterByPlaceAndType(String comune, TipoCentroVaccinale tipo) {
         ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
@@ -751,8 +766,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Restituisce il centro vaccinale in cui è presente il cittadino passato come parametro
-     * @return Il centro vaccinale in cui è presente il cittadino passato come parametro
+     *
      * @param user Il cittadino da cercare
+     * @return Il centro vaccinale in cui è presente il cittadino passato come parametro
      */
     public CentroVaccinale getCenterByVaccinatedCitizen(Cittadino user) {
         CentroVaccinale output = null;
@@ -823,15 +839,16 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Riempe il database con i dati presenti nei file di utils
+     *
      * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
     public String fillDataBase(){
         String output="ok";
         String path = System.getProperty("user.dir") + System.getProperty("file.separator") + "serverCV"
-                + System.getProperty("file.separator") + "src" + 
-                System.getProperty("file.separator") + "main"+ 
-                System.getProperty("file.separator") + "java" + 
-                System.getProperty("file.separator") + "utils" + 
+                + System.getProperty("file.separator") + "src" +
+                System.getProperty("file.separator") + "main"+
+                System.getProperty("file.separator") + "java" +
+                System.getProperty("file.separator") + "utils" +
                 System.getProperty("file.separator");
         String file, query;
         Statement statement;
@@ -841,7 +858,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                 String temp=br.readLine();
-                while (temp!= null) 
+                while (temp!= null)
                 {
                     query=
                         "INSERT INTO COMUNI VALUES("+
@@ -866,14 +883,14 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             output=ex1.toString();
         }
         System.out.println("Popolata tabella Comuni");
-        
+
         try{
             statement = conn.createStatement();
             file = path+"Addresses.csv";
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                 String temp=br.readLine();
-                while (temp!= null) 
+                while (temp!= null)
                 {
                     query=
                     "INSERT INTO Indirizzi VALUES ("+
@@ -907,7 +924,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                 String temp=br.readLine();
-                while (temp!= null) 
+                while (temp!= null)
                 {
                     query=
                     "INSERT INTO CentriVaccinali VALUES("+
@@ -946,14 +963,14 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             output=ex1.toString();
         }
         System.out.println("Popolata tabella CentriVaccinali");
-        
+
         try{
             statement = conn.createStatement();
             file = path+"Citizens.csv";
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                 String temp=br.readLine();
-                while (temp!= null) 
+                while (temp!= null)
                 {
                     query=
                     "INSERT INTO Cittadini_Registrati (idCittadino, nome, cognome, email, userid, password, codicefiscale, idCentroVaccinale) VALUES("+
@@ -982,14 +999,14 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             output=ex1.toString();
         }
         System.out.println("Popolata tabella Cittadini_Registrati");
-        
+
         try{
             statement = conn.createStatement();
             file = path+"Vaccinations.csv";
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                 String temp=br.readLine();
-                while (temp!= null) 
+                while (temp!= null)
                 {
                     query=
                     "INSERT INTO Vaccinazioni_"+nomi.get(Integer.parseInt(temp.split(";")[2])-1).replace(" ","_")+" VALUES ("+
@@ -1015,14 +1032,14 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             output=ex1.toString();
         }
         System.out.println("Popolate le tabelle delle vaccinazioni");
-        
+
         try{
             statement = conn.createStatement();
             file = path+"AdverseEvents.csv";
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                 String temp=br.readLine();
-                while (temp!= null) 
+                while (temp!= null)
                 {
                     query=
                     "INSERT INTO EventiAvversi VALUES("+
@@ -1052,11 +1069,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         output="ok";
         return output;
     }
-    
+
     /*
      * Restituisce il cittadino il cui id della vaccinazione sia uguale a quello presente come parametro
+     *
+     * @param id L'id della vaccinazione da cercare
      * @return Il cittadino il cui id della vaccinazione sia uguale a quello presente come parametro
-     * @param id L'id della vaccinazione da cercare 
      */
     public Cittadino getCitizenByVaccinationID(int id){
         Cittadino output=null;
@@ -1080,8 +1098,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
 
     /*
      * Controlla se lo user id passato come parametro è già presente nel database
-     * @return true se lo user id è presente false altrimenti
+     *
      * @param userid Lo user id da cercare
+     * @return true se lo user id è presente false altrimenti
      */
     public boolean checkUserIDPresence(String userid){
         boolean output;
@@ -1098,11 +1117,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
         return output;
     }
-    
+
     /*
      * Controlla se l'email passata come parametro è già presente nel database
-     * @return true se l'email è presente false altrimenti
+     *
      * @param email L'email da cercare
+     * @return true se l'email è presente false altrimenti
      */
     public boolean checkEmailPresence(String email){
         boolean output;
@@ -1119,7 +1139,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
         return output;
     }
-    
+
     /*
      * Aggiorna i campi del cittadino registrato il cui codice fiscale sia uguale a quello passato come parametro
      * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"

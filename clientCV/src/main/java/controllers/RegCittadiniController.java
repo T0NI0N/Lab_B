@@ -19,6 +19,9 @@ import javafx.scene.input.KeyEvent;
 import utils.EncryptData;
 import utils.ValidateData;
 
+/**
+ * <p>Classe RegCittadiniController.</p>
+ */
 public class RegCittadiniController implements Initializable {
 
     @FXML
@@ -44,14 +47,18 @@ public class RegCittadiniController implements Initializable {
     private String password;
     private long idVacc;
 
+    /**
+     * <p>Setter for the field <code>cittadino</code>.</p>
+     *
+     * @param cittadino a {@link centrivaccinali.Cittadino} object
+     */
     public void setCittadino(Cittadino cittadino){this.cittadino = cittadino;}
     private ClientConnectionHandler connectionHandler;
 
     /**
-     * inizializza la connessione alla base di dati
+     * {@inheritDoc}
      *
-     * @param location
-     * @param resources
+     * inizializza la connessione alla base di dati
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

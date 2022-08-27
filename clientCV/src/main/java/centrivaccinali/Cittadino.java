@@ -56,7 +56,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna un oggetto di tipo Cittadino
-     * 
+     *
      * @param nome    del cittadino
      * @param cognome del cittadino
      * @param cf      codice fiscale del cittadino
@@ -78,7 +78,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna un oggetto di tipo Cittadino
-     * 
+     *
      * @param nome    del cittadino
      * @param cognome del cittadino
      * @param cf      codice fiscale del cittadino
@@ -98,7 +98,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna un oggetto di tipo Cittadino
-     * 
+     *
      * @param nome           del cittadino
      * @param cognome        del cittadino
      * @param codicefiscale  del cittadino
@@ -125,7 +125,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna l'oggetto Cittadino sottoforma di stringa
-     * 
+     *
      * @return una stringa che contiene tutti i valori dei campi di Cittadino
      */
     public String toString() {
@@ -136,7 +136,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna l'id univoco di vaccinazione
-     * 
+     *
      * @return l'id univoco di vaccinazione
      */
     public long getIdVaccinazione() {
@@ -145,7 +145,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Imposta l'id univoco di vaccinazione
-     * 
+     *
      * @param idVaccinazione univoco
      */
     public void setIdVaccinazione(long idVaccinazione) {
@@ -154,7 +154,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna la password di registrazione del cittadino
-     * 
+     *
      * @return password di registrazione
      */
     public String getPassword() {
@@ -163,7 +163,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Imposta la password di registrazione del cittadino
-     * 
+     *
      * @param password da impostare
      */
     public void setPassword(String password) {
@@ -172,7 +172,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna il nome utente di registrazione del cittadino
-     * 
+     *
      * @return il nome utente di registrazione
      */
     public String getUserid() {
@@ -181,7 +181,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Imposta il nome utente di registrazione del cittadino
-     * 
+     *
      * @param userid di registrazione del cittadino
      */
     public void setUserid(String userid) {
@@ -190,7 +190,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna l'email di registrazione del cittadino
-     * 
+     *
      * @return l'email di registrazione
      */
     public String getEmail() {
@@ -199,7 +199,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Imposta l'email di registrazione del cittadino
-     * 
+     *
      * @param email di registrazione del cittadino
      */
     public void setEmail(String email) {
@@ -208,7 +208,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna il codice fiscale del cittadino
-     * 
+     *
      * @return codice fiscale del cittadino
      */
     public String getCodiceFiscale() {
@@ -217,7 +217,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Imposta il codice fiscale del cittadino
-     * 
+     *
      * @param codiceFiscale del cittadino
      */
     public void setCodiceFiscale(String codiceFiscale) {
@@ -226,7 +226,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna il cognome del cittadino
-     * 
+     *
      * @return cognome del cittadino
      */
     public String getCognome() {
@@ -235,7 +235,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Imposta il cognome del cittadino
-     * 
+     *
      * @param cognome del cittadino
      */
     public void setCognome(String cognome) {
@@ -244,7 +244,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna il nome del cittadino
-     * 
+     *
      * @return nome del cittadino
      */
     public String getNome() {
@@ -253,7 +253,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Imposta il nome del cittadino
-     * 
+     *
      * @param nome del cittadino
      */
     public void setNome(String nome) {
@@ -262,7 +262,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna la data di somministrazione del vaccino
-     * 
+     *
      * @return data somministrazione vaccino
      */
     public String getDataSomministrazione() {
@@ -271,7 +271,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Imposta la data di somministarzione del vaccino
-     * 
+     *
      * @param d la data di somministarzione del vaccino
      */
     public void setDataSomministrazione(String d) {
@@ -280,7 +280,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Ritorna il tipo di vaccino somministrato
-     * 
+     *
      * @return tipo di vaccino somministrato
      */
     public TipoVaccino getTipo() {
@@ -289,7 +289,7 @@ public class Cittadino implements Serializable {
 
     /**
      * Imposta il tipo di vaccino somministrato
-     * 
+     *
      * @param t tipo di vaccino somministrato
      */
     public void setTipo(TipoVaccino t) {

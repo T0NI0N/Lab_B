@@ -33,7 +33,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Ritorna un oggetto di tipo CentroVaccinale
-     * 
+     *
      * @param n il nome del centro
      * @param i l'indirizzo del centro
      * @param t il tipo del centro
@@ -48,7 +48,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Ritorna l'indirizzo del centro vaccinale
-     * 
+     *
      * @return la stringa contenente l'indirizzo del centro vaccinale
      */
     public String getIndirizzo() {
@@ -57,7 +57,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Imposta l'indirizzo del centro vaccinale
-     * 
+     *
      * @param i l'indirizzo del centro vaccinale
      */
     public void setIndirizzo(Indirizzo i) {
@@ -66,7 +66,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Ritorna il qualificatore dell'indirizzo del centro vaccinale
-     * 
+     *
      * @return la stringa contenente il qualificatore dell'indirizzo del centro
      *         vaccinale
      */
@@ -76,7 +76,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Ritorna il nome dell'indirizzo del centro vaccinale
-     * 
+     *
      * @return il nome dell'indirizzo del centro vaccinale
      */
     public String getNome() {
@@ -85,7 +85,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Ritorna il numero civico dell'indirizzo del centro vaccinale
-     * 
+     *
      * @return il numero civico dell'indirizzo del centro vaccinale
      */
     public String getnCivico() {
@@ -94,7 +94,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Ritorna il comune del centro vaccinale
-     * 
+     *
      * @return il comune del centro vaccinale
      */
     public String getComune() {
@@ -103,7 +103,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Ritorna la provincia del centro vaccinale
-     * 
+     *
      * @return la provincia del centro vaccinale
      */
     public String getProvincia() {
@@ -112,7 +112,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Ritorna il cap dell'indirizzo del centro vaccinale
-     * 
+     *
      * @return il cap dell'indirizzo del centro vaccinale
      */
     public int getCap() {
@@ -121,7 +121,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Ritorna il tipo del centro vaccinale
-     * 
+     *
      * @return il tipo del centro vaccinale
      */
     public String getTipo() {
@@ -130,7 +130,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Ritorna l'indice del tipo del centro vaccinale
-     * 
+     *
      * @return l'indice del tipo del centro vaccinale
      */
     public int getTipoInt() {
@@ -139,7 +139,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Imposta il tipo di centro vaccinale
-     * 
+     *
      * @param t il tipo del centro vaccinale
      */
     public void setTipo(TipoCentroVaccinale t) {
@@ -148,7 +148,7 @@ public class CentroVaccinale implements Serializable {
 
     /**
      * Ritorna il nome del centro vaccinale
-     * 
+     *
      * @return il nome del centro vaccinale
      */
     public String getNomeCentro() {
@@ -156,10 +156,10 @@ public class CentroVaccinale implements Serializable {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Ritorna l'oggetto CentroVaccinale sotto forma di stringa, informazioni e
      * lista di eventi avversi
-     * 
-     * @return una stringa che contiene tutti i valori dei campi di CentroVaccinale
      */
 
     @Override
