@@ -68,18 +68,14 @@ public class RegCittVaccinatoController implements Initializable {
             tf_centroV.getText()
         );
 
-        switch (result){
-            case "ok" -> {
-                System.out.println("Success: Vaccinazione registrata");
-                showInfoBox("Vaccinazione cittadino registrata con successo");
-                break;
-            }
-            default -> {
-                System.out.println(result);
-                showErrorBox("Errore durante la registrazione della vaccinazione");
-            }
+        try{
+            int id_parsed = Integer.parseInt(result);
+            System.out.println("Success: Vaccinazione registrata");
+            showInfoBox("Vaccinazione cittadino registrata con successo\nID Vaccinazione: "+result);
+        }catch (NumberFormatException e){
+            System.out.println(result);
+            showErrorBox("Errore durante la registrazione della vaccinazione");
         }
-
     }
 
     /**
