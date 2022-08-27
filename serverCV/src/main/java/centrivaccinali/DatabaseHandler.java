@@ -15,7 +15,7 @@ import java.io.*;
 public class DatabaseHandler implements ConnectionHandlerInterface {
     private String connection = "jdbc:postgresql://";
     private Connection conn;
-    private int curr_IDVacc;
+    private int idVaccinazione;
 
     /*
      * Costruttore di DatabaseHandler, tenta di connettersi all'host utilizzando utente e password passati come parametro. In caso dovesse riuscire a connettersi e non ci dovessero essere le tabelle TipiCentri, Comuni, Indirizzi, CentriVaccinali, Cittadini_Registrati, TipiVaccini, TipiEventi, EventiAvversi, assegnando a TipiCentri, TipiVaccini e TipiEventi i valori salvati nelle classi TipoCentroVaccinale, TipoVaccino e TipoEventoAvverso
@@ -127,6 +127,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+        getLastId();
     }
 
     /**
@@ -157,6 +158,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 rs = conn
                         .prepareStatement("SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome LIKE '%" + centername + "%' ORDER BY idCentroVaccinale DESC")
                         .executeQuery();
+                rs.next();
                 centrovaccinale=rs.getInt("idCentroVaccinale");
             }
             catch(Exception ex1){
@@ -326,17 +328,8 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         rs.next();
         centrovaccinale = rs.getInt("cidCentroVaccinale");
         cittadino = rs.getInt("cidCittadino");
-        try{
-            rs=conn.prepareStatement(
-                "SELECT idVaccinazione FROM Cittadini_Registrati WHERE idVaccinazione!=0 ORDER BY (idVaccinazione) DESC"
-            ).executeQuery();
-            rs.next();
-            user.setIdVaccinazione(rs.getInt("idVaccinazione")+1);
-        }
-        catch(Exception ex1){
-            user.setIdVaccinazione(1);
-            output=ex1.toString();
-        }
+        idVaccinazione++;
+        user.setIdVaccinazione(idVaccinazione);
         Statement statement = conn.createStatement();
         String table = "Vaccinazioni_" + centername.replace(" ", "_");
         int id;
@@ -373,7 +366,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 try{
                     statement.executeUpdate(
                         "UPDATE Cittadini_Registrati SET idVaccinazione="+user.getIdVaccinazione()+" WHERE userid='"+user.getUserid()+"'");
-                    output="ok";
+                    output=String.valueOf(idVaccinazione-1);
                 }
                 catch(Exception ex2){
                     System.out.println(ex2.toString());
@@ -1018,6 +1011,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     temp.split(";")[3]+", "+
                     temp.split(";")[4]+")";
                     statement.executeUpdate(query);
+                    query=
+                    "UPDATE Cittadini_Registrati SET idVaccinazione="+temp.split(";")[0]+" WHERE idCittadino="+temp.split(";")[3];
+                    statement.executeUpdate(query);
                     temp = br.readLine();
                 }
                 br.close();
@@ -1176,9 +1172,21 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     return output;
 }
 
-    private void setLastVaccination(){
-        //Ricerca nella tabella delle vaccinazioni dell'ultimo ID utilizzato.
-        //Da richiamare solamente quando si fa partire il server, quindi nel costruttore del dbhelper
-        curr_IDVacc = 0;
+    
+
+    /*
+     * Ottiene l'ultimo id delle vaccinazioni
+     */
+    private void getLastId(){
+        try{
+            ResultSet rs=conn.prepareStatement(
+                "SELECT idVaccinazione FROM Cittadini_Registrati ORDER BY (idVaccinazione) DESC"
+            ).executeQuery();
+            rs.next();
+            idVaccinazione=rs.getInt("idVaccinazione");
+        }
+        catch(Exception ex1){
+            System.out.println(ex1.toString());
+        }
     }
 }
