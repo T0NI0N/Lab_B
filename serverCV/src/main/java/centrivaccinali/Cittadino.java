@@ -17,27 +17,27 @@ public class Cittadino implements Serializable {
     /**
      * Rappresenta il nome del cittadino
      */
-    private String nome;
+    private String nome="";
     /**
      * Rappresenta il cognome del cittadino
      */
-    private String cognome;
+    private String cognome="";
     /**
      * Rappresenta il codice fiscale del cittadino
      */
-    private String codiceFiscale;
+    private String codiceFiscale="";
     /**
      * Rappresenta l'email di registrazione del cittadino
      */
-    private String email;
+    private String email="";
     /**
      * Rappresenta il nome utente di registrazione del cittadino
      */
-    private String userid;
+    private String userid="";
     /**
      * Rappresenta la password di registrazione del cittadino
      */
-    private String password;
+    private String password="";
     /**
      * Rappresenta l'id univoco di vaccinazione del cittadino
      */
@@ -45,7 +45,7 @@ public class Cittadino implements Serializable {
     /**
      * Rappresenta la data di vaccinazione del cittadino
      */
-    private String dataSomministrazione;
+    private String dataSomministrazione="";
     /**
      * Rappresenta il tipo di vaccino somministrato
      */
