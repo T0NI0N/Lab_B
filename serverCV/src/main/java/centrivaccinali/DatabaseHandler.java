@@ -1166,8 +1166,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         return output;
     }
 
-
-    /*
+    /**
      * Ottiene l'ultimo id delle vaccinazioni
      */
     private void getLastId() {
@@ -1182,10 +1181,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         }
     }
     
-    /*
+    /**
      * Controlla se il codice fiscale è presente nel DB
-     * @return true se è presente false in caso contrario
+     *
      * @param codice Il codice da cercare nel database
+     * @return true se è presente false in caso contrario
      */
     private boolean checkCodiceFiscale(String codice){
         boolean output;

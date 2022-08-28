@@ -26,6 +26,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.Region;
 
 /**
  * <p>Classe CercaInfoCentriController.</p>
@@ -222,6 +223,8 @@ public class CercaInfoCentriController implements Initializable {
         a.setTitle("Errore");
         a.setHeaderText("");
         a.setContentText(error);
+        a.setResizable(true);
+        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         a.showAndWait();
     }
 
@@ -235,6 +238,8 @@ public class CercaInfoCentriController implements Initializable {
         alert.setTitle("Attenzione");
         alert.setHeaderText("");
         alert.setContentText(info);
+        alert.setResizable(true);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
 }

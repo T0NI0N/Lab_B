@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Region;
 
 /**
  * <p>Classe HomeController.</p>
@@ -59,7 +60,8 @@ public class HomeController implements Initializable {
         a.setTitle("Informazioni");
         a.setHeaderText("Informazioni");
         a.setContentText(helpCiviliString + helpOperatoriString);
-
+        a.setResizable(true);
+        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         a.show();
     }
 

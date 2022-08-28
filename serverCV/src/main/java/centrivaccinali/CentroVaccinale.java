@@ -161,6 +161,12 @@ public class CentroVaccinale implements Serializable {
      * @return una stringa che contiene tutti i valori dei campi di centrivaccinali.CentroVaccinale
      */
 
+    /**
+     * Ritorna l'oggetto CentroVaccinale sotto forma di stringa, informazioni e
+     * lista di eventi avversi
+     *
+     * @return stringa contenente i dati del centro vaccinale
+     */
     @Override
     public String toString() {
         return "Centro " + nomeCentro + ", " + indirizzo + ", " + tipo;

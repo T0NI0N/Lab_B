@@ -15,6 +15,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.net.URL;
@@ -126,6 +127,8 @@ public class RegCentroVaccinaleController implements Initializable {
         a.setTitle("Errore");
         a.setHeaderText("");
         a.setContentText(error);
+        a.setResizable(true);
+        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         a.showAndWait();
     }
 
@@ -139,6 +142,8 @@ public class RegCentroVaccinaleController implements Initializable {
         alert.setTitle("Registrazione avvenuta");
         alert.setHeaderText("");
         alert.setContentText(info);
+        alert.setResizable(true);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
 

@@ -20,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import utils.EncryptData;
 
 /**
@@ -100,6 +101,8 @@ public class LoginController implements Initializable {
         a.setTitle("Errore");
         a.setHeaderText("");
         a.setContentText(error);
+        a.setResizable(true);
+        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         a.showAndWait();
     }
 

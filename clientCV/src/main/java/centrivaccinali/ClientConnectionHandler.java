@@ -78,11 +78,11 @@ public class ClientConnectionHandler {
 	 * @throws java.rmi.RemoteException
 	 * @return stringa di controllo
 	 */
-	public String registerCitizen(Cittadino user) throws RemoteException {
-		return stub.registerCitizen(user);
+	public String registerCitizen(Cittadino user, String centrename) throws RemoteException {
+		return stub.registerCitizen(user, centrename);
 	}
 
-	/*
+	/**
 	 * registra un centro vaccinale
 	 * 
 	 * @param center il centro da inserire
@@ -93,11 +93,11 @@ public class ClientConnectionHandler {
 		return stub.registerCenter(center);
 	}
 
-	/*
+	/**
 	 * crea la connessione tra un cittadino e un centro vaccinale
 	 * 
 	 * @param user il cittadino a cui è stata fatta la vaccinazione
-	 * @param center il centro da cui è stata fatta la vaccinazione
+	 * @param centername il centro da cui è stata fatta la vaccinazione
 	 * @throws RemoteException
 	 * @return stringa di controllo
 	 */
@@ -105,11 +105,11 @@ public class ClientConnectionHandler {
 		return stub.registerVaccination(user, centername);
 	}
 
-	/*
+	/**
 	 * inserisce un evento avverso
 	 * 
-	 * @param citizen il cittadino che ha segnalato l'evento avverso
-	 * @param center il centro su cui è stato segnalato l'evento avverso
+	 * @param userid il cittadino che ha segnalato l'evento avverso
+	 * @param centerName il centro su cui è stato segnalato l'evento avverso
 	 * @param event l'evento segnalato dal cittadino
 	 * @throws RemoteException
 	 * @return stringa di controllo
@@ -119,7 +119,7 @@ public class ClientConnectionHandler {
 		return stub.insertAdverseEvent(userid, centerName, event);
 	}
 
-	/*
+	/**
 	 * ottiene tutti i centri vaccinali presenti nella tabella CentriVaccinali
 	 * 
 	 * @return i centri vaccinali registrati nel database
@@ -128,7 +128,7 @@ public class ClientConnectionHandler {
 		return stub.getCenters();
 	}
 
-	/*
+	/**
 	 * ottiene i centri vaccinali con il nome che contiene il parametro passato
 	 * 
 	 * @param name il nome del centro ricercato
@@ -138,7 +138,7 @@ public class ClientConnectionHandler {
 		return stub.getCentersByName(name);
 	}
 
-	/*
+	/**
 	 * restituisce i cittadini con un nome e un cognome che contengono i parametri
 	 * passati
 	 * 
@@ -151,18 +151,18 @@ public class ClientConnectionHandler {
 		return getCitizensByName(name, surname);
 	}
 
-	/*
+	/**
 	 * restituisce gli eventi avversi collegati al centro vaccinale passato come
 	 * parametro
 	 * 
-	 * @param center il centro di cui si vogliono ottenere i parametri
+	 * @param centerName il centro di cui si vogliono ottenere i parametri
 	 * @return gli eventi avversi collegati al centro passato in input
 	 */
 	public ArrayList<EventoAvverso> getAdverseEvents(String centerName) throws RemoteException {
 		return stub.getAdverseEvents(centerName);
 	}
 
-	/*
+	/**
 	 * restituisce tutti i cittadini presenti nella tabella Cittadini_REgistrati
 	 * 
 	 * @return i cittadini presenti nel database
@@ -171,7 +171,7 @@ public class ClientConnectionHandler {
 		return stub.getCitizens();
 	}
 
-	/*
+	/**
 	 * restituisce tutti i cittadini vaccinati nel centro passato come parametro
 	 * 
 	 * @param center il centro di cui si vogliono ottenere i cittadini registrati
@@ -181,7 +181,7 @@ public class ClientConnectionHandler {
 		return stub.getVaccinatedCitizens(center);
 	}
 
-	/*
+	/**
 	 * ottiene il cittadino che esegue il login mediante userid e password
 	 * 
 	 * @param userid lo userid del cittadino che vuole fare l'accesso
@@ -192,7 +192,7 @@ public class ClientConnectionHandler {
 		return stub.getCitizenByLogin(userid, password);
 	}
 
-	/*
+	/**
 	 * restituisce i centri vaccinali presenti nel comune indicato in input e che
 	 * sono della tipologia inserita mediante parametro
 	 * 
@@ -205,7 +205,7 @@ public class ClientConnectionHandler {
 		return stub.getCenterByPlaceAndType(comune, tipo);
 	}
 
-	/*
+	/**
 	 * restituisce il centro in cui è stato vaccinato il cittadino
 	 * 
 	 * @param user il cittadino per cui si cerca il centro
@@ -293,6 +293,12 @@ public class ClientConnectionHandler {
 		return stub.checkEmailPresence(email);
 	}
 
+	/**
+	 * esegue l'aggiornamento del cittadino aggiungendo al database l'email, il nome utente e la password
+	 * @param user il cittadino di cui aggiornare i dati
+	 * @return stringa di controllo
+	 * @throws RemoteException
+	 */
 	public String updateCitizen(Cittadino user) throws RemoteException{
 		return stub.updateCitizen(user);
 	}

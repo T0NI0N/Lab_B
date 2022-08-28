@@ -19,6 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 /**
@@ -165,12 +166,13 @@ public class HomeCittadiniController implements Initializable {
                 +
                 "\n - Registrarsi al centro vaccinale desiderato inserendo i propri dati anagrafici, email, nome utente e password;"
                 +
-                "\n - Inserire eventuali effetti collaterali post vaccinazione, previo login alla piattaforma. \n\n\n\n\n  ";
+                "\n - Inserire eventuali effetti collaterali post vaccinazione, previo login alla piattaforma.";
 
         a.setTitle("Informazioni");
         a.setHeaderText("Informazioni");
         a.setContentText(helpString);
-
+        a.setResizable(true);
+        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         a.show();
     }
 

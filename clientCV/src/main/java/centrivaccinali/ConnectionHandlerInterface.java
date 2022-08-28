@@ -7,156 +7,164 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-/**
- * <p>Interfaccia ConnectionHandlerInterface.</p>
- */
+/** Interfaccia ConnectionHandlerInterface. */
 public interface ConnectionHandlerInterface extends Remote {
 
-    /**
-     * <p>registerCitizen.</p>
-     *
-     * @param user a {@link centrivaccinali.Cittadino} object
-     * @return a {@link java.lang.String} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public String registerCitizen(Cittadino user) throws RemoteException;
+  /**
+   * registerCitizen.
+   *
+   * @param user a {@link centrivaccinali.Cittadino} object
+   * @param centername the centername
+   * @return a {@link java.lang.String} object
+   * @throws RemoteException the remote exception
+   */
+  public String registerCitizen(Cittadino user, String centername) throws RemoteException;
 
-    /**
-     * <p>registerCenter.</p>
-     *
-     * @param center a {@link centrivaccinali.CentroVaccinale} object
-     * @return a {@link java.lang.String} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public String registerCenter(CentroVaccinale center) throws RemoteException;
+  /**
+   * registerCenter.
+   *
+   * @param center a {@link centrivaccinali.CentroVaccinale} object
+   * @return a {@link java.lang.String} object
+   * @throws RemoteException the remote exception
+   */
+  public String registerCenter(CentroVaccinale center) throws RemoteException;
 
-    /**
-     * <p>registerVaccination.</p>
-     *
-     * @param user a {@link centrivaccinali.Cittadino} object
-     * @param centername a {@link java.lang.String} object
-     * @return a {@link java.lang.String} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public String registerVaccination(Cittadino user, String centername) throws RemoteException;
+  /**
+   * registerVaccination.
+   *
+   * @param user a {@link centrivaccinali.Cittadino} object
+   * @param centername a {@link java.lang.String} object
+   * @return a {@link java.lang.String} object
+   * @throws RemoteException the remote exception
+   */
+  public String registerVaccination(Cittadino user, String centername) throws RemoteException;
 
-    /**
-     * <p>insertAdverseEvent.</p>
-     *
-     * @param userid a {@link java.lang.String} object
-     * @param centerName a {@link java.lang.String} object
-     * @param event a {@link centrivaccinali.EventoAvverso} object
-     * @return a {@link java.lang.String} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public String insertAdverseEvent(String userid, String centerName, EventoAvverso event) throws RemoteException;
+  /**
+   * insertAdverseEvent.
+   *
+   * @param userid a {@link java.lang.String} object
+   * @param centerName a {@link java.lang.String} object
+   * @param event a {@link centrivaccinali.EventoAvverso} object
+   * @return a {@link java.lang.String} object
+   * @throws RemoteException the remote exception
+   */
+  public String insertAdverseEvent(String userid, String centerName, EventoAvverso event)
+      throws RemoteException;
 
-    /**
-     * <p>getCenters.</p>
-     *
-     * @return a {@link java.util.ArrayList} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public ArrayList<CentroVaccinale> getCenters() throws RemoteException;
+  /**
+   * getCenters.
+   *
+   * @return a {@link java.util.ArrayList} object
+   * @throws RemoteException the remote exception
+   */
+  public ArrayList<CentroVaccinale> getCenters() throws RemoteException;
 
-    /**
-     * <p>getCentersByName.</p>
-     *
-     * @param name a {@link java.lang.String} object
-     * @return a {@link java.util.ArrayList} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public ArrayList<CentroVaccinale> getCentersByName(String name) throws RemoteException;
+  /**
+   * getCentersByName.
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link java.util.ArrayList} object
+   * @throws RemoteException the remote exception
+   */
+  public ArrayList<CentroVaccinale> getCentersByName(String name) throws RemoteException;
 
-    /**
-     * <p>getCitizensByName.</p>
-     *
-     * @param name a {@link java.lang.String} object
-     * @param surname a {@link java.lang.String} object
-     * @return a {@link java.util.ArrayList} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public ArrayList<Cittadino> getCitizensByName(String name, String surname) throws RemoteException;
+  /**
+   * getCitizensByName.
+   *
+   * @param name a {@link java.lang.String} object
+   * @param surname a {@link java.lang.String} object
+   * @return a {@link java.util.ArrayList} object
+   * @throws RemoteException the remote exception
+   */
+  public ArrayList<Cittadino> getCitizensByName(String name, String surname) throws RemoteException;
 
-    /**
-     * <p>getAdverseEvents.</p>
-     *
-     * @param centerName a {@link java.lang.String} object
-     * @return a {@link java.util.ArrayList} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public ArrayList<EventoAvverso> getAdverseEvents(String centerName) throws RemoteException;
+  /**
+   * getAdverseEvents.
+   *
+   * @param centerName a {@link java.lang.String} object
+   * @return a {@link java.util.ArrayList} object
+   * @throws RemoteException the remote exception
+   */
+  public ArrayList<EventoAvverso> getAdverseEvents(String centerName) throws RemoteException;
 
-    /**
-     * <p>getCitizens.</p>
-     *
-     * @return a {@link java.util.ArrayList} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public ArrayList<Cittadino> getCitizens() throws RemoteException;
+  /**
+   * getCitizens.
+   *
+   * @return a {@link java.util.ArrayList} object
+   * @throws RemoteException the remote exception
+   */
+  public ArrayList<Cittadino> getCitizens() throws RemoteException;
 
-    /**
-     * <p>getVaccinatedCitizens.</p>
-     *
-     * @param center a {@link centrivaccinali.CentroVaccinale} object
-     * @return a {@link java.util.ArrayList} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public ArrayList<Cittadino> getVaccinatedCitizens(CentroVaccinale center) throws RemoteException;
+  /**
+   * getVaccinatedCitizens.
+   *
+   * @param center a {@link centrivaccinali.CentroVaccinale} object
+   * @return a {@link java.util.ArrayList} object
+   * @throws RemoteException the remote exception
+   */
+  public ArrayList<Cittadino> getVaccinatedCitizens(CentroVaccinale center) throws RemoteException;
 
-    /**
-     * <p>getCitizenByLogin.</p>
-     *
-     * @param userid a {@link java.lang.String} object
-     * @param password a {@link java.lang.String} object
-     * @return a {@link centrivaccinali.Cittadino} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public Cittadino getCitizenByLogin(String userid, String password) throws RemoteException;
+  /**
+   * getCitizenByLogin.
+   *
+   * @param userid a {@link java.lang.String} object
+   * @param password a {@link java.lang.String} object
+   * @return a {@link centrivaccinali.Cittadino} object
+   * @throws RemoteException the remote exception
+   */
+  public Cittadino getCitizenByLogin(String userid, String password) throws RemoteException;
 
-    /**
-     * <p>getCenterByPlaceAndType.</p>
-     *
-     * @param comune a {@link java.lang.String} object
-     * @param tipo a {@link enums.TipoCentroVaccinale} object
-     * @return a {@link java.util.ArrayList} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public ArrayList<CentroVaccinale> getCenterByPlaceAndType(String comune, TipoCentroVaccinale tipo) throws RemoteException;
+  /**
+   * getCenterByPlaceAndType.
+   *
+   * @param comune a {@link java.lang.String} object
+   * @param tipo a {@link enums.TipoCentroVaccinale} object
+   * @return a {@link java.util.ArrayList} object
+   * @throws RemoteException the remote exception
+   */
+  public ArrayList<CentroVaccinale> getCenterByPlaceAndType(String comune, TipoCentroVaccinale tipo)
+      throws RemoteException;
 
-    /**
-     * <p>getCenterByVaccinatedCitizen.</p>
-     *
-     * @param user a {@link centrivaccinali.Cittadino} object
-     * @return a {@link centrivaccinali.CentroVaccinale} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public CentroVaccinale getCenterByVaccinatedCitizen(Cittadino user) throws RemoteException;
+  /**
+   * getCenterByVaccinatedCitizen.
+   *
+   * @param user a {@link centrivaccinali.Cittadino} object
+   * @return a {@link centrivaccinali.CentroVaccinale} object
+   * @throws RemoteException the remote exception
+   */
+  public CentroVaccinale getCenterByVaccinatedCitizen(Cittadino user) throws RemoteException;
 
-    /**
-     * <p>getCitizenByVaccinationID.</p>
-     *
-     * @param id a int
-     * @return a {@link centrivaccinali.Cittadino} object
-     * @throws java.rmi.RemoteException if any.
-     */
-    public Cittadino getCitizenByVaccinationID(int id) throws RemoteException;
+  /**
+   * getCitizenByVaccinationID.
+   *
+   * @param id a int
+   * @return a {@link centrivaccinali.Cittadino} object
+   * @throws RemoteException the remote exception
+   */
+  public Cittadino getCitizenByVaccinationID(int id) throws RemoteException;
 
-    /**
-     * <p>checkUserIDPresence.</p>
-     *
-     * @param username a {@link java.lang.String} object
-     * @return a boolean
-     */
-    public boolean checkUserIDPresence(String username);
+  /**
+   * checkUserIDPresence.
+   *
+   * @param username a {@link java.lang.String} object
+   * @return a boolean
+   */
+  public boolean checkUserIDPresence(String username);
 
-    /**
-     * <p>checkEmailPresence.</p>
-     *
-     * @param email a {@link java.lang.String} object
-     * @return a boolean
-     */
-    public boolean checkEmailPresence(String email);
+  /**
+   * checkEmailPresence.
+   *
+   * @param email a {@link java.lang.String} object
+   * @return a boolean
+   */
+  public boolean checkEmailPresence(String email);
 
-    public String updateCitizen(Cittadino user) throws RemoteException;
+  /**
+   * updateCitizen>.
+   *
+   * @param user the user
+   * @return the string
+   * @throws RemoteException the remote exception
+   */
+  public String updateCitizen(Cittadino user) throws RemoteException;
 }

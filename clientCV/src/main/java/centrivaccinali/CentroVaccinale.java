@@ -156,12 +156,11 @@ public class CentroVaccinale implements Serializable {
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Ritorna l'oggetto CentroVaccinale sotto forma di stringa, informazioni e
      * lista di eventi avversi
+     *
+     * @return stringa contenente i dati del centro vaccinale
      */
-
     @Override
     public String toString() {
         return "Centro " + nomeCentro + ", " + indirizzo + ", " + tipo;

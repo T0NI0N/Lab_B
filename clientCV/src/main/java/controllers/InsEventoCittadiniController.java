@@ -24,6 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 
 /**
  * <p>Classe InsEventoCittadiniController.</p>
@@ -102,6 +103,10 @@ public class InsEventoCittadiniController implements Initializable {
             CentriVaccinali.switchScene("HomeCittadini", null);
     }
 
+    /**
+     * Aggiunge la segnalazione dell'evento avverso alla base di dati
+     * @throws IOException
+     */
     @FXML
     private void btnSubmitPressed() throws IOException {
 
@@ -149,6 +154,8 @@ public class InsEventoCittadiniController implements Initializable {
         a.setTitle("Errore");
         a.setHeaderText("");
         a.setContentText(error);
+        a.setResizable(true);
+        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         a.showAndWait();
     }
 
@@ -162,6 +169,8 @@ public class InsEventoCittadiniController implements Initializable {
         alert.setTitle("Registrazione avvenuta");
         alert.setHeaderText("");
         alert.setContentText(info);
+        alert.setResizable(true);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
 

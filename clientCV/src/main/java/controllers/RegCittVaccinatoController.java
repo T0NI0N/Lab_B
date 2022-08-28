@@ -15,6 +15,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import utils.ValidateData;
 
 import java.io.IOException;
@@ -102,6 +103,7 @@ public class RegCittVaccinatoController implements Initializable {
         connectionHandler = ClientConnectionHandler.getClientConnectionHandler();
 
         chb_vaccino.setItems(FXCollections.observableList(Arrays.asList(TipoVaccino.values())));
+        chb_vaccino.setValue(TipoVaccino.MODERNA);
         dp_data.setValue(LocalDate.now());
 
     }
@@ -117,6 +119,8 @@ public class RegCittVaccinatoController implements Initializable {
         a.setTitle("Errore");
         a.setHeaderText("");
         a.setContentText(error);
+        a.setResizable(true);
+        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         a.showAndWait();
     }
 
@@ -130,6 +134,8 @@ public class RegCittVaccinatoController implements Initializable {
         alert.setTitle("Registrazione avvenuta");
         alert.setHeaderText("");
         alert.setContentText(info);
+        alert.setResizable(true);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
 }

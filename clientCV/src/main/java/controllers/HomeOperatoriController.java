@@ -10,6 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 
 /**
  * <p>Classe HomeOperatoriController.</p>
@@ -55,7 +56,8 @@ public class HomeOperatoriController {
         a.setTitle("Informazioni");
         a.setHeaderText("Informazioni");
         a.setContentText(helpString);
-
+        a.setResizable(true);
+        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         a.show();
     }
 

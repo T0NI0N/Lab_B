@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import utils.EncryptData;
 import utils.ValidateData;
 
@@ -191,6 +192,8 @@ public class RegCittadiniController implements Initializable {
         a.setTitle("Errore");
         a.setHeaderText("");
         a.setContentText("Problemi riscontrati durante la registrazione: " + "\n" + error);
+        a.setResizable(true);
+        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         a.showAndWait();
     }
 
@@ -205,6 +208,8 @@ public class RegCittadiniController implements Initializable {
         a.setTitle("Errore");
         a.setHeaderText("");
         a.setContentText(error);
+        a.setResizable(true);
+        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         a.showAndWait();
     }
 
@@ -218,6 +223,8 @@ public class RegCittadiniController implements Initializable {
         alert.setTitle("Registrazione avvenuta");
         alert.setHeaderText("");
         alert.setContentText(info);
+        alert.setResizable(true);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
 }
