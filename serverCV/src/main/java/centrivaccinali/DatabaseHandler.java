@@ -318,7 +318,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         try {
             if(!checkCodiceFiscale(user.getCodiceFiscale()))
             {
-                registerCitizen(user);
+                registerCitizen(user, centername);
                 int centrovaccinale;
                 int cittadino;
                 ResultSet rs = conn.prepareStatement(
