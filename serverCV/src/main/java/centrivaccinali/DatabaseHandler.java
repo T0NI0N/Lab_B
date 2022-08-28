@@ -317,7 +317,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     public synchronized String registerVaccination(Cittadino user, String centername) {
         String output = "ok";
         try {
-            if(checkCodiceFiscale(user.getCodiceFiscale()))
+            if(!checkCodiceFiscale(user.getCodiceFiscale()))
             {
                 registerCitizen(user);
                 int centrovaccinale;
@@ -377,6 +377,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                         output = ex1.toString();
                     }
                 }
+            }
+            else{
+                output="Cittadino già presente";
             }
         } catch (Exception e) {
             System.out.println(e);
