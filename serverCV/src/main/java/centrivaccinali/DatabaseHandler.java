@@ -365,7 +365,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                         idVaccinazione++;
                         try {
                             statement.executeUpdate(
-                                    "UPDATE Cittadini_Registrati SET idVaccinazione=" + user.getIdVaccinazione() + " WHERE userid='" + user.getUserid() + "'");
+                                    "UPDATE Cittadini_Registrati SET idVaccinazione=" + user.getIdVaccinazione() + " WHERE codicefiscale='" + user.getCodiceFiscale() + "'");
                             output = String.valueOf(idVaccinazione);
                         } catch (Exception ex2) {
                             System.out.println(ex2.toString());
