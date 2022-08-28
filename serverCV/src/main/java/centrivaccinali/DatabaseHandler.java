@@ -122,7 +122,6 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 System.out.println("Creato il database...");
                 fillDataBase();
             }
-            setLastVaccination();
             System.out.println("Connesso al database...");
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -328,8 +327,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         rs.next();
         centrovaccinale = rs.getInt("cidCentroVaccinale");
         cittadino = rs.getInt("cidCittadino");
-        idVaccinazione++;
-        user.setIdVaccinazione(idVaccinazione);
+        user.setIdVaccinazione(1+idVaccinazione);
         Statement statement = conn.createStatement();
         String table = "Vaccinazioni_" + centername.replace(" ", "_");
         int id;
@@ -363,10 +361,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 + user.getDataSomministrazione().split("/")[1] + "-"
                                 + user.getDataSomministrazione().split("/")[0] + "')");
                 System.out.println("Inserita vaccinazione in " + table);
+                idVaccinazione++;
                 try{
                     statement.executeUpdate(
                         "UPDATE Cittadini_Registrati SET idVaccinazione="+user.getIdVaccinazione()+" WHERE userid='"+user.getUserid()+"'");
-                    output=String.valueOf(idVaccinazione-1);
+                    output=String.valueOf(idVaccinazione);
                 }
                 catch(Exception ex2){
                     System.out.println(ex2.toString());

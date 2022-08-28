@@ -30,7 +30,7 @@ public class ValidateData {
      * Struttura della stringa da associare al codice fiscale, sottoforma di espressione
      * regolare (regex).
      */
-    private static final String CODF_STRUCTURE = "/^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$/i";
+    private static final String CODF_STRUCTURE = "^[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}+$";
 
     /**
      * Pattern compilato della password
