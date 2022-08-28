@@ -24,7 +24,7 @@ public class ValidateData {
      * regolare (regex). formato: @ obbligatoria, ammessi tutti i caratteri
      * maiuscoli / minuscoli, numeri e i caratteri (.), (-)
      */
-    private static final String EMAIL_STRUCTURE = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9.-]+$";
+    private static final String EMAIL_STRUCTURE = "^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$";
 
     /**
      * Struttura della stringa da associare al codice fiscale, sottoforma di espressione
