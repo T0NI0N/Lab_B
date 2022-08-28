@@ -102,11 +102,11 @@ public class RegCittadiniController implements Initializable {
 
 
         if(name.equals("") || surname.equals("") || codf.equals("") || email.equals("") || username.equals("") || password.equals("")){
-            showErrorBox("- Dati necessari non inseriti");
+            showErrorBox("- Dati necessari non inseriti \n");
             return false;
         }
 
-        if(ValidateData.validateCodf(codf)){
+        if(!ValidateData.validateCodf(codf)){
             error += "- Codice fiscale inserito non valido \n";
             success = false;
         }
@@ -121,15 +121,15 @@ public class RegCittadiniController implements Initializable {
             success = false;
         }
 
-        boolean idAvailable = connectionHandler.checkUserIDPresence(username);
-        if(!idAvailable) {
+        boolean isIdPresent = connectionHandler.checkUserIDPresence(username);
+        if(isIdPresent) {
             error += "- L'userID scelto è già in uso" + "\n";
             success = false;
         }
 
-        boolean emailAvailable = connectionHandler.checkEmailPresence(email);
-        if(!emailAvailable) {
-            error += "- L'indirizzo email scelto è già in uso";
+        boolean isEmailPresent = connectionHandler.checkEmailPresence(email);
+        if(isEmailPresent) {
+            error += "- L'indirizzo email scelto è già in uso \n";
             success = false;
         }
 

@@ -15,9 +15,9 @@ public class ValidateData {
      * Struttura della stringa da associare alla password, sottoforma di espressione
      * regolare (regex). condizioni: almeno un numero, almeno un carattere
      * maiuscolo, almeno un carattere minuscolo, almeno un carattere speciale, non
-     * sono ammessi spazi, lunghezza compresa tra 8 e 20 caratteri
+     * sono ammessi spazi, lunghezza minima 8 caratteri
      */
-    private static final String PASSWORD_STRUCTURE = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$";
+    private static final String PASSWORD_STRUCTURE = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!?@#$%^&+=])(?=\\S+$).{8,}$";
 
     /**
      * Struttura della stringa da associare all'email, sottoforma di espressione
