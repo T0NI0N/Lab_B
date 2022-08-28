@@ -7,7 +7,7 @@ import java.util.*;
 
 public interface ConnectionHandlerInterface extends Remote {
 
-    public String registerCitizen(Cittadino user, String centername) throws RemoteException;
+    public String registerCitizen(Cittadino user) throws RemoteException;
 
     public String registerCenter(CentroVaccinale center) throws RemoteException;
 

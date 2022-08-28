@@ -132,12 +132,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     /**
      * Salva in una nuova riga di Cittadini_Registrati i valori del cittadino passato come parametro, assegnando come idCentroVaccinale quello del centro con il nome passato come parametro
      *
-     * @param user Il cittadino da registrare
-     * @param centername Il nome del centro di cui l'id è salvato all'interno del cittadino
+     * @param user       Il cittadino da registrare
      * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
-    public synchronized String registerCitizen(Cittadino user, String centername) {
-        String output="ok";
+    public synchronized String registerCitizen(Cittadino user) {
+        String centername = getCenterByVaccinatedCitizen(user).getNomeCentro();
+        String output = "ok";
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = conn
@@ -149,20 +149,19 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 id = rs.getInt("idCittadino");
             } catch (Exception ex1) {
                 id = 0;
-                output=ex1.toString();
+                output = ex1.toString();
             }
             id++;
             int centrovaccinale;
-            try{
+            try {
                 rs = conn
                         .prepareStatement("SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome LIKE '%" + centername + "%' ORDER BY idCentroVaccinale DESC")
                         .executeQuery();
                 rs.next();
-                centrovaccinale=rs.getInt("idCentroVaccinale");
-            }
-            catch(Exception ex1){
-                centrovaccinale=0;
-                output=ex1.toString();
+                centrovaccinale = rs.getInt("idCentroVaccinale");
+            } catch (Exception ex1) {
+                centrovaccinale = 0;
+                output = ex1.toString();
             }
             statement.executeUpdate(
                     "INSERT INTO Cittadini_Registrati (idCittadino, nome, cognome, email, userid, password, codicefiscale, idCentroVaccinale) VALUES ("
@@ -176,10 +175,10 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                             user.getCodiceFiscale() + "', " +
                             centrovaccinale + ")");
             System.out.println("Inserito cittadino");
-            output="ok";
+            output = "ok";
         } catch (Exception e) {
             System.out.println(e);
-            output=e.toString();
+            output = e.toString();
         }
         return output;
     }
@@ -191,36 +190,36 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
      * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
     public synchronized String registerCenter(CentroVaccinale center) {
-        String output="ok";
+        String output = "ok";
         try {
             boolean check = false;
             Statement statement = conn.createStatement();
             try {
                 ResultSet rs = conn.prepareStatement(
-                        "SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + center.getNomeCentro() + "'")
+                                "SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + center.getNomeCentro() + "'")
                         .executeQuery();
                 rs.next();
                 rs.getInt("idCentroVaccinale");
                 System.out.println("Centro vaccinale presente nel database");
-                output="already_in";
+                output = "already_in";
             } catch (Exception ex) {
                 check = true;
-                output=ex.toString();
+                output = ex.toString();
             }
             if (check) {
                 try {
                     ResultSet rs = conn.prepareStatement(
-                            "SELECT idCentroVaccinale FROM CentriVaccinali cv JOIN (Indirizzi i JOIN Comuni com ON i.idComune=com.idComune) ON cv.idIndirizzo=i.idIndirizzo WHERE cv.nome='"
-                                    + center.getNomeCentro() + "' AND  com.nome='" + center.getComune()
-                                    + "' AND com.cap='" + center.getCap() + "' AND i.nome='" + center.getNome()
-                                    + "' AND i.qualificatore='" + center.getQualificatore() + "' AND i.n_civico='"
-                                    + center.getnCivico() + "'")
+                                    "SELECT idCentroVaccinale FROM CentriVaccinali cv JOIN (Indirizzi i JOIN Comuni com ON i.idComune=com.idComune) ON cv.idIndirizzo=i.idIndirizzo WHERE cv.nome='"
+                                            + center.getNomeCentro() + "' AND  com.nome='" + center.getComune()
+                                            + "' AND com.cap='" + center.getCap() + "' AND i.nome='" + center.getNome()
+                                            + "' AND i.qualificatore='" + center.getQualificatore() + "' AND i.n_civico='"
+                                            + center.getnCivico() + "'")
                             .executeQuery();
                     rs.next();
                     rs.getInt("idCentroVaccinale");
                     System.out.println("Centro vaccinale presente nel database");
                 } catch (Exception ex) {
-                    output=ex.toString();
+                    output = ex.toString();
                     ResultSet rs = conn
                             .prepareStatement(
                                     "SELECT idCentroVaccinale FROM CentriVaccinali ORDER BY idCentroVaccinale DESC")
@@ -231,21 +230,21 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                         id = rs.getInt("idCentroVaccinale");
                     } catch (Exception ex1) {
                         id = 0;
-                        output=ex1.toString();
+                        output = ex1.toString();
                     }
                     id++;
                     int indirizzo;
                     try {
                         rs = conn.prepareStatement(
-                                "SELECT idIndirizzo FROM Indirizzi i JOIN Comuni com ON i.idComune=com.idComune WHERE i.nome='"
-                                        + center.getNome() + "' AND i.qualificatore='" + center.getQualificatore()
-                                        + "' AND i.n_civico='" + center.getnCivico() + "' AND com.nome='"
-                                        + center.getComune() + "' AND com.cap='" + center.getCap() + "'")
+                                        "SELECT idIndirizzo FROM Indirizzi i JOIN Comuni com ON i.idComune=com.idComune WHERE i.nome='"
+                                                + center.getNome() + "' AND i.qualificatore='" + center.getQualificatore()
+                                                + "' AND i.n_civico='" + center.getnCivico() + "' AND com.nome='"
+                                                + center.getComune() + "' AND com.cap='" + center.getCap() + "'")
                                 .executeQuery();
                         rs.next();
                         indirizzo = rs.getInt("idIndirizzo");
                     } catch (Exception ex1) {
-                        output=ex1.toString();
+                        output = ex1.toString();
                         try {
                             rs = conn.prepareStatement("SELECT idIndirizzo FROM Indirizzi ORDER BY idIndirizzo DESC")
                                     .executeQuery();
@@ -253,7 +252,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                             indirizzo = rs.getInt("idIndirizzo");
                         } catch (Exception ex2) {
                             indirizzo = 0;
-                            output=ex2.toString();
+                            output = ex2.toString();
                         }
                         indirizzo++;
                         int comune;
@@ -264,7 +263,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                             comune = rs.getInt("idComune");
                             System.out.println(comune);
                         } catch (Exception ex2) {
-                            output=ex2.toString();
+                            output = ex2.toString();
                             try {
                                 rs = conn.prepareStatement("SELECT idComune FROM Comuni ORDER BY idComune DESC")
                                         .executeQuery();
@@ -272,7 +271,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 comune = rs.getInt("idComune");
                             } catch (Exception ex3) {
                                 comune = 0;
-                                output=ex3.toString();
+                                output = ex3.toString();
                             }
                             comune++;
                             statement.executeUpdate(
@@ -298,12 +297,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                     center.getTipoInt() + ", " +
                                     indirizzo + ")");
                     System.out.println("Inserito centro");
-                    output="ok";
+                    output = "ok";
                 }
             }
         } catch (Exception e) {
             System.out.println(e);
-            output=e.toString();
+            output = e.toString();
         }
         return output;
     }
@@ -311,100 +310,99 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     /**
      * Salva un nuovo cittadino con solo nome, cognome, codice fiscale e id del centro vaccinale per poi assegnargli i dati della vaccinazione registrando in Vaccinati_(nomecentro) i dati e le associazioni tra cittadino e centro vaccinale
      *
-     * @param user I dati del cittadino e della vaccinazione da registrare
+     * @param user       I dati del cittadino e della vaccinazione da registrare
      * @param centername Il nome del centro in cui viene registrata la vaccinazione
      * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
     public synchronized String registerVaccination(Cittadino user, String centername) {
-    String output="ok";
-    try {
-        registerCitizen(user, centername);
-        int centrovaccinale;
-        int cittadino;
-        ResultSet rs = conn.prepareStatement(
-            "SELECT c.idCittadino AS cidCittadino, c.idCentroVaccinale AS cidCentroVaccinale, cv.nome AS cvnome FROM Cittadini_Registrati c JOIN CentriVaccinali cv ON c.idCentroVaccinale=cv.idCentroVaccinale WHERE codicefiscale='" + user.getCodiceFiscale() + "'")
-            .executeQuery();
-        rs.next();
-        centrovaccinale = rs.getInt("cidCentroVaccinale");
-        cittadino = rs.getInt("cidCittadino");
-        user.setIdVaccinazione(1+idVaccinazione);
-        Statement statement = conn.createStatement();
-        String table = "Vaccinazioni_" + centername.replace(" ", "_");
-        int id;
+        String output = "ok";
         try {
-            statement.executeUpdate(
-                    "CREATE TABLE " + table + " (" +
-                            "idVaccinazione integer PRIMARY KEY, " +
-                            "data_somministrazione date NOT NULL, " +
-                            "idCentroVaccinale smallint," +
-                            "idCittadino integer, " +
-                            "idTipologia smallint, " +
-                            "CONSTRAINT fk_CentriVaccinali FOREIGN KEY (idCentroVaccinale) REFERENCES CentriVaccinali(idCentroVaccinale), "
-                            +
-                            "CONSTRAINT fk_Cittadini FOREIGN KEY (idCittadino) REFERENCES Cittadini_Registrati(idCittadino), "
-                            +
-                            "CONSTRAINT fk_TipiEventi FOREIGN KEY (idTipologia) REFERENCES TipiVaccini(idTipologia))");
-            id = 1;
-            System.out.println("Creata " + table);
-        } catch (Exception ex) {
-            output=ex.toString();
+            registerCitizen(user);
+            int centrovaccinale;
+            int cittadino;
+            ResultSet rs = conn.prepareStatement(
+                            "SELECT c.idCittadino AS cidCittadino, c.idCentroVaccinale AS cidCentroVaccinale, cv.nome AS cvnome FROM Cittadini_Registrati c JOIN CentriVaccinali cv ON c.idCentroVaccinale=cv.idCentroVaccinale WHERE codicefiscale='" + user.getCodiceFiscale() + "'")
+                    .executeQuery();
+            rs.next();
+            centrovaccinale = rs.getInt("cidCentroVaccinale");
+            cittadino = rs.getInt("cidCittadino");
+            user.setIdVaccinazione(1 + idVaccinazione);
+            Statement statement = conn.createStatement();
+            String table = "Vaccinazioni_" + centername.replace(" ", "_");
+            int id;
             try {
                 statement.executeUpdate(
-                        "INSERT INTO " + table
-                                + " (idVaccinazione, idCentroVaccinale, idCittadino, idTipologia, data_somministrazione) VALUES ("
+                        "CREATE TABLE " + table + " (" +
+                                "idVaccinazione integer PRIMARY KEY, " +
+                                "data_somministrazione date NOT NULL, " +
+                                "idCentroVaccinale smallint," +
+                                "idCittadino integer, " +
+                                "idTipologia smallint, " +
+                                "CONSTRAINT fk_CentriVaccinali FOREIGN KEY (idCentroVaccinale) REFERENCES CentriVaccinali(idCentroVaccinale), "
                                 +
-                                user.getIdVaccinazione() + ", " +
-                                centrovaccinale + ", " +
-                                cittadino + ", " +
-                                user.getTipo().ordinal() + ", '" +
-                                user.getDataSomministrazione().split("/")[2] + "-"
-                                + user.getDataSomministrazione().split("/")[1] + "-"
-                                + user.getDataSomministrazione().split("/")[0] + "')");
-                System.out.println("Inserita vaccinazione in " + table);
-                idVaccinazione++;
-                try{
+                                "CONSTRAINT fk_Cittadini FOREIGN KEY (idCittadino) REFERENCES Cittadini_Registrati(idCittadino), "
+                                +
+                                "CONSTRAINT fk_TipiEventi FOREIGN KEY (idTipologia) REFERENCES TipiVaccini(idTipologia))");
+                id = 1;
+                System.out.println("Creata " + table);
+            } catch (Exception ex) {
+                output = ex.toString();
+                try {
                     statement.executeUpdate(
-                        "UPDATE Cittadini_Registrati SET idVaccinazione="+user.getIdVaccinazione()+" WHERE userid='"+user.getUserid()+"'");
-                    output=String.valueOf(idVaccinazione);
+                            "INSERT INTO " + table
+                                    + " (idVaccinazione, idCentroVaccinale, idCittadino, idTipologia, data_somministrazione) VALUES ("
+                                    +
+                                    user.getIdVaccinazione() + ", " +
+                                    centrovaccinale + ", " +
+                                    cittadino + ", " +
+                                    user.getTipo().ordinal() + ", '" +
+                                    user.getDataSomministrazione().split("/")[2] + "-"
+                                    + user.getDataSomministrazione().split("/")[1] + "-"
+                                    + user.getDataSomministrazione().split("/")[0] + "')");
+                    System.out.println("Inserita vaccinazione in " + table);
+                    idVaccinazione++;
+                    try {
+                        statement.executeUpdate(
+                                "UPDATE Cittadini_Registrati SET idVaccinazione=" + user.getIdVaccinazione() + " WHERE userid='" + user.getUserid() + "'");
+                        output = String.valueOf(idVaccinazione);
+                    } catch (Exception ex2) {
+                        System.out.println(ex2.toString());
+                        output = ex2.toString();
+                    }
+                } catch (Exception ex1) {
+                    System.out.println("Dati inseriti errati");
+                    System.out.println(ex1.getMessage());
+                    output = ex1.toString();
                 }
-                catch(Exception ex2){
-                    System.out.println(ex2.toString());
-                    output=ex2.toString();
-                }
-            } catch (Exception ex1) {
-                System.out.println("Dati inseriti errati");
-                System.out.println(ex1.getMessage());
-                output=ex1.toString();
             }
+        } catch (Exception e) {
+            System.out.println(e);
+            output = e.toString();
         }
-    } catch (Exception e) {
-        System.out.println(e);
-        output=e.toString();
+        return output;
     }
-    return output;
-}
 
     /**
      * Salva in una nuova riga di EventiAvversi l'evento avverso collegando l'id del cittadino e quello del centro vaccinale
      *
-     * @param userid Lo user id del cittadino che segnala l'evento avverso
+     * @param userid     Lo user id del cittadino che segnala l'evento avverso
      * @param centername Il nome del centro in cui è stata eseguita la vaccinazione che ha causato l'evento avverso
-     * @param event L'evento segnalato
+     * @param event      L'evento segnalato
      * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
     public String insertAdverseEvent(String userid, String centername, EventoAvverso event) {
-        String output="ok";
+        String output = "ok";
         try {
             try {
                 ResultSet rs = conn.prepareStatement(
-                        "SELECT idEvento FROM EventiAvversi e JOIN Cittadini_Registrati cr ON e.idCittadino=cr.idCittadino WHERE cr.userid='"
-                                + userid + "' AND e.idTipologia='" + event.getEvento().ordinal() + "'")
+                                "SELECT idEvento FROM EventiAvversi e JOIN Cittadini_Registrati cr ON e.idCittadino=cr.idCittadino WHERE cr.userid='"
+                                        + userid + "' AND e.idTipologia='" + event.getEvento().ordinal() + "'")
                         .executeQuery();
                 rs.next();
                 rs.getInt("idEvento");
                 System.out.println("Evento avverso presente nel database");
             } catch (Exception ex) {
-                output=ex.toString();
+                output = ex.toString();
                 int id;
                 ResultSet rs = conn.prepareStatement("SELECT idEvento FROM EventiAvversi ORDER BY idEvento DESC")
                         .executeQuery();
@@ -412,7 +410,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     rs.next();
                     id = rs.getInt("idEvento");
                 } catch (Exception ex1) {
-                    output=ex1.toString();
+                    output = ex1.toString();
                     id = 0;
                 }
                 id++;
@@ -421,12 +419,12 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 int cittadino;
                 try {
                     rs = conn.prepareStatement(
-                            "SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + centername + "'")
+                                    "SELECT idCentroVaccinale FROM CentriVaccinali WHERE nome='" + centername + "'")
                             .executeQuery();
                     rs.next();
                     centrovaccinale = rs.getInt("idCentroVaccinale");
                     rs = conn.prepareStatement(
-                            "SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + userid + "'")
+                                    "SELECT idCittadino FROM Cittadini_Registrati WHERE userid='" + userid + "'")
                             .executeQuery();
                     rs.next();
                     cittadino = rs.getInt("idCittadino");
@@ -440,15 +438,15 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                     (int) event.getSeverita() + ", '" +
                                     event.getNote() + "')");
                     System.out.println("Inserito evento avverso");
-                    output="ok";
+                    output = "ok";
                 } catch (Exception ex1) {
                     System.out.println("Dati inseriti errati");
-                    output=ex1.toString();
+                    output = ex1.toString();
                 }
             }
         } catch (Exception e) {
             System.out.println(e);
-            output=e.toString();
+            output = e.toString();
         }
         return output;
     }
@@ -462,16 +460,16 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
         try {
             ResultSet rs = conn.prepareStatement(
-                    "SELECT " +
-                            "cv.nome AS cvnome, " +
-                            "cv.idTipologia AS cvidTipologia, " +
-                            "i.qualificatore AS iqualificatore, " +
-                            "i.nome AS inome, " +
-                            "i.n_civico AS in_civico, " +
-                            "com.nome AS comnome, " +
-                            "com.provincia AS comprovincia, " +
-                            "com.cap AS comcap " +
-                            "FROM CentriVaccinali cv JOIN (Indirizzi i JOIN Comuni com ON i.idComune=com.idComune) ON cv.idIndirizzo=i.idIndirizzo")
+                            "SELECT " +
+                                    "cv.nome AS cvnome, " +
+                                    "cv.idTipologia AS cvidTipologia, " +
+                                    "i.qualificatore AS iqualificatore, " +
+                                    "i.nome AS inome, " +
+                                    "i.n_civico AS in_civico, " +
+                                    "com.nome AS comnome, " +
+                                    "com.provincia AS comprovincia, " +
+                                    "com.cap AS comcap " +
+                                    "FROM CentriVaccinali cv JOIN (Indirizzi i JOIN Comuni com ON i.idComune=com.idComune) ON cv.idIndirizzo=i.idIndirizzo")
                     .executeQuery();
             while (rs.next()) {
                 TipoCentroVaccinale tipo = null;
@@ -511,17 +509,17 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
         try {
             ResultSet rs = conn.prepareStatement(
-                    "SELECT " +
-                            "cv.nome AS cvnome, " +
-                            "cv.idTipologia AS cvidTipologia, " +
-                            "i.qualificatore AS iqualificatore, " +
-                            "i.nome AS inome, " +
-                            "i.n_civico AS in_civico, " +
-                            "com.nome AS comnome, " +
-                            "com.provincia AS comprovincia, " +
-                            "com.cap AS comcap " +
-                            "FROM CentriVaccinali cv JOIN (Indirizzi i JOIN Comuni com ON i.idComune=com.idComune) ON cv.idIndirizzo=i.idIndirizzo WHERE cv.nome LIKE '%"
-                            + name + "%'")
+                            "SELECT " +
+                                    "cv.nome AS cvnome, " +
+                                    "cv.idTipologia AS cvidTipologia, " +
+                                    "i.qualificatore AS iqualificatore, " +
+                                    "i.nome AS inome, " +
+                                    "i.n_civico AS in_civico, " +
+                                    "com.nome AS comnome, " +
+                                    "com.provincia AS comprovincia, " +
+                                    "com.cap AS comcap " +
+                                    "FROM CentriVaccinali cv JOIN (Indirizzi i JOIN Comuni com ON i.idComune=com.idComune) ON cv.idIndirizzo=i.idIndirizzo WHERE cv.nome LIKE '%"
+                                    + name + "%'")
                     .executeQuery();
             while (rs.next()) {
                 TipoCentroVaccinale tipo = null;
@@ -568,7 +566,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                                 rs.getString("userid"), rs.getString("password"), 0, null, null));
             }
         } catch (Exception ex) {
-            output=null;
+            output = null;
             System.out.println(ex);
         }
         return output;
@@ -577,7 +575,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     /**
      * Restituisce tutti i cittadini presenti nella tabella Cittadini_Registrati di cui gli attributi nome e cognome siano uguali a quelli passati come parametro
      *
-     * @param name Il nome da cercare
+     * @param name    Il nome da cercare
      * @param surname Il cognome da cercare
      * @return I cittadini di cui il nome e il cognome sono uguali a quelli passati come parametro
      */
@@ -585,8 +583,8 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         ArrayList<Cittadino> output = new ArrayList<Cittadino>();
         try {
             ResultSet rs = conn.prepareStatement(
-                    "SELECT * FROM Cittadini_Registrati WHERE nome LIKE '%" + name + "%' AND cognome LIKE '%" + surname
-                            + "%'")
+                            "SELECT * FROM Cittadini_Registrati WHERE nome LIKE '%" + name + "%' AND cognome LIKE '%" + surname
+                                    + "%'")
                     .executeQuery();
             while (rs.next()) {
                 output.add(
@@ -609,14 +607,14 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     public ArrayList<EventoAvverso> getAdverseEvents(String centerName) {
         ArrayList<EventoAvverso> output = new ArrayList<EventoAvverso>();
         System.out.println("SELECT ev.idTipologia, AVG(ev.severità) AS avgseverità FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
-        + centerName + "%' GROUP BY ev.idTipologia");
+                + centerName + "%' GROUP BY ev.idTipologia");
         try {
             ResultSet rs = conn.prepareStatement(
-                    "SELECT ev.idTipologia, AVG(ev.severità) AS avgseverità FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
-                            + centerName + "%' GROUP BY ev.idTipologia")
+                            "SELECT ev.idTipologia, AVG(ev.severità) AS avgseverità FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
+                                    + centerName + "%' GROUP BY ev.idTipologia")
                     .executeQuery();
             while (rs.next()) {
-                String note="";
+                String note = "";
                 TipoEventoAvverso tipo = null;
                 int i = 0;
                 for (TipoEventoAvverso x : TipoEventoAvverso.values()) {
@@ -626,17 +624,17 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     }
                     i++;
                 }
-                try{
-                    ResultSet rs_note=conn.prepareStatement("SELECT ev.note AS enote FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
-                    + centerName + "%' AND ev.idTipologia="+tipo.ordinal()).executeQuery();
-                    while(rs_note.next()){
-                        note+=rs_note.getString("enote")+";";
+                try {
+                    ResultSet rs_note = conn.prepareStatement("SELECT ev.note AS enote FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
+                            + centerName + "%' AND ev.idTipologia=" + tipo.ordinal()).executeQuery();
+                    while (rs_note.next()) {
+                        note += rs_note.getString("enote") + ";";
                         System.out.println(note);
                     }
-                }catch(Exception ex1){
+                } catch (Exception ex1) {
                     System.out.println("SELECT ev.note AS enote FROM EventiAvversi ev JOIN CentriVaccinali cv ON ev.idCentroVaccinale=cv.idCentroVaccinale WHERE cv.nome LIKE '%"
-                    + centerName + "%' AND ev.idTipologia="+tipo.ordinal());
-                    note="";
+                            + centerName + "%' AND ev.idTipologia=" + tipo.ordinal());
+                    note = "";
                 }
                 output.add(
                         new EventoAvverso(
@@ -662,7 +660,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         ArrayList<Cittadino> output = new ArrayList<Cittadino>();
         try {
             ResultSet rs = conn.prepareStatement(
-                    "SELECT * FROM Cittadini_Registrati cr JOIN " + table + " v ON cr.idCittadino=v.idCittadino")
+                            "SELECT * FROM Cittadini_Registrati cr JOIN " + table + " v ON cr.idCittadino=v.idCittadino")
                     .executeQuery();
             while (rs.next()) {
                 TipoVaccino tipo = null;
@@ -692,7 +690,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     /**
      * Restituisce il cittadino di cui gli attributi userid e password sono uguali a quelli passati come parametro
      *
-     * @param userid Lo userid da cercare
+     * @param userid   Lo userid da cercare
      * @param password La password da cercare
      * @return Il cittadino il cui userid e password sono uguali a quelli passati come parametro
      */
@@ -700,7 +698,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         Cittadino output = null;
         try {
             ResultSet rs = conn.prepareStatement(
-                    "SELECT * FROM Cittadini_Registrati WHERE userid='" + userid + "' AND password='" + password + "'")
+                            "SELECT * FROM Cittadini_Registrati WHERE userid='" + userid + "' AND password='" + password + "'")
                     .executeQuery();
             if (rs.next()) {
                 output = new Cittadino(
@@ -720,24 +718,24 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
      * Restituisce i centri vaccinali il cui comune e il tipo siano uguali a quelli passati come parametro
      *
      * @param comune Il nome del comune da cercare
-     * @param tipo Il tipo del centro vaccinale da cercare
+     * @param tipo   Il tipo del centro vaccinale da cercare
      * @return I centri vaccinali il cui nome e tipo sono uguali a quelli passati come parametro
      */
     public ArrayList<CentroVaccinale> getCenterByPlaceAndType(String comune, TipoCentroVaccinale tipo) {
         ArrayList<CentroVaccinale> output = new ArrayList<CentroVaccinale>();
         try {
             ResultSet rs = conn.prepareStatement(
-                    "SELECT " +
-                            "cv.nome AS cvnome, " +
-                            "cv.idTipologia AS cvidTipologia, " +
-                            "i.qualificatore AS iqualificatore, " +
-                            "i.nome AS inome, " +
-                            "i.n_civico AS in_civico, " +
-                            "com.nome AS comnome, " +
-                            "com.provincia AS comprovincia, " +
-                            "com.cap AS comcap " +
-                            "FROM CentriVaccinali cv JOIN (Indirizzi i JOIN Comuni com ON i.idComune=com.idComune) ON cv.idIndirizzo=i.idIndirizzo WHERE com.nome LIKE '%"
-                            + comune + "%' AND cv.idTipologia=" + tipo.ordinal())
+                            "SELECT " +
+                                    "cv.nome AS cvnome, " +
+                                    "cv.idTipologia AS cvidTipologia, " +
+                                    "i.qualificatore AS iqualificatore, " +
+                                    "i.nome AS inome, " +
+                                    "i.n_civico AS in_civico, " +
+                                    "com.nome AS comnome, " +
+                                    "com.provincia AS comprovincia, " +
+                                    "com.cap AS comcap " +
+                                    "FROM CentriVaccinali cv JOIN (Indirizzi i JOIN Comuni com ON i.idComune=com.idComune) ON cv.idIndirizzo=i.idIndirizzo WHERE com.nome LIKE '%"
+                                    + comune + "%' AND cv.idTipologia=" + tipo.ordinal())
                     .executeQuery();
             while (rs.next()) {
                 output.add(
@@ -772,10 +770,10 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             String table;
             for (CentroVaccinale x : getCenters()) {
                 present = false;
-                table = "Vaccinazioni_" + x.getNomeCentro().replace(" ","_");
+                table = "Vaccinazioni_" + x.getNomeCentro().replace(" ", "_");
                 try {
                     rs = conn.prepareStatement(
-                            "SELECT * FROM " + table)
+                                    "SELECT * FROM " + table)
                             .executeQuery();
                     rs.next();
                     int temp = rs.getInt("idVaccinazione");
@@ -785,18 +783,18 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 if (present) {
                     try {
                         rs = conn.prepareStatement(
-                                "SELECT " +
-                                        "cv.nome AS cvnome, " +
-                                        "cv.idTipologia AS cvidTipologia, " +
-                                        "i.qualificatore AS iqualificatore, " +
-                                        "i.nome AS inome, " +
-                                        "i.n_civico AS in_civico, " +
-                                        "com.nome AS comnome, " +
-                                        "com.provincia AS comprovincia, " +
-                                        "com.cap AS comcap " +
-                                        "FROM Comuni com JOIN (Indirizzi i JOIN (CentriVaccinali cv JOIN (" + table
-                                        + " v JOIN Cittadini_Registrati cr ON v.idCittadino=cr.idCittadino) ON cv.idCentroVaccinale=v.idCentroVaccinale) ON i.idIndirizzo=cv.idIndirizzo) ON com.idComune=i.idComune WHERE cr.userid='"
-                                        + user.getUserid() + "'")
+                                        "SELECT " +
+                                                "cv.nome AS cvnome, " +
+                                                "cv.idTipologia AS cvidTipologia, " +
+                                                "i.qualificatore AS iqualificatore, " +
+                                                "i.nome AS inome, " +
+                                                "i.n_civico AS in_civico, " +
+                                                "com.nome AS comnome, " +
+                                                "com.provincia AS comprovincia, " +
+                                                "com.cap AS comcap " +
+                                                "FROM Comuni com JOIN (Indirizzi i JOIN (CentriVaccinali cv JOIN (" + table
+                                                + " v JOIN Cittadini_Registrati cr ON v.idCittadino=cr.idCittadino) ON cv.idCentroVaccinale=v.idCentroVaccinale) ON i.idIndirizzo=cv.idIndirizzo) ON com.idComune=i.idComune WHERE cr.userid='"
+                                                + user.getUserid() + "'")
                                 .executeQuery();
                         if (rs.next()) {
                             TipoCentroVaccinale tipo = null;
@@ -836,99 +834,94 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
      *
      * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
-    public String fillDataBase(){
-        String output="ok";
+    public String fillDataBase() {
+        String output = "ok";
         String path = System.getProperty("user.dir") + System.getProperty("file.separator") + "serverCV"
                 + System.getProperty("file.separator") + "src" +
-                System.getProperty("file.separator") + "main"+
+                System.getProperty("file.separator") + "main" +
                 System.getProperty("file.separator") + "java" +
                 System.getProperty("file.separator") + "utils" +
                 System.getProperty("file.separator");
         String file, query;
         Statement statement;
-        try{
+        try {
             statement = conn.createStatement();
-            file = path+"Districts.csv";
+            file = path + "Districts.csv";
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-                String temp=br.readLine();
-                while (temp!= null)
-                {
-                    query=
-                        "INSERT INTO COMUNI VALUES("+
-                        temp.split(";")[0]+", '"+
-                        temp.split(";")[1]+"', '"+
-                        temp.split(";")[2]+"', '"+
-                        temp.split(";")[3]+"')";
+                String temp = br.readLine();
+                while (temp != null) {
+                    query =
+                            "INSERT INTO COMUNI VALUES(" +
+                                    temp.split(";")[0] + ", '" +
+                                    temp.split(";")[1] + "', '" +
+                                    temp.split(";")[2] + "', '" +
+                                    temp.split(";")[3] + "')";
                     statement.executeUpdate(query);
                     temp = br.readLine();
                 }
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             } catch (IOException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             }
-        }
-        catch(Exception ex1){
+        } catch (Exception ex1) {
             System.out.println(ex1.toString());
-            output=ex1.toString();
+            output = ex1.toString();
         }
         System.out.println("Popolata tabella Comuni");
 
-        try{
+        try {
             statement = conn.createStatement();
-            file = path+"Addresses.csv";
+            file = path + "Addresses.csv";
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-                String temp=br.readLine();
-                while (temp!= null)
-                {
-                    query=
-                    "INSERT INTO Indirizzi VALUES ("+
-                    temp.split(";")[0]+", '"+
-                    temp.split(";")[1]+"', '"+
-                    temp.split(";")[2]+"', '"+
-                    temp.split(";")[3]+"', "+
-                    temp.split(";")[4]+")";
+                String temp = br.readLine();
+                while (temp != null) {
+                    query =
+                            "INSERT INTO Indirizzi VALUES (" +
+                                    temp.split(";")[0] + ", '" +
+                                    temp.split(";")[1] + "', '" +
+                                    temp.split(";")[2] + "', '" +
+                                    temp.split(";")[3] + "', " +
+                                    temp.split(";")[4] + ")";
                     statement.executeUpdate(query);
                     temp = br.readLine();
                 }
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             } catch (IOException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             }
-        }
-        catch(Exception ex1){
+        } catch (Exception ex1) {
             System.out.println(ex1.toString());
-            output=ex1.toString();
+            output = ex1.toString();
         }
         System.out.println("Popolata tabella Indirizzi");
 
-        ArrayList<String> nomi=new ArrayList<String>();
-        try{
+        ArrayList<String> nomi = new ArrayList<String>();
+        try {
             statement = conn.createStatement();
-            file = path+"Centers.csv";
+            file = path + "Centers.csv";
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-                String temp=br.readLine();
-                while (temp!= null)
-                {
-                    query=
-                    "INSERT INTO CentriVaccinali VALUES("+
-                    temp.split(";")[0]+", '"+
-                    temp.split(";")[1]+"', "+
-                    temp.split(";")[2]+", "+
-                    temp.split(";")[3]+")";
+                String temp = br.readLine();
+                while (temp != null) {
+                    query =
+                            "INSERT INTO CentriVaccinali VALUES(" +
+                                    temp.split(";")[0] + ", '" +
+                                    temp.split(";")[1] + "', " +
+                                    temp.split(";")[2] + ", " +
+                                    temp.split(";")[3] + ")";
                     statement.executeUpdate(query);
                     nomi.add(temp.split(";")[1]);
-                    query="CREATE TABLE Vaccinazioni_" + temp.split(";")[1].replace(" ","_") + " (" +
+                    query = "CREATE TABLE Vaccinazioni_" + temp.split(";")[1].replace(" ", "_") + " (" +
                             "idVaccinazione integer PRIMARY KEY, " +
                             "data_somministrazione date NOT NULL, " +
                             "idCentroVaccinale smallint," +
@@ -946,124 +939,117 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             } catch (IOException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             }
-        }
-        catch(Exception ex1){
+        } catch (Exception ex1) {
             System.out.println(ex1.toString());
-            output=ex1.toString();
+            output = ex1.toString();
         }
         System.out.println("Popolata tabella CentriVaccinali");
 
-        try{
+        try {
             statement = conn.createStatement();
-            file = path+"Citizens.csv";
+            file = path + "Citizens.csv";
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-                String temp=br.readLine();
-                while (temp!= null)
-                {
-                    query=
-                    "INSERT INTO Cittadini_Registrati (idCittadino, nome, cognome, email, userid, password, codicefiscale, idCentroVaccinale) VALUES("+
-                    temp.split(";")[0]+", '"+
-                    temp.split(";")[1]+"', '"+
-                    temp.split(";")[2]+"', '"+
-                    temp.split(";")[3]+"', '"+
-                    temp.split(";")[4]+"', '"+
-                    EncryptData.encrypt(temp.split(";")[5])+"', '"+
-                    temp.split(";")[6]+"', "+
-                    temp.split(";")[7]+")";
+                String temp = br.readLine();
+                while (temp != null) {
+                    query =
+                            "INSERT INTO Cittadini_Registrati (idCittadino, nome, cognome, email, userid, password, codicefiscale, idCentroVaccinale) VALUES(" +
+                                    temp.split(";")[0] + ", '" +
+                                    temp.split(";")[1] + "', '" +
+                                    temp.split(";")[2] + "', '" +
+                                    temp.split(";")[3] + "', '" +
+                                    temp.split(";")[4] + "', '" +
+                                    EncryptData.encrypt(temp.split(";")[5]) + "', '" +
+                                    temp.split(";")[6] + "', " +
+                                    temp.split(";")[7] + ")";
                     statement.executeUpdate(query);
                     temp = br.readLine();
                 }
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             } catch (IOException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             }
-        }
-        catch(Exception ex1){
+        } catch (Exception ex1) {
             System.out.println(ex1.toString());
-            output=ex1.toString();
+            output = ex1.toString();
         }
         System.out.println("Popolata tabella Cittadini_Registrati");
 
-        try{
+        try {
             statement = conn.createStatement();
-            file = path+"Vaccinations.csv";
+            file = path + "Vaccinations.csv";
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-                String temp=br.readLine();
-                while (temp!= null)
-                {
-                    query=
-                    "INSERT INTO Vaccinazioni_"+nomi.get(Integer.parseInt(temp.split(";")[2])-1).replace(" ","_")+" VALUES ("+
-                    temp.split(";")[0]+", '"+
-                    temp.split(";")[1]+"', "+
-                    temp.split(";")[2]+", "+
-                    temp.split(";")[3]+", "+
-                    temp.split(";")[4]+")";
+                String temp = br.readLine();
+                while (temp != null) {
+                    query =
+                            "INSERT INTO Vaccinazioni_" + nomi.get(Integer.parseInt(temp.split(";")[2]) - 1).replace(" ", "_") + " VALUES (" +
+                                    temp.split(";")[0] + ", '" +
+                                    temp.split(";")[1] + "', " +
+                                    temp.split(";")[2] + ", " +
+                                    temp.split(";")[3] + ", " +
+                                    temp.split(";")[4] + ")";
                     statement.executeUpdate(query);
-                    query=
-                    "UPDATE Cittadini_Registrati SET idVaccinazione="+temp.split(";")[0]+" WHERE idCittadino="+temp.split(";")[3];
+                    query =
+                            "UPDATE Cittadini_Registrati SET idVaccinazione=" + temp.split(";")[0] + " WHERE idCittadino=" + temp.split(";")[3];
                     statement.executeUpdate(query);
                     temp = br.readLine();
                 }
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             } catch (IOException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             }
-        }
-        catch(Exception ex1){
+        } catch (Exception ex1) {
             System.out.println(ex1.toString());
-            output=ex1.toString();
+            output = ex1.toString();
         }
         System.out.println("Popolate le tabelle delle vaccinazioni");
 
-        try{
+        try {
             statement = conn.createStatement();
-            file = path+"AdverseEvents.csv";
+            file = path + "AdverseEvents.csv";
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-                String temp=br.readLine();
-                while (temp!= null)
-                {
-                    query=
-                    "INSERT INTO EventiAvversi VALUES("+
-                    temp.split(";")[0]+", "+
-                    temp.split(";")[1]+", '"+
-                    temp.split(";")[2]+"', "+
-                    temp.split(";")[3]+", "+
-                    temp.split(";")[4]+", "+
-                    temp.split(";")[5]+")";
+                String temp = br.readLine();
+                while (temp != null) {
+                    query =
+                            "INSERT INTO EventiAvversi VALUES(" +
+                                    temp.split(";")[0] + ", " +
+                                    temp.split(";")[1] + ", '" +
+                                    temp.split(";")[2] + "', " +
+                                    temp.split(";")[3] + ", " +
+                                    temp.split(";")[4] + ", " +
+                                    temp.split(";")[5] + ")";
                     statement.executeUpdate(query);
                     temp = br.readLine();
                 }
                 br.close();
             } catch (UnsupportedEncodingException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             } catch (IOException e) {
                 System.out.println(e);
-                output=e.toString();
+                output = e.toString();
             }
-        }
-        catch(Exception ex1){
+        } catch (Exception ex1) {
             System.out.println(ex1.toString());
-            output=ex1.toString();
+            output = ex1.toString();
         }
         System.out.println("Popolata la tabella EventiAvversi");
-        output="ok";
+        output = "ok";
         return output;
     }
 
@@ -1073,11 +1059,11 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
      * @param id L'id della vaccinazione da cercare
      * @return Il cittadino il cui id della vaccinazione sia uguale a quello presente come parametro
      */
-    public Cittadino getCitizenByVaccinationID(int id){
-        Cittadino output=null;
+    public Cittadino getCitizenByVaccinationID(int id) {
+        Cittadino output = null;
         try {
             ResultSet rs = conn.prepareStatement(
-                    "SELECT * FROM Cittadini_Registrati WHERE idVaccinazione="+id)
+                            "SELECT * FROM Cittadini_Registrati WHERE idVaccinazione=" + id)
                     .executeQuery();
             if (rs.next()) {
                 output = new Cittadino(
@@ -1099,7 +1085,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
      * @param userid Lo user id da cercare
      * @return true se lo user id è presente false altrimenti
      */
-    public boolean checkUserIDPresence(String userid){
+    public boolean checkUserIDPresence(String userid) {
         boolean output;
         try {
             ResultSet rs = conn
@@ -1108,9 +1094,9 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     .executeQuery();
             rs.next();
             rs.getInt("idCittadino");
-            output=true;
+            output = true;
         } catch (Exception ex) {
-            output=false;
+            output = false;
         }
         return output;
     }
@@ -1121,7 +1107,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
      * @param email L'email da cercare
      * @return true se l'email è presente false altrimenti
      */
-    public boolean checkEmailPresence(String email){
+    public boolean checkEmailPresence(String email) {
         boolean output;
         try {
             ResultSet rs = conn
@@ -1130,61 +1116,60 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
                     .executeQuery();
             rs.next();
             rs.getInt("idCittadino");
-            output=true;
+            output = true;
         } catch (Exception ex) {
-            output=false;
+            output = false;
         }
         return output;
     }
 
     /**
      * Aggiorna i campi del cittadino registrato il cui codice fiscale sia uguale a quello passato come parametro
-     * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
+     *
      * @param user I dati del cittadino da aggiornare
+     * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
     public synchronized String updateCitizen(Cittadino user) {
-    String output="ok";
-    try {
-        Statement statement = conn.createStatement();
-        ResultSet rs = conn
-                .prepareStatement("SELECT idCittadino, idCentroVaccinale FROM Cittadini_Registrati WHERE codicefiscale='"+user.getCodiceFiscale()+"'")
-                .executeQuery();
-        int id;
-        int centrovaccinale;
-        rs.next();
-        id = rs.getInt("idCittadino");
-        centrovaccinale=rs.getInt("idCentroVaccinale");
-        statement.executeUpdate(
-                "UPDATE Cittadini_Registrati SET"
-                        +
-                        "email='" +
-                        user.getEmail() + "', userid='" +
-                        user.getUserid() + "', password='" +
-                        user.getPassword() + "', WHERE codicefiscale='" +
-                        user.getCodiceFiscale() + "'");
-        System.out.println("Aggiornato cittadino");
-        output="ok";
-    } catch (Exception e) {
-        System.out.println(e);
-        output=e.toString();
+        String output = "ok";
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = conn
+                    .prepareStatement("SELECT idCittadino, idCentroVaccinale FROM Cittadini_Registrati WHERE codicefiscale='" + user.getCodiceFiscale() + "'")
+                    .executeQuery();
+            int id;
+            int centrovaccinale;
+            rs.next();
+            id = rs.getInt("idCittadino");
+            centrovaccinale = rs.getInt("idCentroVaccinale");
+            statement.executeUpdate(
+                    "UPDATE Cittadini_Registrati SET"
+                            +
+                            "email='" +
+                            user.getEmail() + "', userid='" +
+                            user.getUserid() + "', password='" +
+                            user.getPassword() + "', WHERE codicefiscale='" +
+                            user.getCodiceFiscale() + "'");
+            System.out.println("Aggiornato cittadino");
+            output = "ok";
+        } catch (Exception e) {
+            System.out.println(e);
+            output = e.toString();
+        }
+        return output;
     }
-    return output;
-}
 
-    
 
     /*
      * Ottiene l'ultimo id delle vaccinazioni
      */
-    private void getLastId(){
-        try{
-            ResultSet rs=conn.prepareStatement(
-                "SELECT idVaccinazione FROM Cittadini_Registrati ORDER BY (idVaccinazione) DESC"
+    private void getLastId() {
+        try {
+            ResultSet rs = conn.prepareStatement(
+                    "SELECT idVaccinazione FROM Cittadini_Registrati ORDER BY (idVaccinazione) DESC"
             ).executeQuery();
             rs.next();
-            idVaccinazione=rs.getInt("idVaccinazione");
-        }
-        catch(Exception ex1){
+            idVaccinazione = rs.getInt("idVaccinazione");
+        } catch (Exception ex1) {
             System.out.println(ex1.toString());
         }
     }
