@@ -1142,19 +1142,22 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
             ResultSet rs = conn
                     .prepareStatement("SELECT idCittadino, idCentroVaccinale FROM Cittadini_Registrati WHERE codicefiscale='" + user.getCodiceFiscale() + "'")
                     .executeQuery();
+            System.out.println("SELECT idCittadino, idCentroVaccinale FROM Cittadini_Registrati WHERE codicefiscale='" + user.getCodiceFiscale() + "'");
             int id;
             int centrovaccinale;
             rs.next();
             id = rs.getInt("idCittadino");
             centrovaccinale = rs.getInt("idCentroVaccinale");
             statement.executeUpdate(
-                    "UPDATE Cittadini_Registrati SET"
-                            +
-                            "email='" +
-                            user.getEmail() + "', userid='" +
-                            user.getUserid() + "', password='" +
-                            user.getPassword() + "', WHERE codicefiscale='" +
-                            user.getCodiceFiscale() + "'");
+                "UPDATE Cittadini_Registrati SET "
+                +
+                "email='" +
+                user.getEmail() + "', userid='" +
+                user.getUserid() + "', nome='"+
+                user.getNome()+"', cognome='"+
+                user.getCognome()+"', "+
+                "password='" + user.getPassword() + "' WHERE codicefiscale='" +
+                user.getCodiceFiscale() + "'");
             System.out.println("Aggiornato cittadino");
             output = "ok";
         } catch (Exception e) {
