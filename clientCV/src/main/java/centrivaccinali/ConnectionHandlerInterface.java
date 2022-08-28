@@ -157,4 +157,6 @@ public interface ConnectionHandlerInterface extends Remote {
      * @return a boolean
      */
     public boolean checkEmailPresence(String email);
+
+    public String updateCitizen(Cittadino user) throws RemoteException;
 }

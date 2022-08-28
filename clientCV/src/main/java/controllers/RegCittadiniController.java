@@ -156,7 +156,7 @@ public class RegCittadiniController implements Initializable {
         Cittadino user = new Cittadino(name, surname, codf, email, username, EncryptData.encrypt(password), idVacc);
 
         try {
-            String result = connectionHandler.registerCitizen(user);
+            String result = connectionHandler.updateCitizen(user);
 
             switch (result){
                 case "ok" -> {

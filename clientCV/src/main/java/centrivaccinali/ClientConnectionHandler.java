@@ -292,4 +292,8 @@ public class ClientConnectionHandler {
 	public boolean checkEmailPresence(String email) {
 		return stub.checkEmailPresence(email);
 	}
+
+	public String updateCitizen(Cittadino user) throws RemoteException{
+		return stub.updateCitizen(user);
+	}
 }
