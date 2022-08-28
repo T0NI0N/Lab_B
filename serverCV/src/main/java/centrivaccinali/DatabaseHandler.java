@@ -135,8 +135,7 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
      * @param user       Il cittadino da registrare
      * @return Il codice dell'eccezione in caso l'operazione non sia andata a buon fine o "ok"
      */
-    public synchronized String registerCitizen(Cittadino user) {
-        String centername = getCenterByVaccinatedCitizen(user).getNomeCentro();
+    public synchronized String registerCitizen(Cittadino user, String centername) {
         String output = "ok";
         try {
             Statement statement = conn.createStatement();
