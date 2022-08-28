@@ -317,62 +317,65 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
     public synchronized String registerVaccination(Cittadino user, String centername) {
         String output = "ok";
         try {
-            registerCitizen(user);
-            int centrovaccinale;
-            int cittadino;
-            ResultSet rs = conn.prepareStatement(
-                            "SELECT c.idCittadino AS cidCittadino, c.idCentroVaccinale AS cidCentroVaccinale, cv.nome AS cvnome FROM Cittadini_Registrati c JOIN CentriVaccinali cv ON c.idCentroVaccinale=cv.idCentroVaccinale WHERE codicefiscale='" + user.getCodiceFiscale() + "'")
-                    .executeQuery();
-            rs.next();
-            centrovaccinale = rs.getInt("cidCentroVaccinale");
-            cittadino = rs.getInt("cidCittadino");
-            user.setIdVaccinazione(1 + idVaccinazione);
-            Statement statement = conn.createStatement();
-            String table = "Vaccinazioni_" + centername.replace(" ", "_");
-            int id;
-            try {
-                statement.executeUpdate(
-                        "CREATE TABLE " + table + " (" +
-                                "idVaccinazione integer PRIMARY KEY, " +
-                                "data_somministrazione date NOT NULL, " +
-                                "idCentroVaccinale smallint," +
-                                "idCittadino integer, " +
-                                "idTipologia smallint, " +
-                                "CONSTRAINT fk_CentriVaccinali FOREIGN KEY (idCentroVaccinale) REFERENCES CentriVaccinali(idCentroVaccinale), "
-                                +
-                                "CONSTRAINT fk_Cittadini FOREIGN KEY (idCittadino) REFERENCES Cittadini_Registrati(idCittadino), "
-                                +
-                                "CONSTRAINT fk_TipiEventi FOREIGN KEY (idTipologia) REFERENCES TipiVaccini(idTipologia))");
-                id = 1;
-                System.out.println("Creata " + table);
-            } catch (Exception ex) {
-                output = ex.toString();
+            if(checkCodiceFiscale(user.getCodiceFiscale()))
+            {
+                registerCitizen(user);
+                int centrovaccinale;
+                int cittadino;
+                ResultSet rs = conn.prepareStatement(
+                                "SELECT c.idCittadino AS cidCittadino, c.idCentroVaccinale AS cidCentroVaccinale, cv.nome AS cvnome FROM Cittadini_Registrati c JOIN CentriVaccinali cv ON c.idCentroVaccinale=cv.idCentroVaccinale WHERE codicefiscale='" + user.getCodiceFiscale() + "'")
+                        .executeQuery();
+                rs.next();
+                centrovaccinale = rs.getInt("cidCentroVaccinale");
+                cittadino = rs.getInt("cidCittadino");
+                user.setIdVaccinazione(1 + idVaccinazione);
+                Statement statement = conn.createStatement();
+                String table = "Vaccinazioni_" + centername.replace(" ", "_");
+                int id;
                 try {
                     statement.executeUpdate(
-                            "INSERT INTO " + table
-                                    + " (idVaccinazione, idCentroVaccinale, idCittadino, idTipologia, data_somministrazione) VALUES ("
+                            "CREATE TABLE " + table + " (" +
+                                    "idVaccinazione integer PRIMARY KEY, " +
+                                    "data_somministrazione date NOT NULL, " +
+                                    "idCentroVaccinale smallint," +
+                                    "idCittadino integer, " +
+                                    "idTipologia smallint, " +
+                                    "CONSTRAINT fk_CentriVaccinali FOREIGN KEY (idCentroVaccinale) REFERENCES CentriVaccinali(idCentroVaccinale), "
                                     +
-                                    user.getIdVaccinazione() + ", " +
-                                    centrovaccinale + ", " +
-                                    cittadino + ", " +
-                                    user.getTipo().ordinal() + ", '" +
-                                    user.getDataSomministrazione().split("/")[2] + "-"
-                                    + user.getDataSomministrazione().split("/")[1] + "-"
-                                    + user.getDataSomministrazione().split("/")[0] + "')");
-                    System.out.println("Inserita vaccinazione in " + table);
-                    idVaccinazione++;
+                                    "CONSTRAINT fk_Cittadini FOREIGN KEY (idCittadino) REFERENCES Cittadini_Registrati(idCittadino), "
+                                    +
+                                    "CONSTRAINT fk_TipiEventi FOREIGN KEY (idTipologia) REFERENCES TipiVaccini(idTipologia))");
+                    id = 1;
+                    System.out.println("Creata " + table);
+                } catch (Exception ex) {
+                    output = ex.toString();
                     try {
                         statement.executeUpdate(
-                                "UPDATE Cittadini_Registrati SET idVaccinazione=" + user.getIdVaccinazione() + " WHERE userid='" + user.getUserid() + "'");
-                        output = String.valueOf(idVaccinazione);
-                    } catch (Exception ex2) {
-                        System.out.println(ex2.toString());
-                        output = ex2.toString();
+                                "INSERT INTO " + table
+                                        + " (idVaccinazione, idCentroVaccinale, idCittadino, idTipologia, data_somministrazione) VALUES ("
+                                        +
+                                        user.getIdVaccinazione() + ", " +
+                                        centrovaccinale + ", " +
+                                        cittadino + ", " +
+                                        user.getTipo().ordinal() + ", '" +
+                                        user.getDataSomministrazione().split("/")[2] + "-"
+                                        + user.getDataSomministrazione().split("/")[1] + "-"
+                                        + user.getDataSomministrazione().split("/")[0] + "')");
+                        System.out.println("Inserita vaccinazione in " + table);
+                        idVaccinazione++;
+                        try {
+                            statement.executeUpdate(
+                                    "UPDATE Cittadini_Registrati SET idVaccinazione=" + user.getIdVaccinazione() + " WHERE userid='" + user.getUserid() + "'");
+                            output = String.valueOf(idVaccinazione);
+                        } catch (Exception ex2) {
+                            System.out.println(ex2.toString());
+                            output = ex2.toString();
+                        }
+                    } catch (Exception ex1) {
+                        System.out.println("Dati inseriti errati");
+                        System.out.println(ex1.getMessage());
+                        output = ex1.toString();
                     }
-                } catch (Exception ex1) {
-                    System.out.println("Dati inseriti errati");
-                    System.out.println(ex1.getMessage());
-                    output = ex1.toString();
                 }
             }
         } catch (Exception e) {
@@ -1172,5 +1175,26 @@ public class DatabaseHandler implements ConnectionHandlerInterface {
         } catch (Exception ex1) {
             System.out.println(ex1.toString());
         }
+    }
+    
+    /*
+     * Controlla se il codice fiscale è presente nel DB
+     * @return true se è presente false in caso contrario
+     * @param codice Il codice da cercare nel database
+     */
+    private boolean checkCodiceFiscale(String codice){
+        boolean output;
+        try {
+            ResultSet rs = conn
+                    .prepareStatement(
+                            "SELECT idCittadino FROM Cittadini_Registrati WHERE codicefiscale='" + codice + "'")
+                    .executeQuery();
+            rs.next();
+            rs.getInt("idCittadino");
+            output=true;
+        } catch (Exception ex) {
+            output=false;
+        }
+        return output;
     }
 }
