@@ -1,6 +1,7 @@
 module clientapp.clientcv {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.base;
     requires java.rmi;
 
 
