@@ -1,12 +1,9 @@
 module clientapp.clientcv {
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.base;
+    requires javafx.graphics;
     requires java.rmi;
-
-
-    opens centrivaccinali to javafx.fxml;
-    opens controllers;
+    opens controllers to javafx.fxml;
     exports centrivaccinali;
     exports controllers;
 }
