@@ -152,7 +152,6 @@ public class RegCittadiniController implements Initializable {
         boolean correctData = checkData();
         if(!correctData){ return; }
 
-        // TODO testare gli inserimenti
 
         Cittadino user = new Cittadino(name, surname, codf, email, username, EncryptData.encrypt(password), idVacc);
 

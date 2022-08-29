@@ -53,6 +53,11 @@ public class RegCentroVaccinaleController implements Initializable {
 
         String cap = tf_cap.getText();
 
+        if(tf_nomeCentro.equals("") || tf_numCivico.equals("") || tf_prov.equals("") || tf_cap.equals("") || tf_comune.equals("")){
+            showErrorBox("Dati necessari non inseriti");
+            return;
+        }
+
         if(!cap.matches("[0-9]{5}")){
             showErrorBox("Il cap deve essere un numero a 5 cifre");
             return;

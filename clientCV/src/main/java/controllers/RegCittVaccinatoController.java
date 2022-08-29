@@ -47,11 +47,14 @@ public class RegCittVaccinatoController implements Initializable {
     @FXML
     private void onEnterPressed() throws IOException {
 
-        // TODO testare gli inserimenti
-
         System.out.println("Enter button pressed");
 
         String codf = tf_codiceFiscale.getText();
+
+        if(tf_centroV.equals("") || tf_nome.equals("") || tf_cognome.equals("") || tf_codiceFiscale.equals("")){
+            showErrorBox("Dati necessari non inseriti");
+            return;
+        }
 
         if(!ValidateData.validateCodf(codf)){
             showErrorBox("Codice fiscale non valido");

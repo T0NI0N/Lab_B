@@ -117,7 +117,7 @@ public class Cittadino implements Serializable {
         this.codiceFiscale = codicefiscale;
         this.email = email;
         this.userid = userid;
-        this.password = password;// TODO inserire una criptazione per la password nel costruttore
+        this.password = password;
         this.idVaccinazione = idvaccinazione;
         this.dataSomministrazione = data;
         this.tipo = tipo;

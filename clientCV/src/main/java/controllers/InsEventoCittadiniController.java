@@ -110,8 +110,6 @@ public class InsEventoCittadiniController implements Initializable {
     @FXML
     private void btnSubmitPressed() throws IOException {
 
-        //TODO testare l'inserimento
-
         if(tgRbSev.getSelectedToggle() == null){
             showErrorBox("Inserire la severità dell'evento");
             return;
